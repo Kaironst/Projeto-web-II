@@ -1,5 +1,5 @@
 <div id="login" class="login-card">
-    <form method="POST" action="" class="card">
+    <form method="POST" action="" class="card"> <!--TODO implementar form group-->
         <div class="card-header">
 
                     <h2>Bem vindo(a)!</h2>
@@ -10,7 +10,7 @@
             <div class="card-content-area">
 
                 <label for="usuario">Email: </label>
-                <input type="text" name="email" autocomplete="off">
+                <input type="email" name="email" autocomplete="off">
 
             </div>
             <div class="card-content-area">
@@ -24,7 +24,7 @@
         <div class="card-footer">
 
             <button type="submit" class="submit">Login</button>
-            <button type="submit" class="sign-up">Cadastre-se</button>
+            <button type="button" class="submit" (click)="goCadastro()">Cadastre-se</button>
 
         </div>
 
