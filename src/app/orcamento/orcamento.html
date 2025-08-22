@@ -1,0 +1,24 @@
+<div class="orcamento-container">
+    <br>
+  <h2>Detalhes da Solicitação de Manutenção</h2>
+
+  <div class="detalhes-solicitacao">
+    <p>ID da Solicitação: {{ orcamento.id }}</p>
+    <p>Equipamento: {{ orcamento.descEquipamento }}</p>
+    <p>Categoria: {{ orcamento.categEquipamento }}</p>
+    <p>Descrição do Defeito: {{ orcamento.descDefeito }}</p>
+  </div>
+  
+  <hr>
+
+  <div class="preco-orcado">
+    <p>O preço orçado para o serviço é:</p>
+    <h3><strong>{{ orcamento.valorOrcado | currency:'BRL':'symbol':'1.2-2' }}</strong></h3>
+  </div>
+
+  <div class="botoes-acao">
+    <button class="btn-aprovar" (click)="aprovarServico()">Aprovar o Serviço</button>
+    
+    <button class="btn-rejeitar" (click)="rejeitarServico()">Rejeitar o Serviço</button>
+  </div>
+</div>
