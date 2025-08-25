@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+
+
 
 interface Solicitacao {
   id: number;
@@ -14,30 +17,43 @@ interface Solicitacao {
   templateUrl: './tela_usuario.html',
   styleUrl: './tela_usuario.css'
 })
-export class TelaUsuario {
+export class TelaUsuario{
   solicitacoes: Solicitacao[] = [];
 
-    //inputs temporários, deve pegar do BD
-  constructor() {
-    this.solicitacoes = [
-      { id: 1, dataHora: new Date("2025-08-15T10:30:00"), equipamento: "Impressora Laser HP12345", estado: "ORÇADA" },
-      { id: 2, dataHora: new Date("2025-08-16T14:00:00"), equipamento: "Notebook Dell Inspiron 15", estado: "APROVADA" },
-      { id: 3, dataHora: new Date("2025-08-17T08:45:00"), equipamento: "Ar Condicionado Split LG", estado: "REJEITADA" },
-      { id: 4, dataHora: new Date("2025-08-18T09:10:00"), equipamento: "Projetor Epson X2000", estado: "ARRUMADA" },
-      { id: 5, dataHora: new Date("2025-08-19T11:25:00"), equipamento: "Monitor Samsung UltraWide", estado: "EM ANÁLISE" }
-    ];
+    //Pega dados do backend por http, mudar depois o link pro link definitivo
 
-    // Ordena por data/hora crescente
-    this.solicitacoes.sort((a, b) => a.dataHora.getTime() - b.dataHora.getTime());
+  constructor(private http: HttpClient) {
+    this.carregarSolicitacoes();
+  }
 
-    // Pré-formatar campos
-    this.solicitacoes.forEach(s => {
-      s.dataHoraFormatada = this.formatarDataHora(s.dataHora);
-      s.equipamentoCurto = this.limitarTexto(s.equipamento, 30);
-    });
+carregarSolicitacoes(){
+  this.http.get<Solicitacao[]>('http://localhost:8080/api/solicitacoes').subscribe(
+  {
+    next: (dados) =>{
+      this.solicitacoes = dados.map(s => ( //map ta transformando os objetos vindos do backend em objetos prontos pro frontend
+        {
+            ...s, //bruxaria do javascript, mas é oq ta funcionando
+                  //aparentemente é um operador de spread, que insere os dados automatico no objeto
+                  //que sintaxe horrível de ver...
+
+            dataHora: new Date(s.dataHora),
+            dataHoraFormatada: this.formatarDataHora(
+              new Date(s.dataHora)
+            ),
+            equipamentoCurto: this.limitarTexto(s.equipamento, 30)
+          }));
+
+          // ordena por data/hora
+          this.solicitacoes.sort((a, b) => a.dataHora.getTime() - b.dataHora.getTime());
+        },
+        error: (erro) => {
+          console.error('Erro ao buscar solicitações:', erro);
+        }
+      });
   }
 
   //formatação de data para dia/mes/ano hora/minuto
+  //já que o padrão não vem assim
   formatarDataHora(data: Date): string {
     const dia = String(data.getDate()).padStart(2, '0');
     const mes = String(data.getMonth() + 1).padStart(2, '0');
@@ -47,14 +63,59 @@ export class TelaUsuario {
     return `${dia}/${mes}/${ano} ${horas}:${minutos}`;
   }
 
-  //limita o número de linhas conforme requisitos
+  //limita o número de caracteres conforme requisitos
   limitarTexto(texto: string, limite: number): string {
     return texto.length > limite ? texto.substring(0, limite) : texto;
   }
 
-  //todo
-  visualizar(id: number) { alert(`Visualizar solicitação ${id}`); }
-  aprovarRejeitar(id: number) { alert(`Aprovar/Rejeitar solicitação ${id}`); }
-  resgatar(id: number) { alert(`Resgatar solicitação ${id}`); }
-  pagar(id: number) { alert(`Pagar solicitação ${id}`); }
+
+
+//ações
+visualizar(id: number) {
+  // Não sei como vai ser essa parte ainda, talvez vai vandar pra outra página? sla
+  alert(`Visualizar detalhes da solicitação ${id}`);
+}
+
+aprovarRejeitar(id: number) {
+  this.http.post(`http://localhost:8080/api/solicitacoes/${id}/aprovar-rejeitar`, {}) //mudar link para o definitivo depois
+    .subscribe({
+      next: () => {
+        alert(`Solicitação ${id} foi aprovada/rejeitada.`);
+        this.carregarSolicitacoes(); // recarrega lista após ação
+      },
+      error: (erro) => {
+        console.error(erro);
+        alert(`Erro ao aprovar/rejeitar solicitação ${id}`);
+      }
+    });
+}
+
+resgatar(id: number) {
+  this.http.post(`http://localhost:8080/api/solicitacoes/${id}/resgatar`, {}) //mudar link para o definitivo depois
+    .subscribe({
+      next: () => {
+        alert(`Solicitação ${id} foi resgatada.`);
+        this.carregarSolicitacoes(); // recarrega lista após ação
+      },
+      error: (erro) => {
+        console.error(erro);
+        alert(`Erro ao resgatar solicitação ${id}`);
+      }
+    });
+}
+
+pagar(id: number) {
+  this.http.post(`http://localhost:8080/api/solicitacoes/${id}/pagar`, {}) //mudar link para o definitivo depois
+    .subscribe({
+      next: () => {
+        alert(`Solicitação ${id} foi paga com sucesso.`);
+        this.carregarSolicitacoes(); // recarrega lista após ação
+      },
+      error: (erro) => {
+        console.error(erro);
+        alert(`Erro ao pagar solicitação ${id}`);
+      }
+    }
+  );
+}
 }
