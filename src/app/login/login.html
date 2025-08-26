@@ -7,7 +7,7 @@
 
     <form class="login-form">  
 
-        <mat-card-content class="card-content">
+        <mat-card-content class="card-content"><!--TODO implementar form group-->
 
                 <mat-form-field class="login-email">
                     <mat-label>Email</mat-label>
@@ -40,11 +40,9 @@
 
         <mat-card-actions>
                 <button matButton="tonal" class="submit-button">Entrar</button>
-                <button matButton="tonal" class="commom-button">Cadastre-se</button>
+                <button matButton="tonal" class="commom-button" (click)="goCadastro()">Cadastre-se</button>
         </mat-card-actions>
 
     </form>
     
 </mat-card>
-
-

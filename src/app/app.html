@@ -1,5 +1,20 @@
-<button (click)="exibirLogin()">Entrar</button>
+<!--
+TODO temos que decidir como vamos fazer para gerenciar a tela principal, tinhamos os métodos exibir com @if e o router link, que é o que está ativo
+movi o login para routerlink para consistência enquanto isso
+-Pedro
+-->
+<!--TODO alterar os arquivos css para utilizar o framework tailwind inserido no projeto-->
 
-@if (mostrarLogin) {
-  <app-login></app-login>
-}
+
+<!--ficaria legal se colocassemos esses links em uma navbar no topo da tela. eu faria isso mas já passou da meia noite e não quero acordar morrendo amanhã-->
+<nav>
+    <a routerLink="/login">Login</a>
+    <br>
+    <a routerLink="/tela_usuario">Tela do Usuário</a>
+    <br>
+    <a routerLink="/solicitar_manutencao">Solicitar Manutenção</a>
+    <br>
+    <a routerLink="/orcamento">Orçamento</a>
+</nav>
+
+<router-outlet></router-outlet>

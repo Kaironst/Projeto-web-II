@@ -3,6 +3,7 @@ import {
   Component, 
   signal 
 } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   FormControl,
   FormGroupDirective,
@@ -49,5 +50,11 @@ export class Login {
   }
 
   matcher = new MyErrorStateMatcher();
+
+  constructor(private router: Router) {}
+
+  goCadastro() {
+    this.router.navigate(['/cadastro']);
+  }
 
 }

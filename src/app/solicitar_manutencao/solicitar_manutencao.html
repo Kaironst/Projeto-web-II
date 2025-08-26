@@ -1,0 +1,18 @@
+<form [formGroup]="manutencaoForm" (ngSubmit)="onSubmit()" class="solicitar_manutencao">
+  <div class="form1">
+    <label for="desc_equipamento">Descrição do equipamento: </label>
+    <input type="text" formControlName="desc_equipamento" id="desc_equipamento" />
+  </div>
+
+  <div class="form2">
+    <label for="categ_equipamento">Categoria do equipamento: </label>
+    <input type="text" formControlName="categ_equipamento" id="categ_equipamento" />
+  </div>
+
+  <div class="form3">
+    <label for="desc_defeito">Descrição do defeito: </label>
+    <input type="text" formControlName="desc_defeito" id="desc_defeito" />
+  </div>
+
+  <button type="submit" [disabled]="!manutencaoForm.valid">Solicitar Manutenção</button>
+</form>

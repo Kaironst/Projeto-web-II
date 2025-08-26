@@ -1,0 +1,35 @@
+<div class="container">
+  <h2>Minhas Solicitações</h2>
+
+  @for (s of solicitacoes; track s.id) {
+    <div class="card">
+      <div class="info">
+        <p><strong>Data/Hora:</strong> {{ s.dataHoraFormatada }}</p>
+        <p><strong>Equipamento:</strong> {{ s.equipamentoCurto }}</p>
+        <p><strong>Estado:</strong> {{ s.estado }}</p>
+      </div>
+
+      <div class="actions">
+        <button (click)="visualizar(s.id)">Visualizar</button>
+
+        @if (s.estado === 'ORÇADA') {
+          <button class="btn-aprovar" (click)="aprovarRejeitar(s.id)">
+            Aprovar/Rejeitar
+          </button>
+        }
+
+        @if (s.estado === 'REJEITADA') {
+          <button class="btn-resgatar" (click)="resgatar(s.id)">
+            Resgatar Serviço
+          </button>
+        }
+
+        @if (s.estado === 'ARRUMADA') {
+          <button class="btn-pagar" (click)="pagar(s.id)">
+            Pagar Serviço
+          </button>
+        }
+      </div>
+    </div>
+  }
+</div>
