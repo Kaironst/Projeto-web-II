@@ -1,56 +1,94 @@
-h2 {
-    color: rgb(95, 95, 184);
+:root {
+  --primary: #5756BB;
+  --accent: #F56991;
+  --warn: #DAA3BF;
+  --light1: #BFDCEC;
+  --light2: #9DB6E8;
+  --medium1: #7A86D2;
+  --dark1: #565D98;
+  --dark2: #31294C;
+}
+
+.login-title {
+  color: var(--dark1);         
+  text-align: center;
+  white-space: nowrap;
+  margin: 0;
+  font-weight: 600;
+  font-size: 18px;
 }
 
 .login-card {
-    position: fixed;
-    top: 20%;      
-    right: 20px;     
-    width: 250px;
-    background: #bcccdb;
-    border: outset;
-    border-color: #c4c4c4;
-    padding: 8px 16px;
-    border-radius: 4px;
+  display: flex;
+  position: fixed;
+  top: 20%;      
+  right: 20px;     
+  width: 320px;
+  background: var(--light1); 
+  border: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  padding: 24px;
+  font-size: 15px;              
+  flex-direction: column;
+  gap: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.card-content {
-    border-left: 50%;
-    border-right: 40%;
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;                 
 }
 
-.card {
-    display: flex;
-    flex-direction: column;
-    gap: 10%;
+mat-form-field {
+  width: 100%;
+  margin-top: 8px;
 }
 
-.login-card input {
-    padding-top: 4px;
-    padding-right: 8px;
-    padding-bottom: 4px;
-    padding-left: 8px;
-    font-size: 10px;
-    border-radius: 8px;
-    outline: none;
-    margin-bottom: 8px;
+button.mat-raised-button.primary {
+  background-color: var(--primary);
+  color: white;
+  border-radius: 8px;
+  padding: 8px 16px;
+  transition: background 0.3s;
 }
 
-.submit {
-    background: #4c7fb3;
-    color: white;
-    padding: 8px 16px;
-    border-radius: 4px;
+button.mat-raised-button.primary:hover {
+  background-color: var(--dark1);
 }
 
-.sign-up  {
-    background: #c7cbcf;
-    color: rgb(0, 0, 0);
-    padding: 8px 16px;
-    border-radius: 4px;
-    margin-left: 5%;
+button.mat-raised-button.accent {
+  background-color: var(--accent);
+  color: white;
+  border-radius: 8px;
+  padding: 8px 16px;
+  transition: background 0.3s;
 }
 
-button {
-    border-radius: 100px;
+button.mat-raised-button.accent:hover {
+  background-color: var(--warn);
+}
+
+button.mat-raised-button.warn {
+  background-color: var(--warn);
+  color: white;
+  border-radius: 8px;
+  padding: 8px 16px;
+  transition: background 0.3s;
+}
+
+button.mat-raised-button.warn:hover {
+  background-color: var(--accent);
+}
+
+
+mat-card-actions {
+  display: flex;
+  justify-content: space-between;  
+  margin-top: 8px;                 
+}
+
+.pass-icon {
+    padding: 0%;
 }

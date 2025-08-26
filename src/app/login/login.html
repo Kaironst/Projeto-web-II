@@ -1,34 +1,48 @@
-<div id="login" class="login-card">
-    <form method="POST" action="" class="card"> <!--TODO implementar form group-->
-        <div class="card-header">
+<mat-card class="login-card" appearance="outlined">
+    
+       
+        <mat-card-header class="card-header">
+            <mat-card-title class="login-title">Bem vindo(a)!</mat-card-title>
+        </mat-card-header>
 
-                    <h2>Bem vindo(a)!</h2>
+    <form class="login-form">  
 
-        </div>
-        <div class="card-content">
+        <mat-card-content class="card-content"><!--TODO implementar form group-->
 
-            <div class="card-content-area">
+                <mat-form-field class="login-email">
+                    <mat-label>Email</mat-label>
+                    <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher" placeholder="Ex. pat@example.com">
+                    <mat-hint>Digite seu email</mat-hint>
+                    @if (emailFormControl.hasError('email') && !emailFormControl.hasError('required')) {
+                        <mat-error>Digite um endereço válido de email</mat-error>
+                    }
+                    @if (emailFormControl.hasError('required')) {
+                        <mat-error>Um email é <strong>obrigatório</strong></mat-error>
+                    }
+                </mat-form-field>
 
-                <label for="usuario">Email: </label>
-                <input type="email" name="email" autocomplete="off">
+                <mat-form-field class="login-senha">
+                    <mat-label>Senha</mat-label>
+                    <input type="password" matInput [type]="hide() ? 'password' : 'text'" [formControl]="passwordFormControl" [errorStateMatcher]="matcher" placeholder="Ex. #abc123">
+                    <mat-hint>Digite sua senha</mat-hint>
+                    @if (passwordFormControl.hasError('email') && !passwordFormControl.hasError('required')) {
+                        <mat-error>Digite uma senha válida</mat-error>
+                    }
+                    @if (passwordFormControl.hasError('required')) {
+                        <mat-error>A senha é <strong>obrigatória</strong></mat-error>
+                    }
+                    <button matIconButton matSuffix (click)="clickEvent($event)" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide()" class="pass-icon">
+                        <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>        
 
-            </div>
-            <div class="card-content-area">
+        </mat-card-content>
 
-                <label for="password">Senha: </label>
-                <input type="password" name="senha" autocomplete="off">
-
-            </div>
-
-        </div>
-        <div class="card-footer">
-
-            <button type="submit" class="submit">Login</button>
-            <button type="button" class="submit" (click)="goCadastro()">Cadastre-se</button>
-
-        </div>
+        <mat-card-actions>
+                <button matButton="tonal" class="submit-button">Entrar</button>
+                <button matButton="tonal" class="commom-button" (click)="goCadastro()">Cadastre-se</button>
+        </mat-card-actions>
 
     </form>
-</div>
-
-
+    
+</mat-card>
