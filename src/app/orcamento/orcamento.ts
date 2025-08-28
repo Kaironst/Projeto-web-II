@@ -8,7 +8,7 @@ export interface SolicitacaoManutencao {
   categEquipamento: string;
   descDefeito: string;
   dataHora: Date;
-  status: 'APROVADA' | 'REJEITADA' | 'ORÇADA';
+  status: 'APROVADA' | 'REJEITADA' | 'ORÇADA' | 'ABERTA';
 }
 
 @Component({
@@ -18,41 +18,66 @@ export interface SolicitacaoManutencao {
   templateUrl: './orcamento.html',
   styleUrls: ['./orcamento.css']
 })
+
 export class Orcamento implements OnInit {
   
   orcamento: any;
 
   constructor(private router: Router) { }
 
-  //feito para testar
-  //incorporar um json junto ao solicitar manutencao para a prototipacao
   ngOnInit(): void {
-    this.orcamento = {
-      id: 1,
-      descEquipamento: 'Iphone 15',
-      categEquipamento: 'Celular',
-      descDefeito: 'Tela trincada',
-      dataHora: new Date(),
-      status: 'ORÇADA',
-      valorOrcado: 1250.00
-    };
+    const solucoesString = localStorage.getItem('solicitacoes');
+    if (solucoesString) {
+      const todasSolicitacoes = JSON.parse(solucoesString) as SolicitacaoManutencao[];
+      //mudar para o ID após incorporar melhor o sistema
+      const solicitacaoParaOrcar = todasSolicitacoes.find(s => s.status === 'ABERTA');
+      if (solicitacaoParaOrcar) {
+        this.orcamento = {
+          ...solicitacaoParaOrcar,
+          valorOrcado: 1250.00 //teste
+        };
+        solicitacaoParaOrcar.status = 'ORÇADA';
+        localStorage.setItem('solicitacoes', JSON.stringify(todasSolicitacoes));
+
+        } else {
+        console.error("Nenhuma solicitação aberta encontrada para orçar.");
+        alert("Não há solicitações abertas no momento.");
+      }
+    }
   }
 
   aprovarServico(): void {
     const valorFormatado = this.orcamento.valorOrcado.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-    
     alert(`Serviço Aprovado no Valor ${valorFormatado}`);
 
-    console.log(`Status da solicitação ${this.orcamento.id} alterado para APROVADA.`);
-    
-    this.router.navigate(['/tela_usuario']);
-  }
+    // Lógica para atualizar o localStorage
+    const solucoesString = localStorage.getItem('solicitacoes');
+    if (solucoesString) {
+        let todasSolicitacoes = JSON.parse(solucoesString) as SolicitacaoManutencao[];
+        let solicitacaoAtualizada = todasSolicitacoes.find(s => s.id === this.orcamento.id);
+        if (solicitacaoAtualizada) {
+            solicitacaoAtualizada.status = 'APROVADA';
+            localStorage.setItem('solicitacoes', JSON.stringify(todasSolicitacoes));
+            console.log(`Status da solicitação ${this.orcamento.id} alterado para APROVADA no localStorage.`);
+        }
+    }}
 
   rejeitarServico(): void {
-    const motivo = prompt('Motivo da rejeição:');
+    const motivo = prompt('Por favor, escreva o motivo da rejeição:');
     
     if (motivo !== null) {
-      alert('Serviço rejeitado.');
+      alert('Serviço Rejeitado.');
+
+      const solucoesString = localStorage.getItem('solicitacoes');
+      if (solucoesString) {
+          let todasSolicitacoes = JSON.parse(solucoesString) as SolicitacaoManutencao[];
+          let solicitacaoAtualizada = todasSolicitacoes.find(s => s.id === this.orcamento.id);
+          if (solicitacaoAtualizada) {
+              solicitacaoAtualizada.status = 'REJEITADA';
+              localStorage.setItem('solicitacoes', JSON.stringify(todasSolicitacoes));
+              console.log(`Status da solicitação ${this.orcamento.id} alterado para REJEITADA no localStorage.`);
+          }
+      }
 
       this.router.navigate(['/']); 
     }
