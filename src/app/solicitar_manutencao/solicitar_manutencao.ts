@@ -8,7 +8,17 @@ export interface SolicitacaoManutencao {
   categEquipamento: string;
   descDefeito: string;
   dataHora: Date;
-  status: 'ABERTA';
+  status: 'ABERTA' | 'ORÇADA' | 'APROVADA' | 'REJEITADA' | 'CONCLUIDA';
+  
+  cliente?: {
+    nome: string;
+    telefone: string;
+    email: string;
+  };
+
+  valorOrcado?: number;
+  funcionarioOrcamento?: string;
+  dataOrcamento?: Date;
 }
 
 @Component({

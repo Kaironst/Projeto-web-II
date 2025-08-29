@@ -4,7 +4,8 @@ import { SolicitarManutencaoComponent } from './solicitar_manutencao/solicitar_m
 import { TelaUsuario } from './tela_usuario/tela_usuario';
 import { Login } from './login/login';
 import { Cadastro } from './cadastro/cadastro';
-import { Orcamento } from './orcamento/orcamento';
+import { OrcamentoComponent } from './orcamento/orcamento';
+import { EfetuarOrcamentoComponent } from './efetuar_orcamento/efetuar_orcamento';
 
 export const routes: Routes = [
   {
@@ -24,8 +25,12 @@ export const routes: Routes = [
     component: Cadastro
   },
   {
-    path: 'orcamento',
-    component: Orcamento
+    path: 'orcamento/:id',
+    component: OrcamentoComponent
+  },
+  {
+    path: 'efetuar-orcamento/:id',
+    component: EfetuarOrcamentoComponent
   }
 ];
 

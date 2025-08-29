@@ -1,0 +1,40 @@
+<div class="container" *ngIf="solicitacao">
+  <h2>Efetuar Orçamento da Solicitação #{{ solicitacao.id }}</h2>
+
+  <div class="detalhes-section">
+    <h3>Dados do Cliente</h3>
+    <p><strong>Nome:</strong> {{ solicitacao.cliente?.nome || 'Não informado' }}</p>
+    <p><strong>Telefone:</strong> {{ solicitacao.cliente?.telefone || 'Não informado' }}</p>
+    <p><strong>Email:</strong> {{ solicitacao.cliente?.email || 'Não informado' }}</p>
+  </div>
+
+  <div class="detalhes-section">
+    <h3>Dados da Solicitação</h3>
+    <p><strong>Equipamento:</strong> {{ solicitacao.descEquipamento }}</p>
+    <p><strong>Categoria:</strong> {{ solicitacao.categEquipamento }}</p>
+    <p><strong>Defeito Descrito:</strong> {{ solicitacao.descDefeito }}</p>
+    <p><strong>Data da Solicitação:</strong> {{ solicitacao.dataHora | date:'dd/MM/yyyy HH:mm' }}</p>
+  </div>
+  
+  <hr>
+
+  <form [formGroup]="orcamentoForm" (ngSubmit)="onSubmit()">
+    <h3>Registrar Valor do Orçamento</h3>
+    <div class="form-group">
+      <label for="valorOrcado">Valor do Orçamento (R$):</label>
+      <input 
+        id="valorOrcado"
+        type="number" 
+        formControlName="valorOrcado"
+        placeholder="Ex: 150.50"
+        min="0.01"
+        step="0.01">
+    </div>
+
+    <button type="submit" [disabled]="!orcamentoForm.valid">Registrar Orçamento</button>
+  </form>
+</div>
+
+<div *ngIf="!solicitacao">
+  <p>Carregando dados da solicitação...</p>
+</div>
