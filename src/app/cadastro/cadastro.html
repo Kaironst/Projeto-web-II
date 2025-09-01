@@ -1,58 +1,71 @@
-<div id="login" class="login-card">
-    <form method="POST" action="" class="card"> <!--TODO implementar form group-->
-        <div class="card-header">
+<mat-card class="cadastro-card" appearance="outlined">
+    <form method="POST" action="" class="cadastro-form"> <!--TODO implementar form group-->
 
-                    <h2>Cadastro</h2> <br>
-                    <h2>Sua senha será envidada por email</h2>
+        <mat-card-header class="card-header">
 
-        </div>
-        <div class="card-content">
+                    <mat-card-title class="cadastro-title">Cadastro</mat-card-title> 
+                    
+                    <mat-card-subtitle class="cadastro-subtitle">Sua senha será envidada por email</mat-card-subtitle>
 
-            <div class="card-content-area">
+        </mat-card-header>
 
-                <label for="usuario">Email: </label>
-                <input type="email" name="email" autocomplete="off">
+        <mat-card-content class="cadastro-content">
 
-            </div>
-            <div class="card-content-area">
+            <mat-form-field class="cadastro-email">
+                <mat-label>Email</mat-label>
+                <input type="email" matInput [formControl]="formService.emailFormControl" [errorStateMatcher]="formService.matcher" placeholder="Ex. pat@example.com">
+                <mat-hint>Digite seu email</mat-hint>
+                @if (formService.emailFormControl.hasError('email') && !formService.emailFormControl.hasError('required')) {
+                    <mat-error>Digite um endereço válido de email</mat-error>
+                }
+                @if (formService.emailFormControl.hasError('required')) {
+                    <mat-error>Um email é <strong>obrigatório</strong></mat-error>
+                }
+            </mat-form-field>
 
-                <label for="usuario">Nome: </label>
-                <input type="text" name="email" autocomplete="off">
+            <mat-form-field class="cadastro-nome">
+                <mat-label>Nome</mat-label>
+                <input type="text" matInput [formControl]="formService.necessarioFormControl" [errorStateMatcher]="formService.matcher" placeholder="Ex. João Maria">
+                <mat-hint>Digite seu nome</mat-hint>
+                @if (formService.necessarioFormControl.hasError('required')) {
+                    <mat-error>O nome é <strong>obrigatório</strong></mat-error>
+                }
+            </mat-form-field>
 
-            </div>
-            <div class="card-content-area">
+            <mat-form-field class="cadastro-cpf">
+                <mat-label>CPF</mat-label>
+                <input type="text" matInput [formControl]="formService.necessarioFormControl" [errorStateMatcher]="formService.matcher" placeholder="000.000.000-00">
+                <mat-hint>Digite seu CPF</mat-hint>
+                @if (formService.necessarioFormControl.hasError('required')) {
+                    <mat-error>O CPF é <strong>obrigatório</strong></mat-error>
+                }
+            </mat-form-field>
+                <mat-form-field class="cadastro-cep">
+                <mat-label>CEP</mat-label>
+                <input type="text" matInput [formControl]="formService.necessarioFormControl" [errorStateMatcher]="formService.matcher" placeholder="00000-000">
+                <mat-hint>Digite seu CEP</mat-hint>
+                @if (formService.necessarioFormControl.hasError('required')) {
+                    <mat-error>O CEP é <strong>obrigatório</strong></mat-error>
+                }
+            </mat-form-field>
+            <mat-form-field class="cadastro-telefone">
+                <mat-label>Telefone</mat-label>
+                <input type="text" matInput [formControl]="formService.necessarioFormControl" [errorStateMatcher]="formService.matcher" placeholder="00 00000-0000">
+                <mat-hint>Digite seu telefone</mat-hint>
+                @if (formService.necessarioFormControl.hasError('required')) {
+                    <mat-error>O telefone é <strong>obrigatório</strong></mat-error>
+                }
+            </mat-form-field>
 
-                <label for="usuario">CPF: </label>
-                <input type="text" name="email" autocomplete="off">
+        </mat-card-content>
 
-            </div>
-            <div class="card-content-area">
+        <mat-card-actions class="cadastro-footer">
 
-                <label for="usuario">CEP: </label>
-                <input type="text" name="email" autocomplete="off">
+            <button matButton="tonal" class="commom-button" >Cadastre-se</button>
 
-            </div>
-            <div class="card-content-area">
-
-                <label for="usuario">Telefone: </label>
-                <input type="tel" name="email" autocomplete="off">
-
-            </div>
-            <div class="card-content-area">
-
-                <label for="password">Senha: </label>
-                <input type="password" name="senha" autocomplete="off">
-
-            </div>
-
-        </div>
-        <div class="card-footer">
-
-            <button type="submit" class="submit">Login</button>
-
-        </div>
+        </mat-card-actions>
 
     </form>
-</div>
+</mat-card>
 
 

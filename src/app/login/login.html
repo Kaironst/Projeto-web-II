@@ -11,24 +11,24 @@
 
                 <mat-form-field class="login-email">
                     <mat-label>Email</mat-label>
-                    <input type="email" matInput [formControl]="emailFormControl" [errorStateMatcher]="matcher" placeholder="Ex. pat@example.com">
+                    <input type="email" matInput [formControl]="formService.emailFormControl" [errorStateMatcher]="formService.matcher" placeholder="Ex. pat@example.com">
                     <mat-hint>Digite seu email</mat-hint>
-                    @if (emailFormControl.hasError('email') && !emailFormControl.hasError('required')) {
+                    @if (formService.emailFormControl.hasError('email') && !formService.emailFormControl.hasError('required')) {
                         <mat-error>Digite um endereço válido de email</mat-error>
                     }
-                    @if (emailFormControl.hasError('required')) {
+                    @if (formService.emailFormControl.hasError('required')) {
                         <mat-error>Um email é <strong>obrigatório</strong></mat-error>
                     }
                 </mat-form-field>
 
                 <mat-form-field class="login-senha">
                     <mat-label>Senha</mat-label>
-                    <input type="password" matInput [type]="hide() ? 'password' : 'text'" [formControl]="passwordFormControl" [errorStateMatcher]="matcher" placeholder="Ex. #abc123">
+                    <input type="password" matInput [type]="hide() ? 'password' : 'text'" [formControl]="formService.passwordFormControl" [errorStateMatcher]="formService.matcher" placeholder="Ex. #abc123">
                     <mat-hint>Digite sua senha</mat-hint>
-                    @if (passwordFormControl.hasError('email') && !passwordFormControl.hasError('required')) {
+                    @if (formService.passwordFormControl.hasError('email') && !formService.passwordFormControl.hasError('required')) {
                         <mat-error>Digite uma senha válida</mat-error>
                     }
-                    @if (passwordFormControl.hasError('required')) {
+                    @if (formService.passwordFormControl.hasError('required')) {
                         <mat-error>A senha é <strong>obrigatória</strong></mat-error>
                     }
                     <button matIconButton matSuffix (click)="clickEvent($event)" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide()" class="pass-icon">
@@ -39,7 +39,7 @@
         </mat-card-content>
 
         <mat-card-actions>
-                <button matButton="tonal" class="submit-button">Entrar</button>
+                <button matButton="tonal" class="submit-button" color="primary-300">Entrar</button>
                 <button matButton="tonal" class="commom-button" (click)="goCadastro()">Cadastre-se</button>
         </mat-card-actions>
 
