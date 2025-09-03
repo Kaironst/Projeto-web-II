@@ -10,6 +10,10 @@ versão do node 22.18.0
 
 versão do npm 10.9.3
 
+### Obs:
+
+É necessário ter o docker instalado para rodar o compose e construir a imagem do contâiner do postgres usado para o banco de dados
+
 
 ## Development server
 
