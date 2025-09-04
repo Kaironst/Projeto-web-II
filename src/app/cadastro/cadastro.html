@@ -1,5 +1,5 @@
 <mat-card class="cadastro-card" appearance="outlined">
-    <form method="POST" action="" class="cadastro-form"> <!--TODO implementar form group-->
+    <form method="POST" [formGroup]="formService.formCadastro" (ngSubmit)="criarNovo()" class="cadastro-form">
 
         <mat-card-header class="card-header">
 
@@ -13,7 +13,7 @@
 
             <mat-form-field class="cadastro-email">
                 <mat-label>Email</mat-label>
-                <input type="email" matInput [formControl]="formService.emailFormControl" [errorStateMatcher]="formService.matcher" placeholder="Ex. pat@example.com">
+                <input type="email" matInput formControlName="email" [errorStateMatcher]="formService.matcher" placeholder="Ex. pat@example.com">
                 <mat-hint>Digite seu email</mat-hint>
                 @if (formService.emailFormControl.hasError('email') && !formService.emailFormControl.hasError('required')) {
                     <mat-error>Digite um endereço válido de email</mat-error>
@@ -25,7 +25,7 @@
 
             <mat-form-field class="cadastro-nome">
                 <mat-label>Nome</mat-label>
-                <input type="text" matInput [formControl]="formService.necessarioFormControl" [errorStateMatcher]="formService.matcher" placeholder="Ex. João Maria">
+                <input type="text" matInput formControlName="nome" [errorStateMatcher]="formService.matcher" placeholder="Ex. João Maria">
                 <mat-hint>Digite seu nome</mat-hint>
                 @if (formService.necessarioFormControl.hasError('required')) {
                     <mat-error>O nome é <strong>obrigatório</strong></mat-error>
@@ -34,7 +34,7 @@
 
             <mat-form-field class="cadastro-cpf">
                 <mat-label>CPF</mat-label>
-                <input type="text" matInput [formControl]="formService.necessarioFormControl" [errorStateMatcher]="formService.matcher" placeholder="000.000.000-00">
+                <input type="text" matInput formControlName="cpf" [errorStateMatcher]="formService.matcher" placeholder="000.000.000-00">
                 <mat-hint>Digite seu CPF</mat-hint>
                 @if (formService.necessarioFormControl.hasError('required')) {
                     <mat-error>O CPF é <strong>obrigatório</strong></mat-error>
@@ -42,7 +42,7 @@
             </mat-form-field>
                 <mat-form-field class="cadastro-cep">
                 <mat-label>CEP</mat-label>
-                <input type="text" matInput [formControl]="formService.necessarioFormControl" [errorStateMatcher]="formService.matcher" placeholder="00000-000">
+                <input type="text" matInput formControlName="cep" [errorStateMatcher]="formService.matcher" placeholder="00000-000">
                 <mat-hint>Digite seu CEP</mat-hint>
                 @if (formService.necessarioFormControl.hasError('required')) {
                     <mat-error>O CEP é <strong>obrigatório</strong></mat-error>
@@ -50,7 +50,7 @@
             </mat-form-field>
             <mat-form-field class="cadastro-telefone">
                 <mat-label>Telefone</mat-label>
-                <input type="text" matInput [formControl]="formService.necessarioFormControl" [errorStateMatcher]="formService.matcher" placeholder="00 00000-0000">
+                <input type="text" matInput formControlName="telefone" [errorStateMatcher]="formService.matcher" placeholder="00 00000-0000">
                 <mat-hint>Digite seu telefone</mat-hint>
                 @if (formService.necessarioFormControl.hasError('required')) {
                     <mat-error>O telefone é <strong>obrigatório</strong></mat-error>
@@ -61,7 +61,7 @@
 
         <mat-card-actions class="cadastro-footer">
 
-            <button matButton="tonal" class="commom-button" >Cadastre-se</button>
+            <button type="submit" matButton="tonal" class="commom-button" >Cadastre-se</button>
 
         </mat-card-actions>
 

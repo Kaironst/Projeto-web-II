@@ -17,8 +17,7 @@ import {
   MatCardContent, 
   MatCardActions
 } from "@angular/material/card";
-import { ControlaForm } from '../controla-form';
-
+import { ControlaForm } from '../services/controla-form';
 
 
 @Component({

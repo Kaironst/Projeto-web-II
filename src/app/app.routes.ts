@@ -6,6 +6,7 @@ import { Login } from './login/login';
 import { Cadastro } from './cadastro/cadastro';
 import { OrcamentoComponent } from './orcamento/orcamento';
 import { EfetuarOrcamentoComponent } from './efetuar_orcamento/efetuar_orcamento';
+import { ListaCadastros } from './lista-cadastros/lista-cadastros';
 
 export const routes: Routes = [
   {
@@ -31,6 +32,10 @@ export const routes: Routes = [
   {
     path: 'efetuar-orcamento/:id',
     component: EfetuarOrcamentoComponent
+  },
+  {
+    path: 'lista-cadastros',
+    component: ListaCadastros
   }
 ];
 
