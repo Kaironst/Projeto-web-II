@@ -1,12 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
 import { SolicitacaoManutencao } from '../solicitar_manutencao/solicitar_manutencao';
 
 @Component({
   selector: 'app-orcamento',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,
+  CommonModule,
+  MatCardModule,
+  MatButtonModule,
+  MatDividerModule],
   templateUrl: './orcamento.html',
   styleUrls: ['./orcamento.css']
 })

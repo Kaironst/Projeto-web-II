@@ -6,12 +6,11 @@
   min-height: 80vh;
   box-sizing: border-box;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f4f7fa;
 }
 
 .orcamento-card {
   width: 100%;
-  max-width: 600px;
+  max-width: 700px;
   margin: 0 auto;
   padding: 32px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
@@ -22,7 +21,7 @@
 .orcamento-title {
   color: #31294C;
   font-weight: 700;
-  font-size: 24px;
+  font-size: 26px;
   margin-bottom: 24px;
 }
 
@@ -31,12 +30,12 @@
 }
 
 .detalhes-section h3 {
-  font-size: 16px;
-  color: #565D98;
+  font-size: 18px;
+  color: #5756BB;
+  border-bottom: 2px solid #BFDCEC;
+  padding-bottom: 8px;
   margin-bottom: 16px;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
 }
 
 .detalhes-section p {
@@ -45,41 +44,45 @@
   color: #555;
 }
 
-.preco-orcado {
-  text-align: center;
-  margin: 32px 0;
-  padding: 24px;
-  background-color: #f8f9ff;
-  border-radius: 8px;
-  border: 1px solid #e0e5ff;
+.orcamento-form {
+  margin-top: 24px;
 }
 
-.preco-orcado h3 {
-  margin: 0 0 8px 0;
-  font-size: 16px;
-  font-weight: 500;
-  color: #565D98;
-}
-
-.preco-orcado .valor {
-  font-size: 36px;
-  font-weight: 700;
+.orcamento-form h3 {
+  font-size: 18px;
   color: #5756BB;
-  margin: 0;
-}
-
-.botoes-acao {
-  display: flex;
-  justify-content: flex-end;
-  gap: 16px;
-  padding: 16px 0 0 0 !important;
-  margin-top: 16px;
-}
-
-.btn-aprovar, .btn-rejeitar {
-  padding: 10px 24px !important;
+  margin-bottom: 16px;
   font-weight: 600;
-  border-radius: 8px !important;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 20px 0;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 8px;
+  background-color: #5756BB;
+  color: white;
+  transition: background-color 0.3s ease;
+}
+
+.submit-button:hover:not([disabled]) {
+  background-color: #31294C;
+}
+
+.submit-button:disabled {
+  background-color: #e0e0e0;
+  color: #a0a0a0;
+  cursor: not-allowed;
+}
+
+mat-card-actions {
+  padding: 0 !important;
+  margin-top: 24px;
 }
 
 .loading-container {

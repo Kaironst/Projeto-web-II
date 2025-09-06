@@ -1,24 +1,36 @@
-<div class="orcamento-container">
-    <br>
-  <h2>Detalhes da Solicitação de Manutenção</h2>
+@if (orcamento){
+<div class="page-container">
+  <mat-card class="orcamento-card" appearance="outlined">
+    <mat-card-header>
+      <mat-card-title class="orcamento-title">Orçamento da Solicitação #{{ orcamento.id }}</mat-card-title>
+    </mat-card-header>
 
-  <div class="detalhes-solicitacao">
-    <p>ID da Solicitação: {{ orcamento.id }}</p>
-    <p>Equipamento: {{ orcamento.descEquipamento }}</p>
-    <p>Categoria: {{ orcamento.categEquipamento }}</p>
-    <p>Descrição do Defeito: {{ orcamento.descDefeito }}</p>
-  </div>
-  
-  <hr>
+    <mat-card-content>
+      <div class="detalhes-section">
+        <h3>Dados da Solicitação</h3>
+        <p><strong>Equipamento:</strong> {{ orcamento.descEquipamento }}</p>
+        <p><strong>Categoria:</strong> {{ orcamento.categEquipamento }}</p>
+        <p><strong>Defeito Descrito:</strong> {{ orcamento.descDefeito }}</p>
+      </div>
 
-  <div class="preco-orcado">
-    <p>O preço orçado para o serviço é:</p>
-    <h3><strong>{{ orcamento.valorOrcado | currency:'BRL':'symbol':'1.2-2' }}</strong></h3>
-  </div>
+      <mat-divider></mat-divider>
 
-  <div class="botoes-acao">
-    <button class="btn-aprovar" (click)="aprovarServico()">Aprovar o Serviço</button>
-    
-    <button class="btn-rejeitar" (click)="rejeitarServico()">Rejeitar o Serviço</button>
-  </div>
+      <div class="preco-orcado">
+        <h3>Valor Proposto para o Serviço:</h3>
+        <p class="valor">{{ orcamento.valorOrcado | currency:'BRL':'symbol':'1.2-2' }}</p>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions class="botoes-acao">
+      <button mat-raised-button color="warn" class="btn-rejeitar" (click)="rejeitarServico()">Rejeitar Serviço</button>
+      <button mat-raised-button color="primary" class="btn-aprovar" (click)="aprovarServico()">Aprovar Serviço</button>
+    </mat-card-actions>
+  </mat-card>
 </div>
+}
+
+@else {
+<div class="loading-container">
+  <p>Carregando dados do orçamento...</p>
+</div>
+}

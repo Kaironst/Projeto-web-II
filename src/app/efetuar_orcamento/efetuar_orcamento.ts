@@ -1,14 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { SolicitacaoManutencao } from '../solicitar_manutencao/solicitar_manutencao';
 
 @Component({
   selector: 'app-efetuar-orcamento',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './efetuar_orcamento.html'
+  imports: [CommonModule, ReactiveFormsModule, CommonModule,
+  ReactiveFormsModule,
+  MatCardModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatButtonModule,
+  MatDividerModule],
+  templateUrl: './efetuar_orcamento.html',
+  styleUrls: ['./efetuar_orcamento.css']
 })
 export class EfetuarOrcamentoComponent implements OnInit {
 

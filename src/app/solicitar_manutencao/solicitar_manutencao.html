@@ -1,18 +1,34 @@
-<form [formGroup]="manutencaoForm" (ngSubmit)="onSubmit()" class="solicitar_manutencao">
-  <div class="form1">
-    <label for="desc_equipamento">Descrição do equipamento: </label>
-    <input type="text" formControlName="desc_equipamento" id="desc_equipamento" />
-  </div>
+<div class="page-container">
+  <mat-card class="manutencao-card" appearance="outlined">
+    <mat-card-header>
+      <mat-card-title class="manutencao-title">Solicitar Manutenção</mat-card-title>
+    </mat-card-header>
 
-  <div class="form2">
-    <label for="categ_equipamento">Categoria do equipamento: </label>
-    <input type="text" formControlName="categ_equipamento" id="categ_equipamento" />
-  </div>
+    <mat-card-content>
+      <form [formGroup]="manutencaoForm" (ngSubmit)="onSubmit()" class="manutencao-form">
+        
+        <mat-form-field>
+          <mat-label>Descrição do equipamento</mat-label>
+          <input matInput formControlName="desc_equipamento" placeholder="Ex: Notebook">
+        </mat-form-field>
 
-  <div class="form3">
-    <label for="desc_defeito">Descrição do defeito: </label>
-    <input type="text" formControlName="desc_defeito" id="desc_defeito" />
-  </div>
+        <mat-form-field>
+          <mat-label>Categoria do equipamento</mat-label>
+          <input matInput formControlName="categ_equipamento" placeholder="Ex: Computador">
+        </mat-form-field>
 
-  <button type="submit" [disabled]="!manutencaoForm.valid">Solicitar Manutenção</button>
-</form>
+        <mat-form-field>
+          <mat-label>Descrição do defeito</mat-label>
+          <textarea matInput formControlName="desc_defeito" placeholder="Descreva o problema em detalhes..."></textarea>
+        </mat-form-field>
+
+        <mat-card-actions>
+          <button mat-raised-button color="primary" type="submit" [disabled]="!manutencaoForm.valid" class="submit-button">
+            Enviar Solicitação
+          </button>
+        </mat-card-actions>
+
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

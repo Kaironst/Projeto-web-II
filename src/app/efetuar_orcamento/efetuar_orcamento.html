@@ -1,40 +1,55 @@
-<div class="container" *ngIf="solicitacao">
-  <h2>Efetuar Orçamento da Solicitação #{{ solicitacao.id }}</h2>
+@if (solicitacao){
+<div class="page-container">
+  <mat-card class="orcamento-card" appearance="outlined">
+    <mat-card-header>
+      <mat-card-title class="orcamento-title">Efetuar Orçamento da Solicitação #{{ solicitacao.id }}</mat-card-title>
+    </mat-card-header>
 
-  <div class="detalhes-section">
-    <h3>Dados do Cliente</h3>
-    <p><strong>Nome:</strong> {{ solicitacao.cliente?.nome || 'Não informado' }}</p>
-    <p><strong>Telefone:</strong> {{ solicitacao.cliente?.telefone || 'Não informado' }}</p>
-    <p><strong>Email:</strong> {{ solicitacao.cliente?.email || 'Não informado' }}</p>
-  </div>
+    <mat-card-content>
+      <div class="detalhes-section">
+        <h3>Dados do Cliente</h3>
+        <p><strong>Nome:</strong> {{ solicitacao.cliente?.nome || 'Não informado' }}</p>
+        <p><strong>Telefone:</strong> {{ solicitacao.cliente?.telefone || 'Não informado' }}</p>
+        <p><strong>Email:</strong> {{ solicitacao.cliente?.email || 'Não informado' }}</p>
+      </div>
 
-  <div class="detalhes-section">
-    <h3>Dados da Solicitação</h3>
-    <p><strong>Equipamento:</strong> {{ solicitacao.descEquipamento }}</p>
-    <p><strong>Categoria:</strong> {{ solicitacao.categEquipamento }}</p>
-    <p><strong>Defeito Descrito:</strong> {{ solicitacao.descDefeito }}</p>
-    <p><strong>Data da Solicitação:</strong> {{ solicitacao.dataHora | date:'dd/MM/yyyy HH:mm' }}</p>
-  </div>
-  
-  <hr>
+      <mat-divider></mat-divider>
 
-  <form [formGroup]="orcamentoForm" (ngSubmit)="onSubmit()">
-    <h3>Registrar Valor do Orçamento</h3>
-    <div class="form-group">
-      <label for="valorOrcado">Valor do Orçamento (R$):</label>
-      <input 
-        id="valorOrcado"
-        type="number" 
-        formControlName="valorOrcado"
-        placeholder="Ex: 150.50"
-        min="0.01"
-        step="0.01">
-    </div>
+      <div class="detalhes-section">
+        <h3>Dados da Solicitação</h3>
+        <p><strong>Equipamento:</strong> {{ solicitacao.descEquipamento }}</p>
+        <p><strong>Categoria:</strong> {{ solicitacao.categEquipamento }}</p>
+        <p><strong>Defeito Descrito:</strong> {{ solicitacao.descDefeito }}</p>
+        <p><strong>Data da Solicitação:</strong> {{ solicitacao.dataHora | date:'dd/MM/yyyy HH:mm' }}</p>
+      </div>
 
-    <button type="submit" [disabled]="!orcamentoForm.valid">Registrar Orçamento</button>
-  </form>
+      <mat-divider></mat-divider>
+
+      <form [formGroup]="orcamentoForm" (ngSubmit)="onSubmit()" class="orcamento-form">
+        <h3>Registrar Valor do Orçamento</h3>
+        
+        <mat-form-field>
+          <mat-label>Valor do Orçamento (R$)</mat-label>
+          <input 
+            matInput
+            type="number" 
+            formControlName="valorOrcado"
+            placeholder="Ex: 150.50">
+        </mat-form-field>
+        
+        <mat-card-actions>
+          <button mat-raised-button color="primary" type="submit" [disabled]="!orcamentoForm.valid" class="submit-button">
+            Registrar Orçamento
+          </button>
+        </mat-card-actions>
+      </form>
+    </mat-card-content>
+  </mat-card>
 </div>
+}
 
-<div *ngIf="!solicitacao">
+@else {
+<div class="loading-container">
   <p>Carregando dados da solicitação...</p>
 </div>
+}
