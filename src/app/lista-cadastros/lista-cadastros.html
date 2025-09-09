@@ -1,1 +1,43 @@
-<p>lista-cadastros works!</p>
+<!-- isso é para ser um negócio bem temporário
+      tava ficando sem tempo na hora de escrever
+      o código html, então vou deixar ele
+      mais bonito depois                            -->
+
+<!--TODO arrumar com os botões de update e de deleção
+    para a compleção de um crud básico (vai precisar
+    de uma conta de admin para acessar essas informações
+    depois)                                          -->
+
+<div class="page-container">
+  <mat-card class="manutencao-card" appearance="outlined">
+    <mat-card-header>
+      <mat-card-title class="manutencao-title">Registro de cadastros</mat-card-title>
+    </mat-card-header>
+
+    @for (cadastro of cadastros; track cadastro.id) {
+
+      <mat-card-content>
+        <mat-list>
+          <mat-card>
+            <mat-list-item>
+              <mat-card-header>
+                {{ cadastro.nome }}
+              </mat-card-header>
+              <mat-card-content>
+                {{ cadastro.email }},
+                {{cadastro.telefone }},
+                {{ cadastro.cep }},
+                {{ cadastro.cpf }}
+              </mat-card-content>
+              @if (!$last) {
+                <mat-divider [inset]="true"></mat-divider>
+              }
+            </mat-list-item>
+          </mat-card>
+        </mat-list>
+      </mat-card-content>
+    }
+
+  </mat-card>
+</div>
+
