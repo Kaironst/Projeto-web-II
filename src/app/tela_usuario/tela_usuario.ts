@@ -1,70 +1,83 @@
-import { Component } from '@angular/core';
+import { inject, Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { VisualizarDialogComponent } from '../visualizar_solicitacao/visualizar_solicitacao';
+import { AprovarServico } from './aprovar-servico/aprovar-servico';
 
 
 
-interface Solicitacao {
+export interface Solicitacao {
   id: number;
   dataHora: Date;
   equipamento: string;
-  estado: string;
+  estado: number;
   dataHoraFormatada?: string;
   equipamentoCurto?: string;
+  valorOrcamento?: number;
+}
+
+export enum estadoSolicitacao {
+  ACriarOrcamento,
+  Orcada,
+  Aprovada,
+  Rejeitada,
+  Arrumada
 }
 
 @Component({
   selector: 'app-tela_usuario',
   templateUrl: './tela_usuario.html',
   styleUrl: './tela_usuario.css',
-  imports:[
+  imports: [
     MatDialogModule,
     MatButtonModule
   ]
 })
 
 
-export class TelaUsuario{
+export class TelaUsuario implements OnInit {
   solicitacoes: Solicitacao[] = [];
 
-    //Pega dados do backend por http, mudar depois o link pro link definitivo
-
-  constructor(private http: HttpClient, private dialog: MatDialog) {
-    this.carregarSolicitacoes();
+  public enum = estadoSolicitacao;
+  http = inject(HttpClient);
+  dialog = inject(MatDialog);
+  aprovarServicoDialog = inject(AprovarServico);
+  ngOnInit() {
+    this.carregarSolicitacoes()
   }
 
-carregarSolicitacoes(){
-  this.http.get<Solicitacao[]>('http://localhost:8080/api/solicitacoes').subscribe(
-  {
-    next: (dados) =>{
-      this.solicitacoes = dados.map(s => ( //map ta transformando os objetos vindos do backend em objetos prontos pro frontend
-        {
-            ...s, //bruxaria do javascript, mas é oq ta funcionando
-                  //aparentemente é um operador de spread, que insere os dados automatico no objeto
-                  //que sintaxe horrível de ver...
+  carregarSolicitacoes() {
+    this.http.get<Solicitacao[]>('http://localhost:8080/api/solicitacoes').subscribe(
+      {
+        next: (dados) => {
+          this.solicitacoes = dados.map(s => ( //map ta transformando os objetos vindos do backend em objetos prontos pro frontend
+            {
+              ...s, //bruxaria do javascript, mas é oq ta funcionando
+              //aparentemente é um operador de spread, que insere os dados automatico no objeto
+              //que sintaxe horrível de ver...
 
-            dataHora: new Date(s.dataHora),
-            dataHoraFormatada: this.formatarDataHora(
-              new Date(s.dataHora)
-            ),
-            equipamentoCurto: this.limitarTexto(s.equipamento, 30)
-          }));
+              dataHora: new Date(s.dataHora),
+              dataHoraFormatada: this.formatarDataHora(
+                new Date(s.dataHora)
+              ),
+              equipamentoCurto: this.limitarTexto(s.equipamento, 30)
+            }));
 
           // ordena por data/hora
           this.solicitacoes.sort((a, b) => a.dataHora.getTime() - b.dataHora.getTime());
         },
         error: (erro) => {
           console.error('Erro ao buscar solicitações:', erro);
-          
+
           //falha de conexão, utilizando dados de teste
           this.solicitacoes = [
             {
               id: 1,
               dataHora: new Date('2025-09-01T10:30:00'),
               equipamento: 'Impressora LaserJet HP 3050 - Escritório',
-              estado: 'ORÇADA',
+              estado: estadoSolicitacao.Orcada,
+              valorOrcamento: 800,
               dataHoraFormatada: this.formatarDataHora(new Date('2025-09-01T10:30:00')),
               equipamentoCurto: this.limitarTexto('Impressora LaserJet HP 3050 - Escritório', 30)
             },
@@ -72,7 +85,8 @@ carregarSolicitacoes(){
               id: 2,
               dataHora: new Date('2025-09-03T15:45:00'),
               equipamento: 'Notebook Dell Inspiron 15 3000',
-              estado: 'REJEITADA',
+              estado: estadoSolicitacao.Rejeitada,
+              valorOrcamento: 300000,
               dataHoraFormatada: this.formatarDataHora(new Date('2025-09-03T15:45:00')),
               equipamentoCurto: this.limitarTexto('Notebook Dell Inspiron 15 3000', 30)
             },
@@ -80,7 +94,8 @@ carregarSolicitacoes(){
               id: 3,
               dataHora: new Date('2025-09-05T09:20:00'),
               equipamento: 'Servidor Dell PowerEdge R730',
-              estado: 'ARRUMADA',
+              estado: estadoSolicitacao.Arrumada,
+              valorOrcamento: 1649.99,
               dataHoraFormatada: this.formatarDataHora(new Date('2025-09-05T09:20:00')),
               equipamentoCurto: this.limitarTexto('Servidor Dell PowerEdge R730', 30)
             }
@@ -110,56 +125,48 @@ carregarSolicitacoes(){
 
 
 
-//ações
-visualizar(id: number) {
-  const solicitacao = this.solicitacoes.find(s => s.id === id);
-  if (!solicitacao) return;
-  this.dialog.open(VisualizarDialogComponent, {
-    width: '400px',
-    data: solicitacao
-  })
-}
+  //ações
+  visualizar(id: number) {
+    const solicitacao = this.solicitacoes.find(s => s.id === id);
+    if (!solicitacao) return;
+    this.dialog.open(VisualizarDialogComponent, {
+      width: '400px',
+      data: solicitacao
+    })
+  }
 
-aprovarRejeitar(id: number) {
-  this.http.post(`http://localhost:8080/api/solicitacoes/${id}/aprovar-rejeitar`, {}) //mudar link para o definitivo depois
-    .subscribe({
-      next: () => {
-        alert(`Solicitação ${id} foi aprovada/rejeitada.`);
-        this.carregarSolicitacoes(); // recarrega lista após ação
-      },
-      error: (erro) => {
-        console.error(erro);
-        alert(`Erro ao aprovar/rejeitar solicitação ${id}`);
-      }
-    });
-}
+  aprovarRejeitar(id: number) {
+    const solicitacao = this.solicitacoes.find(s => s.id === id);
+    if (!solicitacao) return;
+    this.aprovarServicoDialog.openDialog(solicitacao);
+  }
 
-resgatar(id: number) {
-  this.http.post(`http://localhost:8080/api/solicitacoes/${id}/resgatar`, {}) //mudar link para o definitivo depois
-    .subscribe({
-      next: () => {
-        alert(`Solicitação ${id} foi resgatada.`);
-        this.carregarSolicitacoes(); // recarrega lista após ação
-      },
-      error: (erro) => {
-        console.error(erro);
-        alert(`Erro ao resgatar solicitação ${id}`);
-      }
-    });
-}
+  resgatar(id: number) {
+    this.http.post(`http://localhost:8080/api/solicitacoes/${id}/resgatar`, {}) //mudar link para o definitivo depois
+      .subscribe({
+        next: () => {
+          alert(`Solicitação ${id} foi resgatada.`);
+          this.carregarSolicitacoes(); // recarrega lista após ação
+        },
+        error: (erro) => {
+          console.error(erro);
+          alert(`Erro ao resgatar solicitação ${id}`);
+        }
+      });
+  }
 
-pagar(id: number) {
-  this.http.post(`http://localhost:8080/api/solicitacoes/${id}/pagar`, {}) //mudar link para o definitivo depois
-    .subscribe({
-      next: () => {
-        alert(`Solicitação ${id} foi paga com sucesso.`);
-        this.carregarSolicitacoes(); // recarrega lista após ação
-      },
-      error: (erro) => {
-        console.error(erro);
-        alert(`Erro ao pagar solicitação ${id}`);
+  pagar(id: number) {
+    this.http.post(`http://localhost:8080/api/solicitacoes/${id}/pagar`, {}) //mudar link para o definitivo depois
+      .subscribe({
+        next: () => {
+          alert(`Solicitação ${id} foi paga com sucesso.`);
+          this.carregarSolicitacoes(); // recarrega lista após ação
+        },
+        error: (erro) => {
+          console.error(erro);
+          alert(`Erro ao pagar solicitação ${id}`);
+        }
       }
-    }
-  );
-}
+      );
+  }
 }

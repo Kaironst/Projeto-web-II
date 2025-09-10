@@ -6,25 +6,43 @@
       <div class="info">
         <p><strong>Data/Hora:</strong> {{ s.dataHoraFormatada }}</p>
         <p><strong>Equipamento:</strong> {{ s.equipamentoCurto }}</p>
-        <p><strong>Estado:</strong> {{ s.estado }}</p>
+        <p><strong>Estado:</strong>
+          @switch (s.id) {
+            @case(enum.ACriarOrcamento) {
+              A Criar Orçamento
+            }
+            @case(enum.Orcada) {
+              Orçada
+            }
+            @case(enum.Arrumada) {
+              Arrumada
+            }
+            @case(enum.Aprovada) {
+              Aprovada
+            }
+            @case(enum.Rejeitada) {
+              Rejeitada
+            }
+          }
+        </p>
       </div>
 
       <div class="actions">
         <button (click)="visualizar(s.id)">Visualizar</button>
 
-        @if (s.estado === 'ORÇADA') {
+        @if (s.estado === enum.Orcada) {
           <button class="btn-aprovar" (click)="aprovarRejeitar(s.id)">
             Aprovar/Rejeitar
           </button>
         }
 
-        @if (s.estado === 'REJEITADA') {
+        @if (s.estado === enum.Rejeitada) {
           <button class="btn-resgatar" (click)="resgatar(s.id)">
             Resgatar Serviço
           </button>
         }
 
-        @if (s.estado === 'ARRUMADA') {
+        @if (s.estado === enum.Arrumada) {
           <button class="btn-pagar" (click)="pagar(s.id)">
             Pagar Serviço
           </button>

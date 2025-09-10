@@ -10,7 +10,7 @@
 }
 
 .login-title {
-  color: var(--dark1);         
+  color: var(--dark1);
   text-align: center;
   white-space: nowrap;
   margin: 0;
@@ -20,16 +20,14 @@
 
 .login-card {
   display: flex;
-  position: fixed;
-  top: 20%;      
-  right: 20px;     
+  margin: 0 auto;
   width: 320px;
-  background: var(--light1); 
+  background: var(--light1);
   border: none;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   border-radius: 12px;
   padding: 24px;
-  font-size: 15px;              
+  font-size: 15px;
   flex-direction: column;
   gap: 20px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -38,7 +36,7 @@
 .login-form {
   display: flex;
   flex-direction: column;
-  gap: 16px;                 
+  gap: 16px;
 }
 
 mat-form-field {
@@ -85,8 +83,8 @@ button.mat-raised-button.warn:hover {
 
 mat-card-actions {
   display: flex;
-  justify-content: space-between;  
-  margin-top: 8px;                 
+  justify-content: space-between;
+  margin-top: 8px;
 }
 
 .pass-icon {
