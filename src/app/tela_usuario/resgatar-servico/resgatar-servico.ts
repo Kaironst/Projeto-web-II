@@ -5,32 +5,27 @@ import { Solicitacao } from '../tela_usuario';
 import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
-export class AprovarServico {
+export class ResgatarServico {
 
   dialog = inject(MatDialog);
   router = inject(Router);
 
   openDialog(solicitacao: Solicitacao) {
-    this.dialog.open(AprovarServicoDialog, { width: '500px', data: { s: solicitacao, }, });
+    this.dialog.open(ResgatarServicoDialog, { width: '500px', data: { s: solicitacao, }, });
   }
 
-  aprovarOrcamento(solicitacao: Solicitacao) {
+  resgatarSolicitacao(solicitacao: Solicitacao) {
     //código de aprovação aqui
     this.router.navigate(['/tela_usuario']);
-  }
-
-  rejeitarOrcamento(solicitacao: Solicitacao) {
-    //código de aprovação aqui
-    this.router.navigate(['/tela_usuario'])
   }
 
 }
 
 
 @Component({
-  selector: 'app-aprovar-servico-dialog',
+  selector: 'app-resgatar-servico-dialog',
   imports: [MatDialogModule, MatButtonModule, MatDialogActions, MatDialogClose, MatDialogTitle, MatDialogContent],
-  templateUrl: './aprovar-servico.html',
-  styleUrl: './aprovar-servico.css'
+  templateUrl: './resgatar-servico.html',
+  styleUrl: './resgatar-servico.css'
 })
-export class AprovarServicoDialog { data = inject<{ s: Solicitacao }>(MAT_DIALOG_DATA); metodos = inject(AprovarServico); }
+export class ResgatarServicoDialog { data = inject<{ s: Solicitacao }>(MAT_DIALOG_DATA); metodos = inject(ResgatarServico); }

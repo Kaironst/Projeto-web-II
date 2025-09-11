@@ -1,0 +1,31 @@
+<h2 mat-dialog-title>Detalhes da Solicitação</h2>
+<mat-dialog-content>
+  <p><strong>ID:</strong> {{ data.s.id }}</p>
+  <p><strong>data.s.Hora:</strong> {{ data.s.dataHoraFormatada }}</p>
+  <p><strong>Equipamento:</strong> {{ data.s.equipamento }}</p>
+  <p><strong>Estado:</strong>
+    @switch (data.s.id) {
+      @case(estado.ACriarOrcamento) {
+        A Criar Orçamento
+      }
+      @case(estado.Orcada) {
+        Orçada
+      }
+      @case(estado.Arrumada) {
+        Arrumada
+      }
+      @case(estado.Aprovada) {
+        Aprovada
+      }
+      @case(estado.Rejeitada) {
+        Rejeitada
+      }
+    }
+  </p>
+  @if (data.s.valorOrcamento) {
+    <p><strong>ValorOrçado:</strong> R$:{{data.s.valorOrcamento}}</p>
+  }
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button matButton mat-dialog-close>Fechar</button>
+</mat-dialog-actions>

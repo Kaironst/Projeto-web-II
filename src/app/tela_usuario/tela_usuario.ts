@@ -2,8 +2,10 @@ import { inject, Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-import { VisualizarDialogComponent } from '../visualizar_solicitacao/visualizar_solicitacao';
 import { AprovarServico } from './aprovar-servico/aprovar-servico';
+import { PagarServico } from './pagar-servico/pagar-servico';
+import { ResgatarServico } from './resgatar-servico/resgatar-servico';
+import { VisualizarServico } from './visualizar-servico/visualizar-servico';
 
 
 
@@ -43,6 +45,10 @@ export class TelaUsuario implements OnInit {
   http = inject(HttpClient);
   dialog = inject(MatDialog);
   aprovarServicoDialog = inject(AprovarServico);
+  pagarServicoDialog = inject(PagarServico);
+  resgatarServicoDialog = inject(ResgatarServico);
+  visualizarServicoDialog = inject(VisualizarServico);
+
   ngOnInit() {
     this.carregarSolicitacoes()
   }
@@ -129,10 +135,7 @@ export class TelaUsuario implements OnInit {
   visualizar(id: number) {
     const solicitacao = this.solicitacoes.find(s => s.id === id);
     if (!solicitacao) return;
-    this.dialog.open(VisualizarDialogComponent, {
-      width: '400px',
-      data: solicitacao
-    })
+    this.visualizarServicoDialog.openDialog(solicitacao);
   }
 
   aprovarRejeitar(id: number) {
@@ -142,31 +145,14 @@ export class TelaUsuario implements OnInit {
   }
 
   resgatar(id: number) {
-    this.http.post(`http://localhost:8080/api/solicitacoes/${id}/resgatar`, {}) //mudar link para o definitivo depois
-      .subscribe({
-        next: () => {
-          alert(`Solicitação ${id} foi resgatada.`);
-          this.carregarSolicitacoes(); // recarrega lista após ação
-        },
-        error: (erro) => {
-          console.error(erro);
-          alert(`Erro ao resgatar solicitação ${id}`);
-        }
-      });
+    const solicitacao = this.solicitacoes.find(s => s.id === id);
+    if (!solicitacao) return;
+    this.resgatarServicoDialog.openDialog(solicitacao);
   }
 
   pagar(id: number) {
-    this.http.post(`http://localhost:8080/api/solicitacoes/${id}/pagar`, {}) //mudar link para o definitivo depois
-      .subscribe({
-        next: () => {
-          alert(`Solicitação ${id} foi paga com sucesso.`);
-          this.carregarSolicitacoes(); // recarrega lista após ação
-        },
-        error: (erro) => {
-          console.error(erro);
-          alert(`Erro ao pagar solicitação ${id}`);
-        }
-      }
-      );
+    const solicitacao = this.solicitacoes.find(s => s.id === id);
+    if (!solicitacao) return;
+    this.pagarServicoDialog.openDialog(solicitacao);
   }
 }
