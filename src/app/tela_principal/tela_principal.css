@@ -1,0 +1,64 @@
+/* Wrapper com gradiente de fundo nas laterais */
+.page-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  box-sizing: border-box;
+}
+
+/* Caixa centralizada para o conteúdo */
+.content-box {
+  max-width: 900px;
+  width: 100%;
+  background: #fff; /* fundo da caixa branca */
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  box-sizing: border-box;
+}
+
+/* Seções internas */
+.hero {
+  text-align: center;
+  margin: 0 0 40px;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  color: #333;
+}
+
+.hero p {
+  font-size: 1.2rem;
+  color: #666;
+}
+
+.info {
+  margin: 40px 0;
+}
+
+.info h2 {
+  color: #222;
+  margin-bottom: 10px;
+}
+
+.info ul {
+  margin-top: 10px;
+  padding-left: 20px;
+}
+
+.info li {
+  margin: 6px 0;
+}
+
+.about {
+  margin-top: 40px;
+  padding: 20px;
+  background: #f4f4f4;
+  border-radius: 10px;
+}
+
+.about h2 {
+  margin-bottom: 10px;
+  color: #222;
+}
