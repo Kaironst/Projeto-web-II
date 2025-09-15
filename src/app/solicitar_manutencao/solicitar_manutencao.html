@@ -9,12 +9,20 @@
         
         <mat-form-field>
           <mat-label>Descrição do equipamento</mat-label>
-          <input matInput formControlName="desc_equipamento" placeholder="Ex: Notebook">
+          <input matInput formControlName="desc_equipamento" placeholder="Ex: Notebook Dell Vostro">
         </mat-form-field>
 
         <mat-form-field>
           <mat-label>Categoria do equipamento</mat-label>
-          <input matInput formControlName="categ_equipamento" placeholder="Ex: Computador">
+          <mat-select formControlName="categ_equipamento">
+            @if (categorias.length === 0) {
+              <mat-option disabled>Nenhuma categoria cadastrada</mat-option>
+            } @else {
+              @for (categoria of categorias; track categoria.id) {
+                <mat-option [value]="categoria.nome">{{ categoria.nome }}</mat-option>
+              }
+            }
+          </mat-select>
         </mat-form-field>
 
         <mat-form-field>

@@ -3,9 +3,11 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Categoria } from '../crud_categoria/crud_categoria';
 
 export interface SolicitacaoManutencao {
   id: number;
@@ -34,7 +36,8 @@ export interface SolicitacaoManutencao {
   MatCardModule,
   MatFormFieldModule,
   MatInputModule,
-  MatButtonModule],
+  MatButtonModule,
+  MatSelectModule],
   templateUrl: './solicitar_manutencao.html',
   styleUrls: ['./solicitar_manutencao.css']
 })
@@ -42,9 +45,17 @@ export interface SolicitacaoManutencao {
 export class SolicitarManutencaoComponent implements OnInit{
 
   manutencaoForm!: FormGroup;
-  constructor(private route: ActivatedRoute, private router: Router) { }
+  categorias: Categoria[] = [];
+  constructor(private route: ActivatedRoute, private router: Router, ) { }
 
+  private carregarCategorias(): void {
+    const categoriasString = localStorage.getItem('categorias');
+    this.categorias = categoriasString ? JSON.parse(categoriasString) : [];
+  }
+  
   ngOnInit(): void {
+    this.carregarCategorias();
+
     this.manutencaoForm = new FormGroup({
       desc_equipamento: new FormControl(null, Validators.required),
       categ_equipamento: new FormControl(null, Validators.required),

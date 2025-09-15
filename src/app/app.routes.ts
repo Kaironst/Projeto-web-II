@@ -8,6 +8,7 @@ import { Cadastro } from './cadastro/cadastro';
 import { OrcamentoComponent } from './orcamento/orcamento';
 import { EfetuarOrcamentoComponent } from './efetuar_orcamento/efetuar_orcamento';
 import { ListaCadastros } from './lista-cadastros/lista-cadastros';
+import { GerenciarCategoriasComponent } from './crud_categoria/crud_categoria';
 
 export const routes: Routes = [
   {
@@ -42,6 +43,10 @@ export const routes: Routes = [
   {
     path: 'lista-cadastros',
     component: ListaCadastros
+  },
+  { 
+    path: 'admin/categorias', 
+    component: GerenciarCategoriasComponent 
   }
 ];
 
