@@ -6,7 +6,7 @@ import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angula
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, inject } from '@angular/core';
-import { CadastroService, CadastroTable } from '../services/cadastroService';
+import { CadastroService, CadastroTable } from '../services/DBUtil/cadastro-util';
 import { MatDivider, MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list'
 

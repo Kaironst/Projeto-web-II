@@ -1,8 +1,8 @@
 import { inject, Injectable, Component, Inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogModule, MatDialogTitle } from '@angular/material/dialog';
-import { Solicitacao } from '../tela_usuario';
 import { Router } from '@angular/router';
+import { Solicitacao } from '../../services/DBUtil/solicitacao-util';
 
 @Injectable({ providedIn: 'root' })
 export class AprovarServico {

@@ -6,26 +6,8 @@ import { AprovarServico } from './aprovar-servico/aprovar-servico';
 import { PagarServico } from './pagar-servico/pagar-servico';
 import { ResgatarServico } from './resgatar-servico/resgatar-servico';
 import { VisualizarServico } from './visualizar-servico/visualizar-servico';
+import { Solicitacao, SolicitacaoUtil } from '../services/DBUtil/solicitacao-util';
 
-
-
-export interface Solicitacao {
-  id: number;
-  dataHora: Date;
-  equipamento: string;
-  estado: number;
-  dataHoraFormatada?: string;
-  equipamentoCurto?: string;
-  valorOrcamento?: number;
-}
-
-export enum estadoSolicitacao {
-  ACriarOrcamento,
-  Orcada,
-  Aprovada,
-  Rejeitada,
-  Arrumada
-}
 
 @Component({
   selector: 'app-tela_usuario',
@@ -41,7 +23,8 @@ export enum estadoSolicitacao {
 export class TelaUsuario implements OnInit {
   solicitacoes: Solicitacao[] = [];
 
-  public enum = estadoSolicitacao;
+  solicitacaoUtil = inject(SolicitacaoUtil);
+  public enum = this.solicitacaoUtil.estado;
   http = inject(HttpClient);
   dialog = inject(MatDialog);
   aprovarServicoDialog = inject(AprovarServico);
@@ -64,10 +47,10 @@ export class TelaUsuario implements OnInit {
               //que sintaxe horrível de ver...
 
               dataHora: new Date(s.dataHora),
-              dataHoraFormatada: this.formatarDataHora(
+              dataHoraFormatada: this.solicitacaoUtil.formatarDataHora(
                 new Date(s.dataHora)
               ),
-              equipamentoCurto: this.limitarTexto(s.equipamento, 30)
+              equipamentoCurto: this.solicitacaoUtil.limitarTexto(s.equipamento, 30)
             }));
 
           // ordena por data/hora
@@ -82,54 +65,38 @@ export class TelaUsuario implements OnInit {
               id: 1,
               dataHora: new Date('2025-09-01T10:30:00'),
               equipamento: 'Impressora LaserJet HP 3050 - Escritório',
-              estado: estadoSolicitacao.Orcada,
+              estado: this.enum.Orcada,
               valorOrcamento: 800,
-              dataHoraFormatada: this.formatarDataHora(new Date('2025-09-01T10:30:00')),
-              equipamentoCurto: this.limitarTexto('Impressora LaserJet HP 3050 - Escritório', 30)
+              dataHoraFormatada: this.solicitacaoUtil.formatarDataHora(new Date('2025-09-01T10:30:00')),
+              equipamentoCurto: this.solicitacaoUtil.limitarTexto('Impressora LaserJet HP 3050 - Escritório', 30)
             },
             {
               id: 2,
               dataHora: new Date('2025-09-03T15:45:00'),
               equipamento: 'Notebook Dell Inspiron 15 3000',
-              estado: estadoSolicitacao.Rejeitada,
+              estado: this.enum.Rejeitada,
               valorOrcamento: 300000,
-              dataHoraFormatada: this.formatarDataHora(new Date('2025-09-03T15:45:00')),
-              equipamentoCurto: this.limitarTexto('Notebook Dell Inspiron 15 3000', 30)
+              dataHoraFormatada: this.solicitacaoUtil.formatarDataHora(new Date('2025-09-03T15:45:00')),
+              equipamentoCurto: this.solicitacaoUtil.limitarTexto('Notebook Dell Inspiron 15 3000', 30)
             },
             {
               id: 3,
               dataHora: new Date('2025-09-05T09:20:00'),
               equipamento: 'Servidor Dell PowerEdge R730',
-              estado: estadoSolicitacao.Arrumada,
+              estado: this.enum.Arrumada,
               valorOrcamento: 1649.99,
-              dataHoraFormatada: this.formatarDataHora(new Date('2025-09-05T09:20:00')),
-              equipamentoCurto: this.limitarTexto('Servidor Dell PowerEdge R730', 30)
+              dataHoraFormatada: this.solicitacaoUtil.formatarDataHora(new Date('2025-09-05T09:20:00')),
+              equipamentoCurto: this.solicitacaoUtil.limitarTexto('Servidor Dell PowerEdge R730', 30)
             }
           ];
+
+          console.log(this.solicitacoes);
 
           this.solicitacoes.sort((a, b) => a.dataHora.getTime() - b.dataHora.getTime());
 
         }
       });
   }
-
-  //formatação de data para dia/mes/ano hora/minuto
-  //já que o padrão não vem assim
-  formatarDataHora(data: Date): string {
-    const dia = String(data.getDate()).padStart(2, '0');
-    const mes = String(data.getMonth() + 1).padStart(2, '0');
-    const ano = data.getFullYear();
-    const horas = String(data.getHours()).padStart(2, '0');
-    const minutos = String(data.getMinutes()).padStart(2, '0');
-    return `${dia}/${mes}/${ano} ${horas}:${minutos}`;
-  }
-
-  //limita o número de caracteres conforme requisitos
-  limitarTexto(texto: string, limite: number): string {
-    return texto.length > limite ? texto.substring(0, limite) : texto;
-  }
-
-
 
   //ações
   visualizar(id: number) {

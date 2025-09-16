@@ -7,7 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { Router } from '@angular/router';
 
 import { MatCard, MatCardHeader, MatCardTitle, MatCardSubtitle, MatCardActions, MatCardContent } from "@angular/material/card";
-import { CadastroService, CadastroTable } from '../services/cadastroService';
+import { CadastroService, CadastroTable } from '../services/DBUtil/cadastro-util';
 import { ControlaForm } from '../services/controla-form';
 
 @Component({

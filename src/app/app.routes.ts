@@ -9,12 +9,13 @@ import { OrcamentoComponent } from './orcamento/orcamento';
 import { EfetuarOrcamentoComponent } from './efetuar_orcamento/efetuar_orcamento';
 import { ListaCadastros } from './lista-cadastros/lista-cadastros';
 import { GerenciarCategoriasComponent } from './crud_categoria/crud_categoria';
+import { TelaFuncionario } from './tela-funcionario/tela-funcionario';
 
 export const routes: Routes = [
   {
     path: '',
     component: TelaPrincipal,
-    pathMatch:'full'
+    pathMatch: 'full'
   },
   {
     path: 'solicitar_manutencao',
@@ -44,9 +45,13 @@ export const routes: Routes = [
     path: 'lista-cadastros',
     component: ListaCadastros
   },
-  { 
-    path: 'admin/categorias', 
-    component: GerenciarCategoriasComponent 
+  {
+    path: 'admin/categorias',
+    component: GerenciarCategoriasComponent
+  },
+  {
+    path: 'tela-funcionario',
+    component: TelaFuncionario
   }
 ];
 
