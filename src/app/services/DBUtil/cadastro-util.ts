@@ -15,7 +15,7 @@ export interface CadastroTable {
 @Injectable({
   providedIn: 'root'
 })
-export class CadastroService {
+export class CadastroUtil {
 
   private requestUrl = "http://localhost:8080/cadastros";
   private http = inject(HttpClient);

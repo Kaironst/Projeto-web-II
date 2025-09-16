@@ -9,7 +9,6 @@ import { OrcamentoComponent } from './orcamento/orcamento';
 import { EfetuarOrcamentoComponent } from './efetuar_orcamento/efetuar_orcamento';
 import { ListaCadastros } from './lista-cadastros/lista-cadastros';
 import { GerenciarCategoriasComponent } from './crud_categoria/crud_categoria';
-import { TelaFuncionario } from './tela-funcionario/tela-funcionario';
 
 export const routes: Routes = [
   {
@@ -49,10 +48,6 @@ export const routes: Routes = [
     path: 'admin/categorias',
     component: GerenciarCategoriasComponent
   },
-  {
-    path: 'tela-funcionario',
-    component: TelaFuncionario
-  }
 ];
 
 @NgModule({

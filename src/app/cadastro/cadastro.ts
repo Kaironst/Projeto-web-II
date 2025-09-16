@@ -7,7 +7,7 @@ import { MatInputModule } from '@angular/material/input';
 import { Router } from '@angular/router';
 
 import { MatCard, MatCardHeader, MatCardTitle, MatCardSubtitle, MatCardActions, MatCardContent } from "@angular/material/card";
-import { CadastroService, CadastroTable } from '../services/DBUtil/cadastro-util';
+import { CadastroUtil, CadastroTable } from '../services/DBUtil/cadastro-util';
 import { ControlaForm } from '../services/controla-form';
 
 @Component({
@@ -19,7 +19,7 @@ import { ControlaForm } from '../services/controla-form';
 })
 export class Cadastro {
 
-  cadastroService = inject(CadastroService);
+  cadastroService = inject(CadastroUtil);
   private router = inject(Router);
   formService= inject(ControlaForm);
 

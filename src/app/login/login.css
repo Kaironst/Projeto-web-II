@@ -1,0 +1,92 @@
+:root {
+  --primary: #5756BB;
+  --accent: #F56991;
+  --warn: #DAA3BF;
+  --light1: #BFDCEC;
+  --light2: #9DB6E8;
+  --medium1: #7A86D2;
+  --dark1: #565D98;
+  --dark2: #31294C;
+}
+
+.login-title {
+  color: var(--dark1);
+  text-align: center;
+  white-space: nowrap;
+  margin: 0;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.login-card {
+  display: flex;
+  margin: 0 auto;
+  width: 320px;
+  background: var(--light1);
+  border: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  padding: 24px;
+  font-size: 15px;
+  flex-direction: column;
+  gap: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+mat-form-field {
+  width: 100%;
+  margin-top: 8px;
+}
+
+button.mat-raised-button.primary {
+  background-color: var(--primary);
+  color: white;
+  border-radius: 8px;
+  padding: 8px 16px;
+  transition: background 0.3s;
+}
+
+button.mat-raised-button.primary:hover {
+  background-color: var(--dark1);
+}
+
+button.mat-raised-button.accent {
+  background-color: var(--accent);
+  color: white;
+  border-radius: 8px;
+  padding: 8px 16px;
+  transition: background 0.3s;
+}
+
+button.mat-raised-button.accent:hover {
+  background-color: var(--warn);
+}
+
+button.mat-raised-button.warn {
+  background-color: var(--warn);
+  color: white;
+  border-radius: 8px;
+  padding: 8px 16px;
+  transition: background 0.3s;
+}
+
+button.mat-raised-button.warn:hover {
+  background-color: var(--accent);
+}
+
+
+mat-card-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+
+.pass-icon {
+    padding: 0%;
+}
