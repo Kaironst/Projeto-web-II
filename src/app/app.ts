@@ -13,14 +13,6 @@ import { Navbar } from "./navbar/navbar";
 })
 export class App {
 
-  /*
-  * inutilizados até descobrirmos como vamos fazer o layour (por enquanto usando routerlink)
-  mostrarLogin = false;
-
-  exibirLogin() {
-    this.mostrarLogin = !this.mostrarLogin;
-  }
-  */
   protected readonly title = signal('projetoWeb2');
   
 }

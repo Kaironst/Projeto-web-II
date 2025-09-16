@@ -1,6 +1,8 @@
 import {
   ChangeDetectionStrategy, 
   Component, 
+  EventEmitter, 
+  Output, 
   signal 
 } from '@angular/core';
 import { Router } from '@angular/router';
@@ -28,6 +30,12 @@ import { ControlaForm } from '../../services/controla-form';
   styleUrl: './login.css'
 })
 export class Login {
+  @Output() fecharLogin = new EventEmitter<void>();
+
+  fechar() {
+    this.fecharLogin.emit();
+  }
+
   hide = signal(true);
     clickEvent(event: MouseEvent) {
     this.hide.set(!this.hide());
@@ -43,4 +51,8 @@ export class Login {
     this.router.navigate(['/cadastro']);
   }
 
+  cadastrarFechar() {
+  this.goCadastro();
+  this.fecharLogin.emit();
+}
 }

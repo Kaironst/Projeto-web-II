@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { SolicitarManutencaoComponent } from './solicitar_manutencao/solicitar_manutencao';
 import { TelaUsuario } from './tela_usuario/tela_usuario';
 import { TelaPrincipal } from './tela_principal/tela_principal';
-import { Login } from './login/login';
+import { Login } from './navbar/login/login';
 import { Cadastro } from './cadastro/cadastro';
 import { OrcamentoComponent } from './orcamento/orcamento';
 import { EfetuarOrcamentoComponent } from './efetuar_orcamento/efetuar_orcamento';

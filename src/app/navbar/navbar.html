@@ -1,7 +1,21 @@
-<nav class="navbar">
-    <a routerLink="/">Home</a>
-    <a routerLink="/login">Login</a>
-    <a routerLink="/tela_usuario">Tela do Usuário</a>
-    <a routerLink="/solicitar_manutencao">Solicitar Manutenção</a>
-    <a routerLink="/lista-cadastros">lista de cadastros</a>
-</nav>
+<mat-toolbar color="primary" class="navbar">
+  <span class="logo">Manutençôes</span>
+
+  <span class="spacer"></span>
+
+  <nav class="nav-links">
+    <a mat-button routerLink="/">Home</a>
+    <a mat-button routerLink="/tela_usuario">Tela do Usuário</a>
+    <a mat-button routerLink="/solicitar_manutencao">Solicitar Manutenção</a>
+    <a mat-button routerLink="/lista-cadastros">Lista de Cadastros</a>
+  </nav>
+
+  <span class="spacer"></span>
+
+  <button class="login-button" matButton="tonal" mat-icon-button (click)="exibirLogin()">
+    <mat-icon class="login-icon" aria-label="login" fontIcon="account_circle"></mat-icon>
+  </button>
+
+</mat-toolbar>
+
+@if (mostrarLogin) {<app-login class="overlay"></app-login>}
