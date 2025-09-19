@@ -41,7 +41,7 @@ export class GerenciarCategoriasComponent implements OnInit {
 
   constructor() {
     this.categoriaForm = new FormGroup({
-      nome: new FormControl(null, [Validators.required, Validators.minLength(3)])
+      nome: new FormControl(null, [Validators.required, Validators.minLength(2)])
     });
   }
 

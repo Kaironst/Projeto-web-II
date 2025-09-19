@@ -1,0 +1,23 @@
+<div class="container">
+  <h2>Painel do Funcionário - Solicitações Abertas</h2>
+
+  @if (solicitacoesAbertas.length === 0) {
+    <p class="sem-solicitacoes">Nenhuma solicitação aberta no momento.</p>
+  } @else {
+    @for (s of solicitacoesAbertas; track s.id) {
+      <div class="card">
+        <div class="info">
+          <p><strong>Abertura:</strong> {{ s.dataHora | date:'dd/MM/yyyy HH:mm' }}</p>
+          <p><strong>Cliente:</strong> {{ s.cliente?.nome || 'Não informado' }}</p>
+          <p><strong>Equipamento:</strong> {{ limitarTexto(s.descEquipamento, 30) }}</p>
+        </div>
+  
+        <div class="actions">
+          <button class="btn-orcar" (click)="efetuarOrcamento(s.id)">
+            Efetuar Orçamento
+          </button>
+        </div>
+      </div>
+    }
+  }
+</div>
