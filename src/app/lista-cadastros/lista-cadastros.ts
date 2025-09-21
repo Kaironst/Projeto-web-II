@@ -6,7 +6,7 @@ import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angula
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit, inject } from '@angular/core';
-import { CadastroUtil, CadastroTable } from '../services/DBUtil/cadastro-util';
+import { ClienteUtil, Cliente } from '../services/DBUtil/cliente-util';
 import { MatDivider, MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list'
 
@@ -27,8 +27,8 @@ import { MatListModule } from '@angular/material/list'
 })
 export class ListaCadastros {
 
-  cadastroService = inject(CadastroUtil);
-  cadastros: CadastroTable[] = [];
+  cadastroService = inject(ClienteUtil);
+  cadastros: Cliente[] = [];
 
   //usa subscribe para passar o valor ao array cadastros
   ngOnInit() {

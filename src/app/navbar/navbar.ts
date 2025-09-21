@@ -8,13 +8,14 @@ import { Login } from "./login/login";
   selector: 'app-navbar',
   templateUrl: './navbar.html',
   styleUrl: './navbar.css',
+  standalone: true,
   imports: [
     MatToolbarModule,
     RouterLink,
     MatToolbar,
     MatIconModule,
     Login
-]
+  ]
 })
 
 
@@ -25,6 +26,6 @@ export class Navbar {
   exibirLogin() {
     this.mostrarLogin = !this.mostrarLogin;
   }
-  
+
 
 }

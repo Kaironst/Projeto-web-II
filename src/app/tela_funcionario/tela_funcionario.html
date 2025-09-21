@@ -9,9 +9,9 @@
         <div class="info">
           <p><strong>Abertura:</strong> {{ s.dataHora | date:'dd/MM/yyyy HH:mm' }}</p>
           <p><strong>Cliente:</strong> {{ s.cliente?.nome || 'Não informado' }}</p>
-          <p><strong>Equipamento:</strong> {{ limitarTexto(s.descEquipamento, 30) }}</p>
+          <p><strong>Equipamento:</strong> {{ limitarTexto(s.equipamento, 30) }}</p>
         </div>
-  
+
         <div class="actions">
           <button class="btn-orcar" (click)="efetuarOrcamento(s.id)">
             Efetuar Orçamento

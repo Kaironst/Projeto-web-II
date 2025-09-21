@@ -3,6 +3,8 @@
   <p><strong>ID:</strong> {{ data.s.id }}</p>
   <p><strong>Data/Hora:</strong> {{ data.s.dataHoraFormatada }}</p>
   <p><strong>Equipamento:</strong> {{ data.s.equipamento }}</p>
+  <p><strong>Categoria:</strong> {{ data.s.categEquipamento }} </p>
+  <p><strong>Defeito</strong> {{ data.s.descDefeito }} </p>
   <p><strong>Estado:</strong>{{metodos.solicitacaoUtil.nomeEstado(data.s.estado)}}</p>
   @if (data.s.valorOrcamento) {
     <p><strong>ValorOrçado:</strong> R$:{{data.s.valorOrcamento}}</p>

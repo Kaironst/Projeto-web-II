@@ -1,16 +1,25 @@
 import { Injectable } from '@angular/core';
 
-
 export interface Solicitacao {
   id: number;
-  dataHora: Date;
   equipamento: string;
+  categEquipamento: string; //o ideal é trocar isso aq para um id para a tabela categoria dentro do banco de dados depois
+  descDefeito: string;
+  dataHora: Date;
   estado: number;
+
   dataHoraFormatada?: string;
   equipamentoCurto?: string;
   valorOrcamento?: number;
   idCliente?: number;
   idEmpregado?: number;
+  funcionarioOrcamento?: string; //:TODO aqui por compatibilidade, tirar quando implementar bd
+  cliente?: { // TODO também aqui por compatibilidade
+    nome?: string;
+    telefone?: string;
+    email?: string;
+  }
+  dataOrcamento?: Date;
 }
 
 enum Estado {

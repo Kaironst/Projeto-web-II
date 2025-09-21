@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router} from '@angular/router';    
-import { SolicitacaoManutencao } from '../solicitar_manutencao/solicitar_manutencao';
+import { Router } from '@angular/router';
+import { Solicitacao, SolicitacaoUtil } from '../services/DBUtil/solicitacao-util';
 
 @Component({
   selector: 'app-tela-funcionario',
@@ -12,9 +12,10 @@ import { SolicitacaoManutencao } from '../solicitar_manutencao/solicitar_manuten
 })
 export class TelaFuncionarioComponent implements OnInit {
 
-  solicitacoesAbertas: SolicitacaoManutencao[] = [];
+  solicitacoesAbertas: Solicitacao[] = [];
 
-  constructor(private router: Router) { }
+  router = inject(Router);
+  solicitacaoUtil = inject(SolicitacaoUtil)
 
   ngOnInit(): void {
     this.carregarSolicitacoes();
@@ -27,9 +28,9 @@ export class TelaFuncionarioComponent implements OnInit {
       return;
     }
 
-    const todasSolicitacoes = JSON.parse(solucoesString) as SolicitacaoManutencao[];
-    
-    const solicitacoesFiltradas = todasSolicitacoes.filter(s => s.status === 'ABERTA');
+    const todasSolicitacoes = JSON.parse(solucoesString) as Solicitacao[];
+
+    const solicitacoesFiltradas = todasSolicitacoes.filter(s => s.estado === this.solicitacaoUtil.estado.Aberta);
 
     this.solicitacoesAbertas = solicitacoesFiltradas.map(s => ({
       ...s,

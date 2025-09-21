@@ -13,6 +13,7 @@ import { Solicitacao, SolicitacaoUtil } from '../services/DBUtil/solicitacao-uti
   selector: 'app-tela_usuario',
   templateUrl: './tela_usuario.html',
   styleUrl: './tela_usuario.css',
+  standalone: true,
   imports: [
     MatDialogModule,
     MatButtonModule
@@ -68,7 +69,9 @@ export class TelaUsuario implements OnInit {
               estado: this.enum.Orcada,
               valorOrcamento: 800,
               dataHoraFormatada: this.solicitacaoUtil.formatarDataHora(new Date('2025-09-01T10:30:00')),
-              equipamentoCurto: this.solicitacaoUtil.limitarTexto('Impressora LaserJet HP 3050 - Escritório', 30)
+              equipamentoCurto: this.solicitacaoUtil.limitarTexto('Impressora LaserJet HP 3050 - Escritório', 30),
+              categEquipamento: 'impressora',
+              descDefeito: 'chip de leitura não aceita cartucho de tinta'
             },
             {
               id: 2,
@@ -77,7 +80,9 @@ export class TelaUsuario implements OnInit {
               estado: this.enum.Rejeitada,
               valorOrcamento: 300000,
               dataHoraFormatada: this.solicitacaoUtil.formatarDataHora(new Date('2025-09-03T15:45:00')),
-              equipamentoCurto: this.solicitacaoUtil.limitarTexto('Notebook Dell Inspiron 15 3000', 30)
+              equipamentoCurto: this.solicitacaoUtil.limitarTexto('Notebook Dell Inspiron 15 3000', 30),
+              categEquipamento: 'laptop',
+              descDefeito: 'tela queimada'
             },
             {
               id: 3,
@@ -86,7 +91,9 @@ export class TelaUsuario implements OnInit {
               estado: this.enum.Arrumada,
               valorOrcamento: 1649.99,
               dataHoraFormatada: this.solicitacaoUtil.formatarDataHora(new Date('2025-09-05T09:20:00')),
-              equipamentoCurto: this.solicitacaoUtil.limitarTexto('Servidor Dell PowerEdge R730', 30)
+              equipamentoCurto: this.solicitacaoUtil.limitarTexto('Servidor Dell PowerEdge R730', 30),
+              categEquipamento: 'servidor',
+              descDefeito: 'fonte queimada'
             }
           ];
 

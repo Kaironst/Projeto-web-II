@@ -8,7 +8,7 @@
     <mat-card-content>
       <div class="detalhes-section">
         <h3>Dados da Solicitação</h3>
-        <p><strong>Equipamento:</strong> {{ orcamento.descEquipamento }}</p>
+        <p><strong>Equipamento:</strong> {{ orcamento.equipamento }}</p>
         <p><strong>Categoria:</strong> {{ orcamento.categEquipamento }}</p>
         <p><strong>Defeito Descrito:</strong> {{ orcamento.descDefeito }}</p>
       </div>
@@ -17,7 +17,7 @@
 
       <div class="preco-orcado">
         <h3>Valor Proposto para o Serviço:</h3>
-        <p class="valor">{{ orcamento.valorOrcado | currency:'BRL':'symbol':'1.2-2' }}</p>
+        <p class="valor">{{ orcamento.valorOrcamento| currency:'BRL':'symbol':'1.2-2' }}</p>
       </div>
     </mat-card-content>
 

@@ -17,7 +17,7 @@
 
       <div class="detalhes-section">
         <h3>Dados da Solicitação</h3>
-        <p><strong>Equipamento:</strong> {{ solicitacao.descEquipamento }}</p>
+        <p><strong>Equipamento:</strong> {{ solicitacao.equipamento }}</p>
         <p><strong>Categoria:</strong> {{ solicitacao.categEquipamento }}</p>
         <p><strong>Defeito Descrito:</strong> {{ solicitacao.descDefeito }}</p>
         <p><strong>Data da Solicitação:</strong> {{ solicitacao.dataHora | date:'dd/MM/yyyy HH:mm' }}</p>
@@ -27,16 +27,16 @@
 
       <form [formGroup]="orcamentoForm" (ngSubmit)="onSubmit()" class="orcamento-form">
         <h3>Registrar Valor do Orçamento</h3>
-        
+
         <mat-form-field>
           <mat-label>Valor do Orçamento (R$)</mat-label>
-          <input 
+          <input
             matInput
-            type="number" 
+            type="number"
             formControlName="valorOrcado"
             placeholder="Ex: 150.50">
         </mat-form-field>
-        
+
         <mat-card-actions>
           <button mat-raised-button color="primary" type="submit" [disabled]="!orcamentoForm.valid" class="submit-button">
             Registrar Orçamento

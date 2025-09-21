@@ -23,6 +23,7 @@ import { ControlaForm } from '../services/controla-form';
 
 @Component({
   selector: 'app-login',
+  standalone: true,
   imports: [FormsModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatButtonModule, MatIconModule, MatCardHeader, MatCard, MatCardTitle, MatCardContent, MatCardActions],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './login.html',

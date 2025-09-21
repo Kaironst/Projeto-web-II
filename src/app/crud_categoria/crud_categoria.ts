@@ -9,11 +9,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
+import { Categoria } from '../services/DBUtil/categoria-util';
 
-export interface Categoria {
-  id: number;
-  nome: string;
-}
 
 @Component({
   selector: 'app-gerenciar-categorias',
@@ -85,7 +82,7 @@ export class GerenciarCategoriasComponent implements OnInit {
       };
       this.categorias.push(novaCategoria);
     }
-    
+
     this.persistirLista();
     this.cancelarEdicao();
   }

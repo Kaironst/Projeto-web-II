@@ -1,13 +1,13 @@
 import { Component, inject } from '@angular/core';
-import {MatFormFieldModule} from '@angular/material/form-field';
-import {MatButtonModule} from '@angular/material/button';
-import {MatIconModule} from '@angular/material/icon';
-import { FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { Router } from '@angular/router';
 
 import { MatCard, MatCardHeader, MatCardTitle, MatCardSubtitle, MatCardActions, MatCardContent } from "@angular/material/card";
-import { CadastroUtil, CadastroTable } from '../services/DBUtil/cadastro-util';
+import { ClienteUtil, Cliente } from '../services/DBUtil/cliente-util';
 import { ControlaForm } from '../services/controla-form';
 
 @Component({
@@ -19,28 +19,24 @@ import { ControlaForm } from '../services/controla-form';
 })
 export class Cadastro {
 
-  cadastroService = inject(CadastroUtil);
+  cadastroService = inject(ClienteUtil);
   private router = inject(Router);
-  formService= inject(ControlaForm);
+  formService = inject(ControlaForm);
 
-  criarNovo (): void {
+  criarNovo(): void {
     if (this.formService.formCadastro.valid) {
-      let novo : CadastroTable = {
+      let novo: Cliente = {
         ...this.formService.formCadastro.value,
-        senha: this.gerarSenha()
-        }
-        
-        this.cadastroService.criarCadastro(novo).subscribe({
-          next: (res) => console.log('Usuário cadastrado!', res),
-          error: (err) => console.error('Erro ao cadastrar', err)
-        });
-
+        senha: this.cadastroService.gerarSenha()
       }
-    }
 
-  gerarSenha(): string {
-    let intvalue = Math.floor(Math.random()*10000);
-    return intvalue.toString().padStart(4,'0');
+      this.cadastroService.criarCadastro(novo).subscribe({
+        next: (res) => console.log('Usuário cadastrado!', res),
+        error: (err) => console.error('Erro ao cadastrar', err)
+      });
+
+    }
   }
+
 
 }

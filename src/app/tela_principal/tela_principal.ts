@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
   selector: 'app-tela_principal',
   templateUrl: './tela_principal.html',
   styleUrl: './tela_principal.css',
+  standalone: true,
   imports: [
     MatDialogModule,
     MatButtonModule
