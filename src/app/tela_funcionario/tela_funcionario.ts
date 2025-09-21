@@ -41,7 +41,7 @@ export class TelaFuncionarioComponent implements OnInit {
   }
 
   efetuarOrcamento(id: number): void {
-    this.router.navigate(['/efetuar-orcamento', id]);
+    this.router.navigate(['/admin/efetuar-orcamento', id]);
   }
 
   limitarTexto(texto: string, limite: number): string {
