@@ -36,8 +36,9 @@ mat-toolbar {
 
 a[mat-button] {
   color: white;
-  font-weight: 500;
+  font-weight: 0;
   text-transform: none;
+  font-size: 14px;
 }
 
 a:hover {
