@@ -1,24 +1,23 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import { Cliente } from './cliente-util';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 export interface Solicitacao {
   id: number;
   equipamento: string;
-  categEquipamento: string; //o ideal é trocar isso aq para um id para a tabela categoria dentro do banco de dados depois
+  categEquipamento: string; //o ideal é trocar isso aq para uma interface dentro do banco de dados depois
   descDefeito: string;
   dataHora: Date;
   estado: number;
 
   dataHoraFormatada?: string;
   equipamentoCurto?: string;
+
   valorOrcamento?: number;
-  idCliente?: number;
-  idEmpregado?: number;
   funcionarioOrcamento?: string; //:TODO aqui por compatibilidade, tirar quando implementar bd
-  cliente?: { // TODO também aqui por compatibilidade
-    nome?: string;
-    telefone?: string;
-    email?: string;
-  }
+  cliente?: Cliente
+  //Funcionario?: Funcionario; //tirar esse ngc de comentário quando criar interface e tabela pra funcionario
   dataOrcamento?: Date;
 }
 
@@ -36,7 +35,18 @@ enum Estado {
   providedIn: 'root'
 })
 export class SolicitacaoUtil {
+
   public estado = Estado;
+  private http = inject(HttpClient);
+  private requestUrl = "localhost:8080/api/solicitacoes";
+
+  criarSolicitacao(solicitacao: Solicitacao): Observable<Solicitacao> {
+    return this.http.post<Solicitacao>(this.requestUrl, solicitacao);
+  }
+
+  getAllSOlicitacoes(): Observable<Solicitacao[]> {
+    return this.http.get<Solicitacao[]>(this.requestUrl);
+  }
 
   //retorna a representação do valor do enum em string
   nomeEstado(estado: number): string {

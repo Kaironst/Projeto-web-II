@@ -17,7 +17,7 @@ export interface Cliente {
 })
 export class ClienteUtil {
 
-  private requestUrl = "http://localhost:8080/cadastros";
+  private requestUrl = "http://localhost:8080/api/clientes";
   private http = inject(HttpClient);
 
   criarCadastro(cadastro: Cliente): Observable<Cliente> {
