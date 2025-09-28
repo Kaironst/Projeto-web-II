@@ -10,6 +10,7 @@ import { EfetuarOrcamentoComponent } from './efetuar_orcamento/efetuar_orcamento
 import { ListaCadastros } from './lista-cadastros/lista-cadastros';
 import { GerenciarCategoriasComponent } from './crud_categoria/crud_categoria';
 import { TelaFuncionarioComponent } from './tela_funcionario/tela_funcionario';
+import { EfetuarManutencaoComponent } from './efetuar-manutencao/efetuar-manutencao';
 
 export const routes: Routes = [
   {
@@ -52,6 +53,10 @@ export const routes: Routes = [
   {
     path: 'admin/tela-funcionario',
     component: TelaFuncionarioComponent
+  },
+  {
+    path: 'admin/efetuar-manutencao/:id',
+    component: EfetuarManutencaoComponent
   }
 ];
 

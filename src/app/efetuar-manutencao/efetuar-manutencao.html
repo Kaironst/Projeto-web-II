@@ -1,0 +1,48 @@
+@if (solicitacao){
+<div class="page-container">
+  <mat-card class="manutencao-card">
+    <mat-card-header>
+      <mat-card-title class="manutencao-title">Manutenção da Solicitação #{{ solicitacao.id }}</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="detalhes-section">
+        <h3>Dados do Cliente</h3>
+        <p><strong>Nome:</strong> {{ solicitacao.cliente?.nome || 'Não informado' }}</p>
+      </div>
+      <div class="detalhes-section">
+        <h3>Dados da Solicitação</h3>
+        <p><strong>Equipamento:</strong> {{ solicitacao.equipamento }}</p>
+        <p><strong>Defeito Descrito:</strong> {{ solicitacao.descDefeito }}</p>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      @if (mostrarFormManutencao) {
+        <form [formGroup]="manutencaoForm" (ngSubmit)="onEfetuarManutencaoSubmit()" class="manutencao-form">
+          <h3>Detalhes da Manutenção</h3>
+          <mat-form-field>
+            <mat-label>Descrição da Manutenção Realizada</mat-label>
+            <textarea matInput formControlName="descricaoManutencao" rows="4"></textarea>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Orientações para o Cliente</mat-label>
+            <textarea matInput formControlName="orientacoesCliente" rows="3"></textarea>
+          </mat-form-field>
+          <button mat-raised-button color="primary" type="submit" [disabled]="manutencaoForm.invalid">Concluir Manutenção</button>
+        </form>
+      } @else {
+        <div class="acoes-principais">
+          <h3>Selecione uma Ação</h3>
+          <button mat-raised-button color="primary" (click)="mostrarFormManutencao = true">Efetuar a Manutenção</button>
+          <button mat-stroked-button color="accent" (click)="redirecionarManutencao()">Redirecionar Manutenção</button>
+        </div>
+      }
+    </mat-card-content>
+  </mat-card>
+</div>
+} @else {
+<div class="loading-container">
+  <mat-spinner></mat-spinner>
+</div>
+}

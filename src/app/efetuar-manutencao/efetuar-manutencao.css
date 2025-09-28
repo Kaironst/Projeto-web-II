@@ -1,0 +1,46 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 48px 24px;
+  background-color: #f4f7fa;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.manutencao-card {
+  width: 100%;
+  max-width: 700px;
+  border-radius: 16px;
+  padding: 32px;
+}
+
+.manutencao-title {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+.detalhes-section {
+  margin: 24px 0;
+}
+
+.detalhes-section h3, .manutencao-form h3, .acoes-principais h3 {
+  font-size: 18px;
+  color: #5756BB;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.acoes-principais {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.manutencao-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 24px;
+}

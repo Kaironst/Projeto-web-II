@@ -19,9 +19,14 @@ export interface Solicitacao {
   cliente?: Cliente
   //Funcionario?: Funcionario; //tirar esse ngc de comentário quando criar interface e tabela pra funcionario
   dataOrcamento?: Date;
+
+  descricaoManutencao?: string;
+  orientacoesCliente?: string;
+  dataManutencao?: Date;
+  funcionarioManutencao?: string;
 }
 
-enum Estado {
+export enum Estado {
   Aberta = 0,
   Orcada = 1,
   Aprovada = 2,
@@ -38,13 +43,13 @@ export class SolicitacaoUtil {
 
   public estado = Estado;
   private http = inject(HttpClient);
-  private requestUrl = "localhost:8080/api/solicitacoes";
+  private requestUrl = "https://localhost:8080/api/solicitacoes";
 
   criarSolicitacao(solicitacao: Solicitacao): Observable<Solicitacao> {
     return this.http.post<Solicitacao>(this.requestUrl, solicitacao);
   }
 
-  getAllSOlicitacoes(): Observable<Solicitacao[]> {
+  getAllSolicitacoes(): Observable<Solicitacao[]> {
     return this.http.get<Solicitacao[]>(this.requestUrl);
   }
 
@@ -76,6 +81,21 @@ export class SolicitacaoUtil {
   //limita o número de caracteres conforme requisitos
   limitarTexto(texto: string, limite: number): string {
     return texto.length > limite ? texto.substring(0, limite) : texto;
+  }
+
+  getSolicitacaoPorId(id: number): Observable<Solicitacao> {
+    const url = `${this.requestUrl}/${id}`;
+    return this.http.get<Solicitacao>(url);
+  }
+
+  atualizarSolicitacao(id: number, solicitacao: Solicitacao): Observable<Solicitacao> {
+    const url = `${this.requestUrl}/${id}`;
+    return this.http.put<Solicitacao>(url, solicitacao);
+  }
+  
+  atualizarStatus(id: number, novoStatus: number): Observable<Solicitacao> {
+    const url = `${this.requestUrl}/${id}/atualizar-status`;
+    return this.http.patch<Solicitacao>(url, { estado: novoStatus });
   }
 
 }
