@@ -42,12 +42,39 @@
             </mat-form-field>
                 <mat-form-field class="cadastro-cep">
                 <mat-label>CEP</mat-label>
-                <input type="text" matInput formControlName="cep" [errorStateMatcher]="formService.matcher" placeholder="00000-000">
+                <input type="text" matInput formControlName="cep" [formControl]="cepControl" (blur)="onCepChange()" [errorStateMatcher]="formService.matcher" placeholder="00000-000">
                 <mat-hint>Digite seu CEP</mat-hint>
                 @if (formService.necessarioFormControl.hasError('required')) {
                     <mat-error>O CEP é <strong>obrigatório</strong></mat-error>
                 }
             </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Rua</mat-label>
+                <input matInput [value]="rua">
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Número</mat-label>
+                <input matInput>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Bairro</mat-label>
+                <input matInput [value]="bairro">
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Cidade</mat-label>
+                <input matInput [value]="cidade">
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Estado</mat-label>
+                <input matInput [value]="uf">
+            </mat-form-field>    
+
+            
             <mat-form-field class="cadastro-telefone">
                 <mat-label>Telefone</mat-label>
                 <input type="text" matInput formControlName="telefone" [errorStateMatcher]="formService.matcher" placeholder="00 00000-0000">
