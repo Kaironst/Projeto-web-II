@@ -1,72 +1,125 @@
-# ProjetoWeb2
+# Sistema de Manutenção de Equipamentos
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.1.5.
+Esse projeto refere-se à matéria de Desenvolvimento Web II, da Universidade Federal do Paraná (UFPR),
+ensinado pelo professor Dr. Razer A N R Montaño, no setor do SEPT.
 
-O projeto foi realizado usando:
+Como avaliação, será feita a entrega, apresentação e defesa de um sistema de manutenção de equipamentos,  
+baseado em solicitações de serviços com o histórico de alteração de estado sendo mantido mantido. 
 
-versão do angular 20.1.5
+# Autores:
 
-versão do node 22.18.0
+#### Bruno Kussen
+GRR: 20240622
+email: kussenbruno@gmail.com
 
-versão do npm 10.9.3
+#### b
+GRR
+email:
 
-### Obs:
+#### c
+GRR
+email:
 
-É necessário ter o docker instalado para rodar o compose e construir a imagem do contâiner do postgres usado para o banco de dados
+#### d
+GRR
+email:
 
+#### e
+GRR
+email:
 
-## Development server
+# Softwares usados:
 
-To start a local development server, run:
+- angular 20.1.5
 
-```bash
-ng serve
+- node 22.18.0
+
+- npm 10.9.3
+
+- docker para rodar o compose e construir a imagem do contâiner do banco de dados
+
+- SGBD PostgresSQL
+
+# TODO LIST (REMOVER ANTES DA ENTREGA FINAL)
+
 ```
-
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
+Se algo já estiver implementado, coloque um OK
+Se estiver faltando alguma coisa, coloque em parênteses oque falta
+Se não quiser que os outros toquem, coloque o seu nome
 ```
+## requisitos
+- RF001 - Autocadastro:
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+- RF002 - Login:
 
-```bash
-ng generate --help
-```
+- RF003 - Página Inicial de Cliente: OK
 
-## Building
+- RF004 - Solicitação de Manutenção: (implementação com o local storage)
 
-To build the project run:
+- RF005 - Mostrar orçamento: (implementação com o local storage)
 
-```bash
-ng build
-```
+- RF006 - Aprovar Serviço: (implementação com o local storage)
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+- RF007 - Rejeitar Serviço: (implementação com o local storage)
 
-## Running unit tests
+- RF008 - Visualizar Serviço: (implementação com o local storage)
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+- RF009 - Resgatar Serviço: (implementação com o local storage)
 
-```bash
-ng test
-```
+- RF010 - Pagar Serviço: (implementação com o local storage)
 
-## Running end-to-end tests
+- RF011 - Página Inicial de Funcionário:
 
-For end-to-end (e2e) testing, run:
+- RF012 - Efetuar Orçamento:
 
-```bash
-ng e2e
-```
+- RF013 - Visualização de Solicitações:
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+- RF014 - Efetuar Manutenção:
 
-## Additional Resources
+- RF015 - Redirecionar Manutenção:
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- RF016 - Finalizar Solicitação:
+
+- RF017 - CRUD de Categoria de Equipamento: OK
+
+- RF018 - CRUD de Funcionários:
+
+- RF019 - Relatório de Receitas em PDF:
+
+- RF020 - Relatório de Receitas por Categoria em PDF:
+
+Requisitos mínimos:
+
+- RF001
+- RF002
+- RF003 OK
+- RF004
+- RF005
+- RF006
+- RF011
+- RF012
+- RF017
+- RF018
+
+## requisitos não funcionais
+
+- Layout de telas deve ser bem elaborado;
+- Deve ser usado DHTML (html/xhtml, css, dom e javascript);
+- Deve-se usar as tecnologias vistas em aula: Angular, REST, Spring Boot. Bem como as boas práticas de programação: Padrões de Projeto, - - Repository, Serviços, etc;
+- Usar um banco de dados RELACIONAL: PostgreSQL ou MySQL;
+- Usar padrão standalone do Angular v17, para criação de componentes;
+- Deve-se seguir boas práticas de programação e orientação a objetos: ocultamento de informações, baixo acoplamento, nomeação de atributos, classes e métodos, etc;
+- Deve-se usar um framework para desenvolvimento das telas. Sugere-se o Bootstrap, Material ou Tailwind. Também deve-se usar um conjunto de bibliotecas Javascript para alterar o comportamento de telas, de forma dinâmica, quando necessário. Sugere-se o jQuery;
+- Todos os campos devem possuir validação tanto no front-end (Angular) como no back-end (Spring);
+- Todas as senhas devem ser criptografadas usando Hash SHA-256 + SALT (pesquisar o que é isso :-);
+- Todas as tabelas no banco de dados (exceto a de endereço com cidade/estado) devem estar normalizadas (3FN) e devem seguir um padrão de codificação, inclusive as que não possuem cadastro e devem estar previamente preenchidas;
+- O preenchimento do endereço do Cliente deve ser feito de forma automática consultando o CEP com a API Viacep (https://viacep.com.br/);
+- No banco de dados deve ser armazenado o endereço completo, mas não há necessidade de normalizar Cidade e Estado;
+- Queries no banco de dados devem favorecer o desempenho por meio de JOINS e boas práticas de consultas;
+- No caso da entrega do protótipo, todas as funcionalidades devem ser implementadas  e todos os dados devem ser fictícios;
+- Todas as datas e valores monetários devem ser entrados e mostrados no formato brasileiro;
+- Todos os campos que tiverem formatação devem possuir máscara;
+- Todas as datas poderão ser entradas através de calendários;
+- Qualquer tipo de remoção deve ser confirmada antes de ocorrer;
+- Remoções devem usar um mecanismo de desativação dos registros para evitar problemas de integridade referencial;
+- O sistema será testado usando o navegador FIREFOX, versão mais recente.
