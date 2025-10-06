@@ -1,1 +1,65 @@
-<h1>ainda falta a pagina de crud de funcionarios
+<mat-card class="funcionario-card" appearance="outlined">
+  <mat-card-title class="funcionario-title">Gerenciar Funcionários</mat-card-title>
+  
+  <mat-card-content>
+    <form [formGroup]="funcionarioForm" (ngSubmit)="salvarFuncionario()" class="funcionario-form">
+      <h3>{{ funcionarioSelecionadoId ? 'Editando Funcionário' : 'Adicionar Novo Funcionário' }}</h3>
+      
+      <mat-form-field>
+        <mat-label>Nome do Funcionário</mat-label>
+        <input matInput formControlName="nome" placeholder="Ex: Carlos Pereira">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput type="email" formControlName="email" placeholder="Ex: carlos.p@empresa.com">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Data de Nascimento</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="dataNascimento">
+        <mat-hint>DD/MM/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Senha</mat-label>
+        <input matInput type="password" formControlName="senha" [placeholder]="funcionarioSelecionadoId ? 'Deixe em branco para não alterar' : ''">
+      </mat-form-field>
+
+      <mat-card-actions class="form-actions">
+        <button mat-raised-button color="primary" type="submit" [disabled]="!funcionarioForm.valid">Salvar</button>
+        @if (funcionarioSelecionadoId !== null) {
+          <button mat-button type="button" (click)="cancelarEdicao()">Cancelar Edição</button>
+        }
+      </mat-card-actions>
+    </form>
+
+    <mat-divider></mat-divider>
+
+    <div class="lista-container">
+      <h3>Funcionários Cadastrados</h3>
+      
+      @if (funcionarios.length === 0) {
+        <p class="lista-vazia">Nenhum funcionário cadastrado.</p>
+      } @else {
+        <mat-list>
+          @for (funcionario of funcionarios; track funcionario.id) {
+            <mat-list-item [class.logged-in-user]="funcionario.id === loggedInUserId">
+              <span matListItemTitle>{{ funcionario.nome }} {{ funcionario.id === loggedInUserId ? '(Você)' : '' }}</span>
+              <span matListItemLine>{{ funcionario.email }}</span>
+              <span class="spacer"></span>
+              <button mat-icon-button color="primary" (click)="editarFuncionario(funcionario)" aria-label="Editar">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="removerFuncionario(funcionario.id)" aria-label="Remover">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </mat-list-item>
+          }
+        </mat-list>
+      }
+    </div>
+  </mat-card-content>
+</mat-card>

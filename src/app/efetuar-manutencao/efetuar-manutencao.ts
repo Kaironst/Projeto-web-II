@@ -62,7 +62,8 @@ export class EfetuarManutencaoComponent implements OnInit {
       dataManutencao: new Date(),
       funcionario: {
         ...this.solicitacao.funcionario,
-        nome: 'Funcionario Logado'
+        nome: 'Funcionario Logado',
+        id: 1,
       },
       estado: Estado.Arrumada
     };

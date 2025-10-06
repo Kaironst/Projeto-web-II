@@ -1,0 +1,76 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 48px 24px;
+  min-height: 80vh;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f7fa;
+}
+
+.funcionario-card {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 32px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  border: none;
+  border-radius: 16px;
+}
+
+.funcionario-title {
+  color: #31294C;
+  font-weight: 700;
+  font-size: 26px;
+  margin-bottom: 24px;
+}
+
+.funcionario-form {
+  margin-bottom: 24px;
+}
+
+.funcionario-form h3, .lista-container h3 {
+  font-size: 18px;
+  color: #5756BB;
+  margin-bottom: 16px;
+  font-weight: 600;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.form-actions {
+  display: flex;
+  gap: 12px;
+  padding: 0;
+  margin-top: 16px;
+}
+
+.lista-container {
+  margin-top: 24px;
+}
+
+.lista-vazia {
+  color: #555;
+  font-style: italic;
+  text-align: center;
+  padding: 20px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+mat-list-item {
+  border-bottom: 1px solid #eee;
+}
+
+mat-list-item:last-child {
+  border-bottom: none;
+}
+
+.logged-in-user {
+  background-color: #e8eaf6;
+}
