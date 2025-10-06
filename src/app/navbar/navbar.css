@@ -9,7 +9,6 @@
   z-index: 1000;
 }
 
-/* ---- ESTILO PADRÃO DOS BOTÕES/LINKS ---- */
 .navbar a[mat-button],
 .navbar button[mat-button] {
   padding: 10px 20px;
@@ -23,6 +22,9 @@
   border: none;
   transition: background 0.3s;
   cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .navbar a[mat-button]:hover,
@@ -45,7 +47,6 @@ mat-toolbar {
   flex: 1 1 auto;
 }
 
-/* ---- Ícone de seta ---- */
 .menu-button {
   display: flex;
   align-items: center;
@@ -54,15 +55,16 @@ mat-toolbar {
 
 .arrow-icon {
   font-size: 18px;
-  transition: transform 0.3s ease;
+  line-height: 1;
+  vertical-align: middle;
+  transform: translateY(5px);
+  transition: transform 0.2s ease;
 }
 
-/* Gira a seta quando o menu está aberto */
 .menu-button[aria-expanded="true"] .arrow-icon {
-  transform: rotate(180deg);
+  transform: rotate(180deg) translateY(2.5px);
 }
 
-/* ---- Botão de login ---- */
 .login-button {
   color: transparent;
   background-color: transparent;
@@ -87,7 +89,6 @@ mat-toolbar {
   background-color: #303f9f;
 }
 
-/* ---- Overlay do login ---- */
 .overlay {
   position: fixed;
   top: 5%;
