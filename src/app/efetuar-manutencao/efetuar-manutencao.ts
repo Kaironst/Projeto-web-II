@@ -60,11 +60,14 @@ export class EfetuarManutencaoComponent implements OnInit {
       descricaoManutencao: dadosFormulario.descricaoManutencao,
       orientacoesCliente: dadosFormulario.orientacoesCliente,
       dataManutencao: new Date(),
-      funcionarioManutencao: 'Funcionario Logado',
+      funcionario: {
+        ...this.solicitacao.funcionario,
+        nome: 'Funcionario Logado'
+      },
       estado: Estado.Arrumada
     };
-    
-    this.solicitacaoUtil.atualizarSolicitacao(this.solicitacao.id, solicitacaoAtualizada)
+
+    this.solicitacaoUtil.atualizarSolicitacao(this.solicitacao.id!, solicitacaoAtualizada)
       .subscribe({
         next: () => {
           alert('Manutenção registrada com sucesso! Status alterado para ARRUMADA.');
@@ -75,7 +78,7 @@ export class EfetuarManutencaoComponent implements OnInit {
         }
       });
   }
-  
+
   redirecionarManutencao(): void {
     alert('');
   }

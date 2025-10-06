@@ -1,6 +1,5 @@
 package web2.grupo6.demo.entity;
 
-import java.sql.Date;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -14,22 +13,17 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class Funcionario {
+@AllArgsConstructor
+public class Categoria {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
 
-  @OneToMany(mappedBy = "funcionario")
+  @OneToMany(mappedBy = "categEquipamento")
   private List<Solicitacao> solicitacoes;
 
-  @OneToMany(mappedBy = "funcionarioRedirecionado")
-  private List<Solicitacao> solicitacoesRecebidas; // fora do ts
-
-  private String email;
   private String nome;
-  private Date dataNascimento;
 
 }

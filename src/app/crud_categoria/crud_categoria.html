@@ -1,10 +1,10 @@
 <mat-card class="gerenciar-card" appearance="outlined">
   <mat-card-title class="gerenciar-title">Gerenciar Categorias de Equipamento</mat-card-title>
-  
+
   <mat-card-content>
     <form [formGroup]="categoriaForm" (ngSubmit)="salvarCategoria()" class="categoria-form">
       <h3>{{ categoriaSelecionadaId ? 'Editando Categoria' : 'Adicionar Nova Categoria' }}</h3>
-      
+
       <mat-form-field>
         <mat-label>Nome da Categoria</mat-label>
         <input matInput formControlName="nome" placeholder="Ex: Notebook">
@@ -22,7 +22,7 @@
 
     <div class="lista-container">
       <h3>Categorias Existentes</h3>
-      
+
       @if (categorias.length === 0) {
         <p class="lista-vazia">Nenhuma categoria cadastrada.</p>
       } @else {
@@ -34,7 +34,7 @@
               <button mat-icon-button color="primary" (click)="editarCategoria(categoria)" aria-label="Editar">
                 <mat-icon>edit</mat-icon>
               </button>
-              <button mat-icon-button color="warn" (click)="removerCategoria(categoria.id)" aria-label="Remover">
+              <button mat-icon-button color="warn" (click)="removerCategoria(categoria.id!)" aria-label="Remover">
                 <mat-icon>delete</mat-icon>
               </button>
             </mat-list-item>

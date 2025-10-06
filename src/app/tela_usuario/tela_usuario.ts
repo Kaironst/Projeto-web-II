@@ -70,7 +70,7 @@ export class TelaUsuario implements OnInit {
               valorOrcamento: 800,
               dataHoraFormatada: this.solicitacaoUtil.formatarDataHora(new Date('2025-09-01T10:30:00')),
               equipamentoCurto: this.solicitacaoUtil.limitarTexto('Impressora LaserJet HP 3050 - Escritório', 30),
-              categEquipamento: 'impressora',
+              categEquipamento: { nome: 'impressora' },
               descDefeito: 'chip de leitura não aceita cartucho de tinta'
             },
             {
@@ -81,7 +81,7 @@ export class TelaUsuario implements OnInit {
               valorOrcamento: 300000,
               dataHoraFormatada: this.solicitacaoUtil.formatarDataHora(new Date('2025-09-03T15:45:00')),
               equipamentoCurto: this.solicitacaoUtil.limitarTexto('Notebook Dell Inspiron 15 3000', 30),
-              categEquipamento: 'laptop',
+              categEquipamento: { nome: 'laptop' },
               descDefeito: 'tela queimada'
             },
             {
@@ -92,7 +92,7 @@ export class TelaUsuario implements OnInit {
               valorOrcamento: 1649.99,
               dataHoraFormatada: this.solicitacaoUtil.formatarDataHora(new Date('2025-09-05T09:20:00')),
               equipamentoCurto: this.solicitacaoUtil.limitarTexto('Servidor Dell PowerEdge R730', 30),
-              categEquipamento: 'servidor',
+              categEquipamento: { nome: 'servidor' },
               descDefeito: 'fonte queimada'
             }
           ];

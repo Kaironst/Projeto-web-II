@@ -1,4 +1,4 @@
-package web2.grupo6.demo.entity ;
+package web2.grupo6.demo.entity;
 
 import java.sql.Date;
 
@@ -22,10 +22,17 @@ public class Solicitacao {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
 
-  // private CategoriaEquipamento categEquipamento;
+  @ManyToOne
+  private Categoria categEquipamento;
+
   @ManyToOne
   private Cliente cliente;
-  // private Funcionario funcionario;
+
+  @ManyToOne
+  private Funcionario funcionario;
+
+  @ManyToOne
+  private Funcionario funcionarioRedirecionado;
 
   private String equipamento;
   private String descDefeito;
@@ -34,4 +41,9 @@ public class Solicitacao {
   private int valorOrcamento;
   private int dataOrcamento;
 
+  private String descricaoManutencao;
+  private String orientacoesCliente;
+  private Date dataManutencao;
+
+  private Date dataFechamento;
 }

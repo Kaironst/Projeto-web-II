@@ -33,7 +33,7 @@ export class GerenciarCategoriasComponent implements OnInit {
 
   categorias: Categoria[] = [];
   categoriaForm: FormGroup;
-  categoriaSelecionadaId: number | null = null;
+  categoriaSelecionadaId?: number | null = null;
   private storageKey = 'categorias';
 
   constructor() {
@@ -59,7 +59,7 @@ export class GerenciarCategoriasComponent implements OnInit {
     if (this.categorias.length === 0) {
       return 1;
     }
-    const maxId = Math.max(...this.categorias.map(c => c.id));
+    const maxId = Math.max(...this.categorias.map(c => c.id!));
     return maxId + 1;
   }
 

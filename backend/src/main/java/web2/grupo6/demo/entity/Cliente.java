@@ -1,6 +1,5 @@
-package web2.grupo6.demo.entity ;
+package web2.grupo6.demo.entity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -14,9 +13,8 @@ import lombok.NoArgsConstructor;
 
 @Entity // diz para o jpa que a classe é mapeada para uma tabela do mesmo nome
 @Data
-@AllArgsConstructor
-@NoArgsConstructor // anotações do lombok para geração de getters e setters em todos os métodos e
-                   // construtor com todos e nenhum argumento
+@AllArgsConstructor // anotações do lombok para geração de getters e setters em todos os métodos e
+@NoArgsConstructor // construtor com todos e nenhum argumento
 public class Cliente {
 
   @Id // marca que o elemento é chave primária dentro da tabela gerada
@@ -24,7 +22,7 @@ public class Cliente {
   private long id;
 
   @OneToMany(mappedBy = "cliente")
-  private List<Solicitacao> solicitacoes = new ArrayList<>();
+  private List<Solicitacao> solicitacoes;
 
   private String email;
   private String nome;

@@ -58,7 +58,8 @@ export class EfetuarOrcamentoComponent implements OnInit {
       this.solicitacao.valorOrcamento = valor;
       this.solicitacao.estado = this.solicitacaoUtil.estado.Orcada;
       this.solicitacao.dataOrcamento = new Date();
-      this.solicitacao.funcionarioOrcamento = 'Funcionario Logado';
+      if (this.solicitacao.funcionario != null)
+        this.solicitacao.funcionario.nome = 'Funcionario Logado';
 
       const solucoesString = localStorage.getItem('solicitacoes');
       if (solucoesString) {

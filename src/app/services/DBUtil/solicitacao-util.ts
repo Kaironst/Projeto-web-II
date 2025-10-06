@@ -2,28 +2,32 @@ import { inject, Injectable } from '@angular/core';
 import { Cliente } from './cliente-util';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { Categoria } from './categoria-util';
+import { Funcionario } from './funcionario-util';
 
 export interface Solicitacao {
-  id: number;
+  id?: number;
   equipamento: string;
-  categEquipamento: string; //o ideal é trocar isso aq para uma interface dentro do banco de dados depois
+  categEquipamento?: Categoria; //o ideal é trocar isso aq para uma interface dentro do banco de dados depois
   descDefeito: string;
   dataHora: Date;
   estado: number;
 
+  //esses valores são utilitários apenas
   dataHoraFormatada?: string;
   equipamentoCurto?: string;
 
   valorOrcamento?: number;
-  funcionarioOrcamento?: string; //:TODO aqui por compatibilidade, tirar quando implementar bd
-  cliente?: Cliente
-  //Funcionario?: Funcionario; //tirar esse ngc de comentário quando criar interface e tabela pra funcionario
+  cliente?: Cliente;
+  funcionario?: Funcionario;
+  funcionarioRedirecionado?: Funcionario | null;
   dataOrcamento?: Date;
 
   descricaoManutencao?: string;
   orientacoesCliente?: string;
   dataManutencao?: Date;
-  funcionarioManutencao?: string;
+
+  dataFechamento?: Date;
 }
 
 export enum Estado {
@@ -33,7 +37,8 @@ export enum Estado {
   Rejeitada = 3,
   Arrumada = 4,
   Paga = 5,
-  Finalizada = 6
+  Finalizada = 6,
+  Redirecionada = 7
 }
 
 @Injectable({
@@ -63,6 +68,7 @@ export class SolicitacaoUtil {
       case Estado.Arrumada: return "Arrumada";
       case Estado.Paga: return "Paga";
       case Estado.Finalizada: return "Finalizada";
+      case Estado.Redirecionada: return "Redirecionada";
       default: return "caso desconhecido";
     }
   }
@@ -92,7 +98,7 @@ export class SolicitacaoUtil {
     const url = `${this.requestUrl}/${id}`;
     return this.http.put<Solicitacao>(url, solicitacao);
   }
-  
+
   atualizarStatus(id: number, novoStatus: number): Observable<Solicitacao> {
     const url = `${this.requestUrl}/${id}/atualizar-status`;
     return this.http.patch<Solicitacao>(url, { estado: novoStatus });

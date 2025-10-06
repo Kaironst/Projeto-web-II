@@ -24,9 +24,9 @@ email:
 GRR
 email:
 
-#### e
-GRR
-email:
+#### Pedro Novak Wosch
+GRR: 20242441
+email: pedrowosch@ufpr.br
 
 # Softwares usados:
 

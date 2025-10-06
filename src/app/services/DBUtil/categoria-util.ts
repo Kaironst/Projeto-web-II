@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 
 export interface Categoria {
-  id: number;
-  nome: string;
+  id?: number;
+  nome?: string;
 }
 
 @Injectable({
