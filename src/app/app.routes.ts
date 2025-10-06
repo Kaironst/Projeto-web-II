@@ -9,6 +9,7 @@ import { OrcamentoComponent } from './orcamento/orcamento';
 import { EfetuarOrcamentoComponent } from './efetuar_orcamento/efetuar_orcamento';
 import { ListaCadastros } from './lista-cadastros/lista-cadastros';
 import { GerenciarCategoriasComponent } from './crud_categoria/crud_categoria';
+import { GerenciarFuncionariosComponent } from './crud_funcionario/crud_funcionario';
 import { TelaFuncionarioComponent } from './tela_funcionario/tela_funcionario';
 import { EfetuarManutencaoComponent } from './efetuar-manutencao/efetuar-manutencao';
 
@@ -49,6 +50,10 @@ export const routes: Routes = [
   {
     path: 'admin/categorias',
     component: GerenciarCategoriasComponent
+  },
+  {
+    path: 'admin/funcionarios',
+    component: GerenciarFuncionariosComponent
   },
   {
     path: 'admin/tela-funcionario',

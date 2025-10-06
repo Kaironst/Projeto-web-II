@@ -9,14 +9,25 @@
   z-index: 1000;
 }
 
-.navbar a {
+/* ---- ESTILO PADRÃO DOS BOTÕES/LINKS ---- */
+.navbar a[mat-button],
+.navbar button[mat-button] {
   padding: 10px 20px;
   text-align: center;
   border-radius: 8px;
   color: rgba(255, 255, 255, 0.857);
   text-decoration: none;
   font-weight: bold;
+  font-size: 14px;
+  background: transparent;
+  border: none;
   transition: background 0.3s;
+  cursor: pointer;
+}
+
+.navbar a[mat-button]:hover,
+.navbar button[mat-button]:hover {
+  background: #395c7a;
 }
 
 mat-toolbar {
@@ -34,21 +45,28 @@ mat-toolbar {
   flex: 1 1 auto;
 }
 
-a[mat-button] {
-  color: white;
-  font-weight: 0;
-  text-transform: none;
-  font-size: 14px;
+/* ---- Ícone de seta ---- */
+.menu-button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
-a:hover {
-  background: #395c7a;
+.arrow-icon {
+  font-size: 18px;
+  transition: transform 0.3s ease;
 }
 
+/* Gira a seta quando o menu está aberto */
+.menu-button[aria-expanded="true"] .arrow-icon {
+  transform: rotate(180deg);
+}
+
+/* ---- Botão de login ---- */
 .login-button {
-  color: #303f9f00;
-  background-color: #303f9f00;
-  border: 0px;
+  color: transparent;
+  background-color: transparent;
+  border: 0;
 }
 
 .login-icon {
@@ -69,6 +87,7 @@ a:hover {
   background-color: #303f9f;
 }
 
+/* ---- Overlay do login ---- */
 .overlay {
   position: fixed;
   top: 5%;

@@ -7,17 +7,28 @@
     <a mat-button routerLink="/">Home</a>
     <a mat-button routerLink="/tela_usuario">Tela do Usuário</a>
     <a mat-button routerLink="/solicitar_manutencao">Solicitar Manutenção</a>
-    <a mat-button routerLink="/lista-cadastros">Lista de Funcionarios</a>
-    <a mat-button routerLink="admin/tela-funcionario">Tela do Funcionario</a>
-    <a mat-button routerLink="admin/categorias">CRUD Categorias</a>
+    <a mat-button routerLink="/lista-cadastros">Lista de Funcionários</a>
+    <a mat-button routerLink="admin/tela-funcionario">Tela do Funcionário</a>
+
+    <!-- Menu Cadastros (agora com <a mat-button>) -->
+    <a mat-button [matMenuTriggerFor]="menuCadastros" class="menu-button">
+      Cadastros
+      <mat-icon class="arrow-icon">expand_more</mat-icon>
+    </a>
+
+    <mat-menu #menuCadastros="matMenu">
+      <button mat-menu-item routerLink="admin/categorias">CRUD Categorias</button>
+      <button mat-menu-item routerLink="admin/funcionarios">CRUD Funcionários</button>
+    </mat-menu>
   </nav>
 
   <span class="spacer"></span>
 
-  <button class="login-button" matButton="tonal" mat-icon-button (click)="exibirLogin()">
+  <button class="login-button" mat-icon-button (click)="exibirLogin()">
     <mat-icon class="login-icon" aria-label="login" fontIcon="account_circle"></mat-icon>
   </button>
-
 </mat-toolbar>
 
-@if (mostrarLogin) {<app-login class="overlay"></app-login>}
+@if (mostrarLogin) {
+  <app-login class="overlay"></app-login>
+}

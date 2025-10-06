@@ -1,8 +1,9 @@
-import { inject, Component, OnInit } from '@angular/core';
-import { RouterOutlet, RouterLink } from '@angular/router';
+import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { MatToolbarModule, MatToolbar } from '@angular/material/toolbar';
 import { MatIconModule } from "@angular/material/icon";
-import { Login } from "./login/login";
+import { MatMenuModule } from "@angular/material/menu";
+import { Login } from "../login/login";
 
 @Component({
   selector: 'app-navbar',
@@ -14,6 +15,7 @@ import { Login } from "./login/login";
     RouterLink,
     MatToolbar,
     MatIconModule,
+    MatMenuModule,
     Login
   ]
 })
