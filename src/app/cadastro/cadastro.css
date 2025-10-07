@@ -9,6 +9,22 @@
   --dark2: #31294C;
 }
 
+.cadastro-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px; 
+}
+
+.cadastro-content mat-form-field {
+  width: 100%;
+}
+
+.cadastro-footer {
+  display: flex;
+  justify-content: left;
+  margin-top: 16px;
+}
+
 .cadastro-title {
   color: var(--dark1);
   text-align: left;
@@ -21,7 +37,7 @@
 .cadastro-card {
   display: flex;
   margin: 0 auto;
-  width: 320px;
+  width: 30%;
   background: var(--light1);
   border: none;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);

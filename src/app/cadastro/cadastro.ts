@@ -9,11 +9,14 @@ import { MatCard, MatCardHeader, MatCardTitle, MatCardSubtitle, MatCardActions, 
 import { ClienteUtil, Cliente } from '../services/DBUtil/cliente-util';
 import { ControlaForm } from '../services/controla-form';
 import { CepService } from '../services/cep';
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 
 @Component({
   selector: 'app-cadastro',
   standalone: true,
-  imports: [FormsModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatButtonModule, MatIconModule, MatCard, MatCardHeader, MatCardTitle, MatCardSubtitle, MatCardActions, MatCardContent],
+  imports: [FormsModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatButtonModule, MatIconModule, MatCard, MatCardHeader, MatCardTitle, 
+    MatCardSubtitle, MatCardActions, MatCardContent, NgxMaskDirective, NgxMaskPipe],
+  providers: [provideNgxMask()],
   templateUrl: './cadastro.html',
   styleUrl: './cadastro.css'
 })

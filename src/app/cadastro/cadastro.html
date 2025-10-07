@@ -9,83 +9,84 @@
 
         </mat-card-header>
 
-        <mat-card-content class="cadastro-content">
+        
+            <mat-card-content class="cadastro-content">
 
-            <mat-form-field class="cadastro-email">
-                <mat-label>Email</mat-label>
-                <input type="email" matInput formControlName="email" [errorStateMatcher]="formService.matcher" placeholder="Ex. pat@example.com">
-                <mat-hint>Digite seu email</mat-hint>
-                @if (formService.emailFormControl.hasError('email') && !formService.emailFormControl.hasError('required')) {
-                    <mat-error>Digite um endereço válido de email</mat-error>
-                }
-                @if (formService.emailFormControl.hasError('required')) {
-                    <mat-error>Um email é <strong>obrigatório</strong></mat-error>
-                }
-            </mat-form-field>
+                <mat-form-field class="cadastro-email">
+                    <mat-label>Email</mat-label>
+                    <input type="email" matInput formControlName="email" [errorStateMatcher]="formService.matcher" placeholder="Ex. pat@example.com">
+                    <mat-hint>Digite seu email</mat-hint>
+                    @if (formService.emailFormControl.hasError('email') && !formService.emailFormControl.hasError('required')) {
+                        <mat-error>Digite um endereço válido de email</mat-error>
+                    }
+                    @if (formService.emailFormControl.hasError('required')) {
+                        <mat-error>Um email é <strong>obrigatório</strong></mat-error>
+                    }
+                </mat-form-field>
 
-            <mat-form-field class="cadastro-nome">
-                <mat-label>Nome</mat-label>
-                <input type="text" matInput formControlName="nome" [errorStateMatcher]="formService.matcher" placeholder="Ex. João Maria">
-                <mat-hint>Digite seu nome</mat-hint>
-                @if (formService.necessarioFormControl.hasError('required')) {
-                    <mat-error>O nome é <strong>obrigatório</strong></mat-error>
-                }
-            </mat-form-field>
+                <mat-form-field class="cadastro-nome">
+                    <mat-label>Nome</mat-label>
+                    <input type="text" matInput formControlName="nome" [errorStateMatcher]="formService.matcher" placeholder="Ex. João Maria">
+                    <mat-hint>Digite seu nome</mat-hint>
+                    @if (formService.necessarioFormControl.hasError('required')) {
+                        <mat-error>O nome é <strong>obrigatório</strong></mat-error>
+                    }
+                </mat-form-field>
 
-            <mat-form-field class="cadastro-cpf">
-                <mat-label>CPF</mat-label>
-                <input type="text" matInput formControlName="cpf" [errorStateMatcher]="formService.matcher" placeholder="000.000.000-00">
-                <mat-hint>Digite seu CPF</mat-hint>
-                @if (formService.necessarioFormControl.hasError('required')) {
-                    <mat-error>O CPF é <strong>obrigatório</strong></mat-error>
-                }
-            </mat-form-field>
-                <mat-form-field class="cadastro-cep">
-                <mat-label>CEP</mat-label>
-                <input type="text" matInput formControlName="cep" [formControl]="cepControl" (blur)="onCepChange()" [errorStateMatcher]="formService.matcher" placeholder="00000-000">
-                <mat-hint>Digite seu CEP</mat-hint>
-                @if (formService.necessarioFormControl.hasError('required')) {
-                    <mat-error>O CEP é <strong>obrigatório</strong></mat-error>
-                }
-            </mat-form-field>
+                <mat-form-field class="cadastro-cpf">
+                    <mat-label>CPF</mat-label>
+                    <input type="text" matInput formControlName="cpf" [errorStateMatcher]="formService.matcher" mask="000.000.000-00" placeholder="000.000.000-00">
+                    <mat-hint>Digite seu CPF</mat-hint>
+                    @if (formService.necessarioFormControl.hasError('required')) {
+                        <mat-error>O CPF é <strong>obrigatório</strong></mat-error>
+                    }
+                </mat-form-field>
 
-            <mat-form-field>
-                <mat-label>Rua</mat-label>
-                <input matInput [value]="rua">
-            </mat-form-field>
+                <mat-form-field class="cadastro-telefone">
+                    <mat-label>Telefone</mat-label>
+                    <input type="text" matInput formControlName="telefone" [errorStateMatcher]="formService.matcher" mask="(00) 00000-0000" placeholder="00 00000-0000">
+                    <mat-hint>Digite seu telefone</mat-hint>
+                    @if (formService.necessarioFormControl.hasError('required')) {
+                        <mat-error>O telefone é <strong>obrigatório</strong></mat-error>
+                    }
+                </mat-form-field>
 
-            <mat-form-field>
-                <mat-label>Número</mat-label>
-                <input matInput>
-            </mat-form-field>
+                    <mat-form-field class="cadastro-cep">
+                    <mat-label>CEP</mat-label>
+                    <input type="text" matInput formControlName="cep" [formControl]="cepControl" (blur)="onCepChange()" [errorStateMatcher]="formService.matcher" mask="00000-000" placeholder="00000-000">
+                    <mat-hint>Digite seu CEP</mat-hint>
+                    @if (formService.necessarioFormControl.hasError('required')) {
+                        <mat-error>O CEP é <strong>obrigatório</strong></mat-error>
+                    }
+                </mat-form-field>
 
-            <mat-form-field>
-                <mat-label>Bairro</mat-label>
-                <input matInput [value]="bairro">
-            </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Rua</mat-label>
+                    <input type="text" matInput [value]="rua">
+                </mat-form-field>
 
-            <mat-form-field>
-                <mat-label>Cidade</mat-label>
-                <input matInput [value]="cidade">
-            </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Número</mat-label>
+                    <input type="text" matInput>
+                </mat-form-field>
 
-            <mat-form-field>
-                <mat-label>Estado</mat-label>
-                <input matInput [value]="uf">
-            </mat-form-field>    
+                <mat-form-field>
+                    <mat-label>Bairro</mat-label>
+                    <input type="text" matInput [value]="bairro">
+                </mat-form-field>
 
-            
-            <mat-form-field class="cadastro-telefone">
-                <mat-label>Telefone</mat-label>
-                <input type="text" matInput formControlName="telefone" [errorStateMatcher]="formService.matcher" placeholder="00 00000-0000">
-                <mat-hint>Digite seu telefone</mat-hint>
-                @if (formService.necessarioFormControl.hasError('required')) {
-                    <mat-error>O telefone é <strong>obrigatório</strong></mat-error>
-                }
-            </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Cidade</mat-label>
+                    <input type="text" matInput [value]="cidade">
+                </mat-form-field>
 
-        </mat-card-content>
+                <mat-form-field>
+                    <mat-label>Estado</mat-label>
+                    <input type="text" matInput [value]="uf">
+                </mat-form-field>
 
+            </mat-card-content>
+      
         <mat-card-actions class="cadastro-footer">
 
             <button type="submit" matButton="tonal" class="commom-button" >Cadastre-se</button>
