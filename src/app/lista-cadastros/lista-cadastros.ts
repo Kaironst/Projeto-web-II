@@ -32,7 +32,7 @@ export class ListaCadastros {
 
   //usa subscribe para passar o valor ao array cadastros
   ngOnInit() {
-    this.cadastroService.getAllCadastros().subscribe(listaCadastro => {
+    this.cadastroService.getAll().subscribe(listaCadastro => {
       this.cadastros = listaCadastro;
     });
   }

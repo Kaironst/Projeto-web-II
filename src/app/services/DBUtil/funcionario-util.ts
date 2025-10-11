@@ -11,7 +11,7 @@ export interface Funcionario {
   dataNascimento?: Date;
   senha?: string;
   solicitações?: Solicitacao;
-  admin: boolean;
+  admin?: boolean;
 }
 
 @Injectable({

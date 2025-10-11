@@ -14,8 +14,8 @@ import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 @Component({
   selector: 'app-cadastro',
   standalone: true,
-  imports: [FormsModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatButtonModule, MatIconModule, MatCard, MatCardHeader, MatCardTitle, 
-    MatCardSubtitle, MatCardActions, MatCardContent, NgxMaskDirective, NgxMaskPipe],
+  imports: [FormsModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatButtonModule, MatIconModule, MatCard, MatCardHeader, MatCardTitle,
+    MatCardSubtitle, MatCardActions, MatCardContent, NgxMaskDirective],
   providers: [provideNgxMask()],
   templateUrl: './cadastro.html',
   styleUrl: './cadastro.css'
@@ -33,7 +33,7 @@ export class Cadastro {
         senha: this.cadastroService.gerarSenha()
       }
 
-      this.cadastroService.criarCadastro(novo).subscribe({
+      this.cadastroService.criar(novo).subscribe({
         next: (res) => console.log('Usuário cadastrado!', res),
         error: (err) => console.error('Erro ao cadastrar', err)
       });
@@ -47,7 +47,7 @@ export class Cadastro {
   cidade = '';
   uf = '';
 
-  constructor(private cepService: CepService) {}
+  constructor(private cepService: CepService) { }
 
   onCepChange() {
     const cep = this.cepControl.value?.replace(/\D/g, '');
