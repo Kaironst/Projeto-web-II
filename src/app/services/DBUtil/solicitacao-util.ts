@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Categoria } from './categoria-util';
 import { Funcionario } from './funcionario-util';
+import { ContatoComBanco } from './contato-com-banco';
 
 export interface Solicitacao {
   id?: number;
@@ -44,18 +45,30 @@ export enum Estado {
 @Injectable({
   providedIn: 'root'
 })
-export class SolicitacaoUtil {
+export class SolicitacaoUtil extends ContatoComBanco {
 
   public estado = Estado;
   private http = inject(HttpClient);
   private requestUrl = "https://localhost:8080/api/solicitacoes";
 
-  criarSolicitacao(solicitacao: Solicitacao): Observable<Solicitacao> {
+  criar(solicitacao: Solicitacao): Observable<Solicitacao> {
     return this.http.post<Solicitacao>(this.requestUrl, solicitacao);
   }
 
-  getAllSolicitacoes(): Observable<Solicitacao[]> {
+  getAll(): Observable<Solicitacao[]> {
     return this.http.get<Solicitacao[]>(this.requestUrl);
+  }
+
+  get(id: number): Observable<Solicitacao> {
+    return this.http.get<Solicitacao>(`${this.requestUrl}/${id}`);
+  }
+
+  update(id: number, solicitacao: Solicitacao): Observable<Solicitacao> {
+    return this.http.put<Solicitacao>(`${this.requestUrl}/${id}`, solicitacao);
+  }
+
+  delete(id: number): Observable<Solicitacao> {
+    return this.http.delete<Solicitacao>(`${this.requestUrl}/${id}`);
   }
 
   //retorna a representação do valor do enum em string

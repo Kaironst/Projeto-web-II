@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ContatoComBanco } from './contato-com-banco';
 
 export interface Cliente {
   id?: number | null;
@@ -15,17 +16,29 @@ export interface Cliente {
 @Injectable({
   providedIn: 'root'
 })
-export class ClienteUtil {
+export class ClienteUtil extends ContatoComBanco {
 
   private requestUrl = "http://localhost:8080/api/clientes";
   private http = inject(HttpClient);
 
-  criarCadastro(cadastro: Cliente): Observable<Cliente> {
+  criar(cadastro: Cliente): Observable<Cliente> {
     return this.http.post<Cliente>(this.requestUrl, cadastro);
   }
 
-  getAllCadastros(): Observable<Cliente[]> {
+  getAll(): Observable<Cliente[]> {
     return this.http.get<Cliente[]>(this.requestUrl);
+  }
+
+  get(id: number): Observable<Cliente> {
+    return this.http.get<Cliente>(`${this.requestUrl}/${id}`)
+  }
+
+  update(id: number, cliente: Cliente): Observable<Cliente> {
+    return this.http.put<Cliente>(`${this.requestUrl}/${id}`, cliente);
+  }
+
+  delete(id: number): Observable<Cliente> {
+    return this.http.delete<Cliente>(`${this.requestUrl}/${id}`);
   }
 
   gerarSenha(): string {

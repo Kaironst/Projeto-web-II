@@ -5,8 +5,8 @@ export abstract class ContatoComBanco {
 
   abstract getAll(): any;
   abstract get(id: number): any;
-  abstract insert(obj: typeof this): any;
-  abstract update(id: number, obj: typeof this): any;
+  abstract criar(obj: object): any;
+  abstract update(id: number, obj: object): any;
   abstract delete(id: number): any
 
 }

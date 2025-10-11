@@ -31,5 +31,6 @@ public class Funcionario {
   private String email;
   private String nome;
   private Date dataNascimento;
+  private boolean admin;
 
 }
