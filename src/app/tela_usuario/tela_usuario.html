@@ -1,6 +1,14 @@
 <div class="container">
   <h2>Minhas Solicitações</h2>
 
+  <div>
+    <a routerLink="/solicitar_manutencao" class="btn-nova">+ Nova Solicitação</a>
+  </div>
+
+  @if (solicitacoes.length === 0) {
+    <p style="text-align: center; color: #666;">Nenhuma solicitação encontrada.</p>
+  }
+
   @for (s of solicitacoes; track s.id) {
     <div class="card">
       <div class="info">
