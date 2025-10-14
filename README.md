@@ -12,9 +12,9 @@ baseado em solicitações de serviços com o histórico de alteração de estado
 GRR: 20240622
 email: kussenbruno@gmail.com
 
-#### b
-GRR
-email:
+#### Bruno Pedron Rupaner
+GRR: 20241976
+email: brunopedron@ufpr.br
 
 #### c
 GRR
@@ -76,7 +76,7 @@ Se não quiser que os outros toquem, coloque o seu nome
 
 - RF014 - Efetuar Manutenção:
 
-- RF015 - Redirecionar Manutenção:
+- RF015 - Redirecionar Manutenção: OK
 
 - RF016 - Finalizar Solicitação:
 

@@ -29,7 +29,26 @@
             <mat-label>Orientações para o Cliente</mat-label>
             <textarea matInput formControlName="orientacoesCliente" rows="3"></textarea>
           </mat-form-field>
-          <button mat-raised-button color="primary" type="submit" [disabled]="manutencaoForm.invalid">Concluir Manutenção</button>
+          <div class="form-actions">
+            <button mat-raised-button color="primary" type="submit" [disabled]="manutencaoForm.invalid">Concluir Manutenção</button>
+            <button mat-button type="button" (click)="cancelarAcao()">Cancelar</button>
+          </div>
+        </form>
+      } @else if (mostrarFormRedirecionamento) {
+        <form [formGroup]="redirecionamentoForm" (ngSubmit)="onRedirecionarSubmit()" class="manutencao-form">
+          <h3>Redirecionar Manutenção</h3>
+          <mat-form-field>
+            <mat-label>Redirecionar para o funcionário:</mat-label>
+            <mat-select formControlName="funcionarioDestinoId">
+              @for(func of outrosFuncionarios; track func.id){
+                <mat-option [value]="func.id">{{ func.nome }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+          <div class="form-actions">
+            <button mat-raised-button color="accent" type="submit" [disabled]="redirecionamentoForm.invalid">Confirmar Redirecionamento</button>
+            <button mat-button type="button" (click)="cancelarAcao()">Cancelar</button>
+          </div>
         </form>
       } @else {
         <div class="acoes-principais">
