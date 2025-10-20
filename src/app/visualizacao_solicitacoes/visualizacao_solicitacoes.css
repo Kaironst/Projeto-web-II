@@ -1,0 +1,72 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 48px 24px;
+  background-color: #f4f7fa;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.visualizacao-card {
+  width: 100%;
+  max-width: 900px;
+  border-radius: 16px;
+  padding: 32px;
+}
+
+.visualizacao-title {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 24px;
+}
+
+.filtros-form {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.filtro-select {
+  min-width: 200px;
+}
+
+.periodo-container {
+  display: flex;
+  gap: 20px;
+}
+
+.lista-container {
+  margin-top: 24px;
+}
+
+.lista-vazia {
+  text-align: center;
+  padding: 30px;
+  color: #777;
+}
+
+.solicitacao-item {
+  border-left-width: 6px;
+  border-left-style: solid;
+  margin-bottom: 8px;
+  background-color: #fafafa;
+  border-radius: 4px;
+}
+
+.spacer { flex: 1 1 auto; }
+
+.estado-label {
+  font-weight: bold;
+  margin: 0 20px;
+}
+
+/* Cores por estado */
+.cinza { border-left-color: grey; }
+.marrom { border-left-color: brown; }
+.vermelho { border-left-color: red; }
+.amarelo { border-left-color: #f1c40f; }
+.roxo { border-left-color: purple; }
+.azul { border-left-color: #3498db; }
+.laranja { border-left-color: orange; }
+.verde { border-left-color: green; }

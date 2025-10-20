@@ -72,7 +72,7 @@ Se não quiser que os outros toquem, coloque o seu nome
 
 - RF012 - Efetuar Orçamento:
 
-- RF013 - Visualização de Solicitações:
+- RF013 - Visualização de Solicitações: OK Parcial (falta integração com RF016)
 
 - RF014 - Efetuar Manutenção:
 

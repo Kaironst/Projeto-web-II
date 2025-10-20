@@ -1,0 +1,56 @@
+<mat-card class="visualizacao-card">
+  <mat-card-title class="visualizacao-title">Visualização de Todas as Solicitações</mat-card-title>
+
+  <mat-card-content>
+    <form [formGroup]="filtroForm" class="filtros-form">
+      <mat-form-field class="filtro-select">
+        <mat-label>Filtrar por</mat-label>
+        <mat-select formControlName="tipoFiltro">
+          <mat-option value="TODAS">Todas</mat-option>
+          <mat-option value="HOJE">Abertas Hoje</mat-option>
+          <mat-option value="PERIODO">Período de Datas</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      @if (filtroForm.get('tipoFiltro')?.value === 'PERIODO') {
+        <div class="periodo-container">
+          <mat-form-field>
+            <mat-label>Data Inicial</mat-label>
+            <input matInput [matDatepicker]="inicioPicker" formControlName="dataInicio">
+            <mat-datepicker-toggle matIconSuffix [for]="inicioPicker"></mat-datepicker-toggle>
+            <mat-datepicker #inicioPicker></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Data Final</mat-label>
+            <input matInput [matDatepicker]="fimPicker" formControlName="dataFim">
+            <mat-datepicker-toggle matIconSuffix [for]="fimPicker"></mat-datepicker-toggle>
+            <mat-datepicker #fimPicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+      }
+    </form>
+
+    <mat-divider></mat-divider>
+
+    <div class="lista-container">
+      @if (solicitacoesFiltradas.length === 0) {
+        <p class="lista-vazia">Nenhuma solicitação encontrada para o filtro selecionado.</p>
+      } @else {
+        <mat-list>
+          @for (s of solicitacoesFiltradas; track s.id) {
+            <mat-list-item class="solicitacao-item" [ngClass]="getCorPorEstado(s.estado)">
+              <mat-icon matListItemIcon>receipt_long</mat-icon>
+              <span matListItemTitle>{{ s.equipamento }}</span>
+              <span matListItemLine>{{ s.dataHora | date:'dd/MM/yyyy HH:mm' }} | Cliente: {{ s.cliente?.nome || 'N/A' }}</span>
+              <span class="estado-label">{{ solicitacaoUtil.nomeEstado(s.estado) }}</span>
+              <span class="spacer"></span>
+              @if (s.estado === solicitacaoUtil.estado.Aberta || s.estado === solicitacaoUtil.estado.Aprovada || s.estado === solicitacaoUtil.estado.Redirecionada || s.estado === solicitacaoUtil.estado.Paga) {
+                <button mat-flat-button color="primary" (click)="irParaAcao(s)">Ação</button>
+              }
+            </mat-list-item>
+          }
+        </mat-list>
+      }
+    </div>
+  </mat-card-content>
+</mat-card>
