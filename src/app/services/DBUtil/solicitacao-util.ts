@@ -9,7 +9,9 @@ import { ContatoComBanco } from './contato-com-banco';
 export interface Solicitacao {
   id?: number;
   equipamento: string;
-  categEquipamento?: Categoria; //o ideal é trocar isso aq para uma interface dentro do banco de dados depois
+
+  categEquipamento?: Categoria;
+
   descDefeito: string;
   dataHora: Date;
   estado: number;
@@ -48,8 +50,8 @@ export enum Estado {
 export class SolicitacaoUtil extends ContatoComBanco {
 
   public estado = Estado;
-  private http = inject(HttpClient);
-  private requestUrl = "https://localhost:8080/api/solicitacoes";
+  protected http = inject(HttpClient);
+  protected requestUrl = "https://localhost:8080/api/solicitacoes";
 
   criar(solicitacao: Solicitacao): Observable<Solicitacao> {
     return this.http.post<Solicitacao>(this.requestUrl, solicitacao);
@@ -102,6 +104,8 @@ export class SolicitacaoUtil extends ContatoComBanco {
     return texto.length > limite ? texto.substring(0, limite) : texto;
   }
 
+
+  //também por compatibilidade, ideal é trocar a implementação pelas de cima
   getSolicitacaoPorId(id: number): Observable<Solicitacao> {
     const url = `${this.requestUrl}/${id}`;
     return this.http.get<Solicitacao>(url);

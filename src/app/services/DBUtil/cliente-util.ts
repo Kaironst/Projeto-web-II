@@ -20,8 +20,8 @@ export interface Cliente {
 })
 export class ClienteUtil extends ContatoComBanco {
 
-  private requestUrl = "http://localhost:8080/api/clientes";
-  private http = inject(HttpClient);
+  protected requestUrl = "http://localhost:8080/api/clientes";
+  protected http = inject(HttpClient);
 
   criar(cadastro: Cliente): Observable<Cliente> {
     return this.http.post<Cliente>(this.requestUrl, cadastro);
@@ -43,17 +43,21 @@ export class ClienteUtil extends ContatoComBanco {
     return this.http.delete<Cliente>(`${this.requestUrl}/${id}`);
   }
 
-  gerarSenha(): string { //nao sei oque fazer com isso, porque que o usuario não faz sua própria senha?
+  //nao sei oque fazer com isso, porque que o usuario não faz sua própria senha?
+  //Usuário não faz a própia senha por requisito do sistema como dado pelo professor
+  gerarSenha(): string {
     let intvalue = Math.floor(Math.random() * 10000);
     return intvalue.toString().padStart(4, '0');
   }
 
+  // TODO: implementar isso daq no banco de dados
   //validações de senha com HASH e SALT
   senhaValida(input: string, cliente: Cliente): boolean {
     if (!cliente.senha || !cliente.salt) return false;
     const hashTentativa = sha256(input + cliente.salt);
     return hashTentativa === cliente.senha;
   }
+
   gerarSalt(): string {
     return crypto.getRandomValues(new Uint8Array(16))
       .reduce((acc, byte) => acc + byte.toString(16).padStart(2, '0'), '');
@@ -62,4 +66,5 @@ export class ClienteUtil extends ContatoComBanco {
   gerarHashSenha(senha: string, salt: string): string {
     return sha256(senha + salt);
   }
+
 }

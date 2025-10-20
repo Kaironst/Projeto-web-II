@@ -14,8 +14,8 @@ export interface Categoria {
 })
 export class CategoriaUtil extends ContatoComBanco {
 
-  private requestUrl = "http://localhost:8080/api/categorias";
-  private http = inject(HttpClient);
+  protected requestUrl = "http://localhost:8080/api/categorias";
+  protected http = inject(HttpClient);
 
   criar(categoria: Categoria): Observable<Categoria> {
     return this.http.post<Categoria>(this.requestUrl, categoria)

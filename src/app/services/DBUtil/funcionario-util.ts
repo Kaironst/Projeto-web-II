@@ -20,8 +20,8 @@ export interface Funcionario {
 export class FuncionarioUtil extends ContatoComBanco {
 
 
-  private http = inject(HttpClient);
-  private requestUrl = "https://localhost:8080/api/solicitacoes";
+  protected http = inject(HttpClient);
+  protected requestUrl = "https://localhost:8080/api/solicitacoes";
   private loggedInFuncionarioId = 1;
 
   getFuncionarioLogadoId(): number {
@@ -57,6 +57,7 @@ export class FuncionarioUtil extends ContatoComBanco {
 
 
   //funçoes abaixo existem por motivos de compatibilidade
+  //ideal seria trocar elas na implementação pelas padronizadas de cima
 
   getFuncionarios(): Observable<Funcionario[]> {
     return this.http.get<Funcionario[]>(this.requestUrl);
