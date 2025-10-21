@@ -3,6 +3,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogModule, MatDialogTitle } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Solicitacao } from '../../services/DBUtil/solicitacao-util';
+import { RejeitarServicoDialog } from '../rejeitar-servico/rejeitar-servico';
 
 @Injectable({ providedIn: 'root' })
 export class AprovarServico {
@@ -22,16 +23,7 @@ export class AprovarServico {
   }
 
   abrirTelaRejeitar(solicitacao: Solicitacao) {
-    //this.dialog.open(RejeitarServicoDialog, { width: '500px', data: { s: solicitacao } });
-  }
-
-  rejeitarOrcamento(solicitacao: Solicitacao, motivo: string) {
-    solicitacao.estado = 4; // REJEITADA
-    solicitacao.motivoRejeicao = motivo;
-
-    alert(`Serviço rejeitado.\nMotivo: ${motivo}`);
-    this.atualizarSolicitacao(solicitacao);
-    this.router.navigate(['/tela_usuario']);
+    this.dialog.open(RejeitarServicoDialog, { width: '500px', data: { s: solicitacao } });
   }
 
   //método ainda tem que ser passado pra um service, vou fazer isso depois ou trocar direto pro back end

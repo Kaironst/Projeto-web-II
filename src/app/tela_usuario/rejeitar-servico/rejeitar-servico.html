@@ -1,0 +1,41 @@
+<div class="page-container">
+  <mat-card class="manutencao-card" appearance="outlined">
+    <mat-card-header>
+      <mat-card-title class="manutencao-title">Rejeitar Serviço</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="rejeicaoForm" class="manutencao-form">
+        <mat-form-field appearance="fill" style="width: 100%;">
+          <mat-label>Serviço: {{ data.s.equipamento }}</mat-label>
+          <textarea
+            matInput
+            formControlName="desc_motivo"
+            rows="4"
+            placeholder="Descreva o motivo da rejeição..."
+          ></textarea>
+
+          @if (rejeicaoForm.get('desc_motivo')?.invalid && rejeicaoForm.get('desc_motivo')?.touched) {
+            <mat-error>Motivo é obrigatório</mat-error>
+          }
+        </mat-form-field>
+      </form>
+    </mat-card-content>
+
+    <mat-card-actions align="end">
+      <button type="button" mat-raised-button color="warn" mat-dialog-close>
+        Cancelar
+      </button>
+
+      <button
+        type="button"
+        mat-raised-button
+        color="primary"
+        [disabled]="rejeicaoForm.invalid"
+        (click)="confirmarRejeicao()"
+      >
+        Confirmar
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>
