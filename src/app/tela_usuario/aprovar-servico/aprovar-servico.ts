@@ -15,13 +15,32 @@ export class AprovarServico {
   }
 
   aprovarOrcamento(solicitacao: Solicitacao) {
-    //código de aprovação aqui
+    solicitacao.estado = 2; //APROVADO
+    alert(`Serviço aprovado no valor de R$${solicitacao.valorOrcamento ?? '0,00'}`);
+    this.atualizarSolicitacao(solicitacao);
     this.router.navigate(['/tela_usuario']);
   }
 
-  rejeitarOrcamento(solicitacao: Solicitacao) {
-    //código de aprovação aqui
-    this.router.navigate(['/tela_usuario'])
+  abrirTelaRejeitar(solicitacao: Solicitacao) {
+    //this.dialog.open(RejeitarServicoDialog, { width: '500px', data: { s: solicitacao } });
+  }
+
+  rejeitarOrcamento(solicitacao: Solicitacao, motivo: string) {
+    solicitacao.estado = 4; // REJEITADA
+    solicitacao.motivoRejeicao = motivo;
+
+    alert(`Serviço rejeitado.\nMotivo: ${motivo}`);
+    this.atualizarSolicitacao(solicitacao);
+    this.router.navigate(['/tela_usuario']);
+  }
+
+  //método ainda tem que ser passado pra um service, vou fazer isso depois ou trocar direto pro back end
+  atualizarSolicitacao(solicitacao: Solicitacao) {
+    const lista = JSON.parse(localStorage.getItem('solicitacoes') || '[]') as Solicitacao[];
+    const idx = lista.findIndex(s => s.id === solicitacao.id);
+    if (idx >= 0) lista[idx] = solicitacao;
+    else lista.push(solicitacao);
+    localStorage.setItem('solicitacoes', JSON.stringify(lista));
   }
 
 }

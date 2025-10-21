@@ -31,6 +31,8 @@ export interface Solicitacao {
   dataManutencao?: Date;
 
   dataFechamento?: Date;
+
+  motivoRejeicao?: string;
 }
 
 export enum Estado {

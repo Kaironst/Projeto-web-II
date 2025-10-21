@@ -81,4 +81,12 @@ export class TelaUsuario implements OnInit {
     if (!solicitacao) return;
     this.pagarServicoDialog.openDialog(solicitacao);
   }
+
+  atualizarSolicitacao(solicitacao: Solicitacao) {
+    const lista = JSON.parse(localStorage.getItem('solicitacoes') || '[]') as Solicitacao[];
+    const idx = lista.findIndex(s => s.id === solicitacao.id);
+    if (idx >= 0) lista[idx] = solicitacao;
+    else lista.push(solicitacao);
+    localStorage.setItem('solicitacoes', JSON.stringify(lista));
+  }
 }

@@ -34,6 +34,12 @@
             Pagar Serviço
           </button>
         }
+
+        @if (s.estado === enum.Rejeitada) {
+          <button class="btn-resgatar" (click)="resgatar(s.id!)">
+            Resgatar Serviço
+          </button>
+        }
       </div>
     </div>
   }

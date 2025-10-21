@@ -15,8 +15,20 @@ export class ResgatarServico {
   }
 
   resgatarSolicitacao(solicitacao: Solicitacao) {
-    //código de aprovação aqui
+    solicitacao.estado = 2; //APROVADA (volta pro ciclo)
+    alert('Resgatado com sucesso. Detalhes foram enviados para o email cadastrado.');
+
+    this.atualizarSolicitacao(solicitacao);
     this.router.navigate(['/tela_usuario']);
+  }
+
+  //método ainda tem que ser passado pra um service, vou fazer isso depois ou trocar direto pro back end
+  atualizarSolicitacao(solicitacao: Solicitacao) {
+    const lista = JSON.parse(localStorage.getItem('solicitacoes') || '[]') as Solicitacao[];
+    const idx = lista.findIndex(s => s.id === solicitacao.id);
+    if (idx >= 0) lista[idx] = solicitacao;
+    else lista.push(solicitacao);
+    localStorage.setItem('solicitacoes', JSON.stringify(lista));
   }
 
 }
