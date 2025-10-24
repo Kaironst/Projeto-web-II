@@ -2,7 +2,7 @@ package web2.grupo6.demo.controller;
 
 import java.util.List;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,13 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.AllArgsConstructor;
 import web2.grupo6.demo.entity.Categoria;
+import web2.grupo6.demo.repository.CategoriaRepository;
 
 @RestController
 @RequestMapping("/api/categorias")
 @AllArgsConstructor
 public class CategoriaController {
 
-  private final JpaRepository<Categoria, Long> repo;
+  private final CategoriaRepository repo;
 
   @PostMapping // responde a requisições post
   public Categoria newCategoria(@RequestBody Categoria categoria) {
@@ -45,10 +46,9 @@ public class CategoriaController {
   }
 
   @DeleteMapping("/{id}")
-  public Categoria deleteCategoria(@PathVariable Long id) {
-    Categoria categoriaDeletada = repo.findById(id).orElseThrow();
+  public ResponseEntity<Void> deleteCategoria(@PathVariable Long id) {
     repo.deleteById(id);
-    return categoriaDeletada;
+    return ResponseEntity.noContent().build();
   }
 
 }

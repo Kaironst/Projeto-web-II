@@ -10,6 +10,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { Categoria, CategoriaUtil } from '../services/DBUtil/categoria-util';
+import { firstValueFrom } from 'rxjs';
 
 
 @Component({
@@ -82,21 +83,26 @@ export class GerenciarCategoriasComponent implements OnInit {
     const nomeCategoria = this.categoriaForm.value.nome;
 
     if (this.bancoConectado) {
-      if (this.categoriaSelecionadaId !== null) {
-        const index = this.categorias.findIndex(c => c.id === this.categoriaSelecionadaId);
-        if (index !== 1) {
-          this.categoriaUtil.get(index).subscribe(
-            (categoria: Categoria) => { this.categoriaUtil.update(categoria.id!, categoria) }
-          );
-        }
+      if (this.categoriaSelecionadaId !== null && this.categoriaSelecionadaId !== undefined) {
+        this.categoriaUtil.get(this.categoriaSelecionadaId!).subscribe({
+          next: (categoria: Categoria) => {
+            categoria = { ...categoria, nome: nomeCategoria };
+            this.categoriaUtil.update(categoria.id!, categoria).subscribe({
+              next: () => { this.carregarCategorias(); },
+              error: (err) => { console.error("erro ao atualizar cadastro ", err) }
+            })
+          },
+          error: (err) => { console.error("erro ao obter categorias ", err) }
+        });
       }
       else {
         const novaCategoria: Categoria = {
-          id: this.gerarNovoId(),
           nome: nomeCategoria
         };
-        this.categoriaUtil.criar(novaCategoria);
-        this.carregarCategorias();
+        this.categoriaUtil.criar(novaCategoria).subscribe({
+          next: () => { this.carregarCategorias(); },
+          error: (err) => { console.error("erro detectado ao criar categoria ", err); }
+        });
       }
     }
     else {
@@ -134,7 +140,10 @@ export class GerenciarCategoriasComponent implements OnInit {
   removerCategoria(id: number): void {
     if (confirm('Tem certeza que deseja remover esta categoria?')) {
       if (this.bancoConectado) {
-        this.categoriaUtil.delete(id);
+        this.categoriaUtil.delete(id).subscribe({
+          next: () => { this.carregarCategorias() },
+          error: (err) => { console.error("erro ao remover categoria ", err) }
+        });
       }
       else {
         this.categorias = this.categorias.filter(c => c.id !== id);

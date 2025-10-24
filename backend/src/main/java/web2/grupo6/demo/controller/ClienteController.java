@@ -2,7 +2,7 @@ package web2.grupo6.demo.controller;
 
 import java.util.List;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,13 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.AllArgsConstructor;
 import web2.grupo6.demo.entity.Cliente;
+import web2.grupo6.demo.repository.ClienteRepository;
 
 @RestController // controller que retorna corpo json como se fosse @ResponseBody
 @RequestMapping("/api/clientes") // requisições com @PostMapping ou @GetMapping são levadas até essa rota
 @AllArgsConstructor
 public class ClienteController {
 
-  private final JpaRepository<Cliente, Long> repo;
+  private final ClienteRepository repo;
 
   @PostMapping // responde a requisições post
   public Cliente newCliente(@RequestBody Cliente cadastro) {
@@ -50,10 +51,9 @@ public class ClienteController {
   }
 
   @DeleteMapping("/{id}")
-  public Cliente deleteCliente(@PathVariable Long id) {
-    Cliente clienteDeletado = repo.findById(id).orElseThrow();
+  public ResponseEntity<Void> deletCliente(@PathVariable Long id) {
     repo.deleteById(id);
-    return clienteDeletado;
+    return ResponseEntity.noContent().build();
   }
 
 }

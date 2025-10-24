@@ -2,7 +2,7 @@ package web2.grupo6.demo.controller;
 
 import java.util.List;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,21 +14,22 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.AllArgsConstructor;
 import web2.grupo6.demo.entity.Solicitacao;
+import web2.grupo6.demo.repository.SolicitacaoRepository;
 
 @RestController
 @RequestMapping("/api/solicitacoes")
 @AllArgsConstructor
 public class SolicitacaoController {
 
-  private final JpaRepository<Solicitacao, Long> repo;
+  private final SolicitacaoRepository repo;
 
   @PostMapping
-  Solicitacao newSolicitacao(Solicitacao solicitacao) {
+  public Solicitacao newSolicitacao(Solicitacao solicitacao) {
     return repo.save(solicitacao);
   }
 
   @GetMapping
-  List<Solicitacao> getSolicitacoes() {
+  public List<Solicitacao> getSolicitacoes() {
     return repo.findAll();
   }
 
@@ -38,7 +39,7 @@ public class SolicitacaoController {
   }
 
   @PutMapping("/{id}")
-  Solicitacao updateSolicitacao(@PathVariable Long id, @RequestBody Solicitacao solicitacao) {
+  public Solicitacao updateSolicitacao(@PathVariable Long id, @RequestBody Solicitacao solicitacao) {
     Solicitacao solicitacaoAtual = repo.findById(id).orElseThrow();
     solicitacaoAtual.setValorOrcamento(solicitacao.getValorOrcamento());
     solicitacaoAtual.setEquipamento(solicitacao.getEquipamento());
@@ -58,10 +59,9 @@ public class SolicitacaoController {
   }
 
   @DeleteMapping("/{id}")
-  Solicitacao deleteSolcicitacao(@PathVariable Long id) {
-    Solicitacao solicitacaoDeletada = repo.findById(id).orElseThrow();
+  public ResponseEntity<Void> deleteSolcicitacao(@PathVariable Long id) {
     repo.deleteById(id);
-    return solicitacaoDeletada;
+    return ResponseEntity.noContent().build();
   }
 
 }
