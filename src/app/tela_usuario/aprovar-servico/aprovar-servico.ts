@@ -1,6 +1,6 @@
 import { inject, Injectable, Component, Inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogModule, MatDialogTitle } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogModule, MatDialogTitle } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Solicitacao } from '../../services/DBUtil/solicitacao-util';
 import { RejeitarServicoDialog } from '../rejeitar-servico/rejeitar-servico';
@@ -11,8 +11,8 @@ export class AprovarServico {
   dialog = inject(MatDialog);
   router = inject(Router);
 
-  openDialog(solicitacao: Solicitacao) {
-    this.dialog.open(AprovarServicoDialog, { width: '500px', data: { s: solicitacao, }, });
+  openDialog(solicitacao: Solicitacao): MatDialogRef<AprovarServicoDialog> {
+    return this.dialog.open(AprovarServicoDialog, { width: '500px', data: { s: solicitacao, }, });
   }
 
   aprovarOrcamento(solicitacao: Solicitacao) {

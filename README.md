@@ -66,7 +66,7 @@ Se não quiser que os outros toquem, coloque o seu nome
 
 - RF009 - Resgatar Serviço: (implementação com o local storage)
 
-- RF010 - Pagar Serviço: (implementação com o local storage)
+- RF010 - Pagar Serviço: OK
 
 - RF011 - Página Inicial de Funcionário:
 

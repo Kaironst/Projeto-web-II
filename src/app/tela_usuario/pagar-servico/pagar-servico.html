@@ -1,8 +1,8 @@
 <h2 mat-dialog-title>Pagar Solicitação</h2>
 <mat-dialog-content>
-  Valor da solicitação: R${{data.s.valorOrcamento}}
+  <p>Confirma o pagamento do serviço no valor de <strong>{{data.s.valorOrcamento | currency:'BRL'}}</strong>?</p>
 </mat-dialog-content>
-<mat-dialog-actions>
-  <button matButton mat-dialog-close (click)="metodos.pagarSolicitacao(data.s)" >Pagar</button>
-  <button matButton mat-dialog-close>Cancelar</button>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-raised-button color="primary" (click)="metodos.pagarSolicitacao(data.s, dialogRef)">Pagar</button>
 </mat-dialog-actions>

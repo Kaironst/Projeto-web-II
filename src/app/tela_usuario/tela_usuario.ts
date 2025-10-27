@@ -36,25 +36,23 @@ export class TelaUsuario implements OnInit {
   visualizarServicoDialog = inject(VisualizarServico);
 
   ngOnInit() {
-    this.carregarSolicitacoes()
+    this.carregarSolicitacoes();
   }
 
-   carregarSolicitacoes() {
-    const dadosSalvos = localStorage.getItem('solicitacoes');
-    if (dadosSalvos) {
-      const solicitacoes = JSON.parse(dadosSalvos) as Solicitacao[];
-      this.solicitacoes = solicitacoes.map(s => ({
-        ...s,
-        dataHora: new Date(s.dataHora),
-        dataHoraFormatada: this.solicitacaoUtil.formatarDataHora(new Date(s.dataHora)),
-        equipamentoCurto: this.solicitacaoUtil.limitarTexto(s.equipamento, 30)
-      }));
-
-      // Ordena por data/hora
-      this.solicitacoes.sort((a, b) => a.dataHora.getTime() - b.dataHora.getTime());
-    } else {
-      this.solicitacoes = [];
-    }
+  carregarSolicitacoes() {
+    this.solicitacaoUtil.getAll().subscribe({
+      next: (dados) => {
+        this.solicitacoes = dados.map(s => ({
+          ...s,
+          dataHora: new Date(s.dataHora),
+          dataHoraFormatada: this.solicitacaoUtil.formatarDataHora(new Date(s.dataHora)),
+          equipamentoCurto: this.solicitacaoUtil.limitarTexto(s.equipamento, 30)
+        })).sort((a, b) => new Date(b.dataHora).getTime() - new Date(a.dataHora).getTime());
+      },
+      error: (erro) => {
+        console.error('Erro ao buscar solicitações:', erro);
+      }
+    });
   }
 
   //ações
@@ -67,7 +65,13 @@ export class TelaUsuario implements OnInit {
   aprovarRejeitar(id: number) {
     const solicitacao = this.solicitacoes.find(s => s.id === id);
     if (!solicitacao) return;
-    this.aprovarServicoDialog.openDialog(solicitacao);
+    
+    this.aprovarServicoDialog.openDialog(solicitacao)
+      .afterClosed().subscribe(resultado => {
+        if (resultado) {
+          this.carregarSolicitacoes();
+        }
+    });
   }
 
   resgatar(id: number) {
@@ -79,14 +83,12 @@ export class TelaUsuario implements OnInit {
   pagar(id: number) {
     const solicitacao = this.solicitacoes.find(s => s.id === id);
     if (!solicitacao) return;
-    this.pagarServicoDialog.openDialog(solicitacao);
-  }
-
-  atualizarSolicitacao(solicitacao: Solicitacao) {
-    const lista = JSON.parse(localStorage.getItem('solicitacoes') || '[]') as Solicitacao[];
-    const idx = lista.findIndex(s => s.id === solicitacao.id);
-    if (idx >= 0) lista[idx] = solicitacao;
-    else lista.push(solicitacao);
-    localStorage.setItem('solicitacoes', JSON.stringify(lista));
+    
+    this.pagarServicoDialog.openDialog(solicitacao)
+      .afterClosed().subscribe(resultado => {
+        if (resultado) {
+          this.carregarSolicitacoes();
+        }
+      });
   }
 }
