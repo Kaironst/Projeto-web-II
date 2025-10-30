@@ -8,21 +8,23 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
 import web2.grupo6.demo.entity.Cliente;
 import web2.grupo6.demo.repository.ClienteRepository;
 
+@Service
 @AllArgsConstructor
 public class ClienteUserDetailsService implements UserDetailsService {
 
   private final ClienteRepository repo;
 
   @Override
-  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-    // busca o cliente pelo nome de usuário
+  public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    // busca o cliente pelo email
     Cliente probe = new Cliente();
-    probe.setNome(username);
+    probe.setEmail(email);
     Example<Cliente> example = Example.of(probe);
     Cliente cliente = repo.findOne(example).orElseThrow(() -> new UsernameNotFoundException("Usuario não encontrado"));
 

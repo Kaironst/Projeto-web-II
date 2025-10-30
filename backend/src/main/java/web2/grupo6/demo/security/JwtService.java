@@ -7,10 +7,14 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 
+@Service
 public class JwtService {
 
   @Value("${jwt.secret}")
@@ -31,6 +35,7 @@ public class JwtService {
     Date dataAtual = new Date();
     Date dataVencimento = new Date(dataAtual.getTime() + 1000 * 60 * 60);
 
+    // retorna o token (string)
     return Jwts.builder()
         .subject(username)
         .claim("roles", roles)
@@ -41,11 +46,29 @@ public class JwtService {
   }
 
   boolean validateToken(String token, UserDetails userDetails) {
-    throw new UnsupportedOperationException();
+
+    // verifica o token usando a chave e pega os Claims dele
+    Jws<Claims> jws = Jwts.parser()
+        .verifyWith(Keys.hmacShaKeyFor(key.getBytes()))
+        .build()
+        .parseSignedClaims(token);
+
+    // pegaa o usuario e data de expiração do payload de dados do token
+    var payload = jws.getPayload();
+    String username = payload.getSubject();
+    Date dataVencimento = payload.getExpiration();
+
+    return username.equals(userDetails.getUsername()) && dataVencimento.after(new Date());
+
   }
 
   String extractUsername(String token) {
-    throw new UnsupportedOperationException();
+    return Jwts.parser()
+        .verifyWith(Keys.hmacShaKeyFor(key.getBytes()))
+        .build()
+        .parseSignedClaims(token)
+        .getPayload()
+        .getSubject();
   }
 
 }

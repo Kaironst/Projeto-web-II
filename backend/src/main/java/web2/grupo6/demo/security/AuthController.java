@@ -15,15 +15,16 @@ import web2.grupo6.demo.security.dto.LoginRequest;
 import web2.grupo6.demo.security.dto.LoginResponse;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/auth/login")
 @AllArgsConstructor
 public class AuthController {
 
-  private final AuthenticationManager authenticationManager;
+  private final JwtService jwtService;
 
   // responde a uma requisição de login do frontend com o token da pessoa
   @PostMapping("/login")
-  public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
+  public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request,
+      AuthenticationManager authenticationManager) {
 
     // o autenticador aqui precisa de uma bean de passwordencoder para funcionar,
     // ela sempre checa supondo que a senha no banco é encriptada
@@ -37,7 +38,6 @@ public class AuthController {
     UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
     // gera o token jwt em si
-    JwtService jwtService = new JwtService();
     String token = jwtService.generateToken(userDetails);
 
     return ResponseEntity.ok(new LoginResponse(token));
