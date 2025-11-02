@@ -12,6 +12,7 @@ import { GerenciarCategoriasComponent } from './crud_categoria/crud_categoria';
 import { GerenciarFuncionariosComponent } from './crud_funcionario/crud_funcionario';
 import { TelaFuncionarioComponent } from './tela_funcionario/tela_funcionario';
 import { EfetuarManutencaoComponent } from './efetuar-manutencao/efetuar-manutencao';
+import { FinalizarManutencaoComponent } from './finalizar_manutencao/finalizar_manutencao';
 import { VisualizacaoSolicitacoesComponent } from './visualizacao_solicitacoes/visualizacao_solicitacoes';
 
 export const routes: Routes = [
@@ -67,6 +68,10 @@ export const routes: Routes = [
   { 
     path: 'admin/solicitacoes', 
     component: VisualizacaoSolicitacoesComponent 
+  },
+  {
+    path: 'admin/finalizar-manutencao/:id',
+    component: FinalizarManutencaoComponent
   }
 ];
 

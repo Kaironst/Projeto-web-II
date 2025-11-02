@@ -78,3 +78,5 @@ build/
 
 ### VS Code ###
 .vscode/
+nbproject/project.properties
+nbproject/project.xml

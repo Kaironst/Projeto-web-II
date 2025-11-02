@@ -1,0 +1,56 @@
+@if (solicitacao) {
+<div class="page-container">
+  <mat-card class="manutencao-card">
+    <mat-card-header>
+      <mat-card-title class="manutencao-title">
+        Finalizar Manutenção da Solicitação #{{ solicitacao.id }}
+      </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="detalhes-section">
+        <h3>Dados do Cliente</h3>
+        <p><strong>Nome:</strong> {{ solicitacao.cliente?.nome || 'Não informado' }}</p>
+      </div>
+      <div class="detalhes-section">
+        <h3>Dados da Solicitação</h3>
+        <p><strong>Equipamento:</strong> {{ solicitacao.equipamento }}</p>
+        <p><strong>Defeito Descrito:</strong> {{ solicitacao.descDefeito }}</p>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      @if (mostrarFormFinalizacao) {
+        <form [formGroup]="finalizacaoForm" (ngSubmit)="onFinalizarSubmit()" class="manutencao-form">
+          <h3>Detalhes da Finalização</h3>
+          <mat-form-field>
+            <mat-label>Descrição da Finalização</mat-label>
+            <textarea matInput formControlName="descricaoFinalizacao" rows="4"></textarea>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Observações para o Cliente</mat-label>
+            <textarea matInput formControlName="observacoesCliente" rows="3"></textarea>
+          </mat-form-field>
+          <div class="form-actions">
+            <button mat-raised-button color="primary" type="submit" [disabled]="finalizacaoForm.invalid">
+              Confirmar Finalização
+            </button>
+            <button mat-button type="button" (click)="cancelarAcao()">Cancelar</button>
+          </div>
+        </form>
+      } @else {
+        <div class="acoes-principais">
+          <h3>Deseja finalizar esta solicitação?</h3>
+          <button mat-raised-button color="primary" (click)="mostrarFormFinalizacao = true">
+            Finalizar Manutenção
+          </button>
+        </div>
+      }
+    </mat-card-content>
+  </mat-card>
+</div>
+} @else {
+<div class="loading-container">
+  <mat-spinner></mat-spinner>
+</div>
+}
