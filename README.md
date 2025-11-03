@@ -70,7 +70,7 @@ Se não quiser que os outros toquem, coloque o seu nome
 
 - RF011 - Página Inicial de Funcionário:
 
-- RF012 - Efetuar Orçamento:
+- RF012 - Efetuar Orçamento: OK
 
 - RF013 - Visualização de Solicitações: OK Parcial (falta integração com RF016)
 
