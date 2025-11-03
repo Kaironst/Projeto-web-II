@@ -6,74 +6,93 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Solicitacao, SolicitacaoUtil } from '../services/DBUtil/solicitacao-util';
+import { Solicitacao, SolicitacaoUtil, Estado } from '../services/DBUtil/solicitacao-util';
+import { Funcionario } from '../services/DBUtil/funcionario-util';
 
 @Component({
   selector: 'app-efetuar-orcamento',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, CommonModule,
+  imports: [
+    CommonModule,
     ReactiveFormsModule,
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatDividerModule],
+    MatDividerModule,
+    MatProgressSpinnerModule
+  ],
   templateUrl: './efetuar_orcamento.html',
   styleUrls: ['./efetuar_orcamento.css']
 })
 export class EfetuarOrcamentoComponent implements OnInit {
 
-  solicitacao!: Solicitacao;
+  solicitacao: Solicitacao | null = null;
   orcamentoForm!: FormGroup;
 
   private route = inject(ActivatedRoute);
   private router = inject(Router);
-  solicitacaoUtil = inject(SolicitacaoUtil);
+  private solicitacaoUtil = inject(SolicitacaoUtil);
+
+  //substituir quando RF002 for implementado
+  private funcionarioLogado: Funcionario = {
+    id: 1, 
+    nome: 'Funcionário Admin (Mock)',
+    email: 'admin@empresa.com'
+  };
 
   ngOnInit(): void {
     const solicitacaoId = Number(this.route.snapshot.paramMap.get('id'));
-
-    const solucoesString = localStorage.getItem('solicitacoes');
-    if (solucoesString) {
-      const todasSolicitacoes = JSON.parse(solucoesString) as Solicitacao[];
-      const encontrada = todasSolicitacoes.find(s => s.id === solicitacaoId);
-      if (encontrada) {
-        this.solicitacao = encontrada;
-      } else {
-        alert('Solicitação não encontrada!');
-        this.router.navigate(['/']);
-      }
+    if (!solicitacaoId) {
+      this.router.navigate(['/admin/tela-funcionario']);
+      return;
     }
 
     this.orcamentoForm = new FormGroup({
       valorOrcado: new FormControl(null, [Validators.required, Validators.min(0.01)])
     });
+
+    this.solicitacaoUtil.get(solicitacaoId).subscribe({
+      next: (dados) => {
+        this.solicitacao = dados;
+        if (dados.valorOrcamento) {
+          this.orcamentoForm.patchValue({ valorOrcado: dados.valorOrcamento });
+        }
+      },
+      error: (err) => {
+        console.error('Erro ao buscar solicitação:', err);
+        alert('Solicitação não encontrada!');
+        this.router.navigate(['/admin/tela-funcionario']);
+      }
+    });
   }
 
   onSubmit(): void {
-    if (this.orcamentoForm.valid && this.solicitacao) {
-      const valor = this.orcamentoForm.value.valorOrcado;
-
-      this.solicitacao.valorOrcamento = valor;
-      this.solicitacao.estado = this.solicitacaoUtil.estado.Orcada;
-      this.solicitacao.dataOrcamento = new Date();
-      if (this.solicitacao.funcionario != null)
-        this.solicitacao.funcionario.nome = 'Funcionario Logado';
-
-      const solucoesString = localStorage.getItem('solicitacoes');
-      if (solucoesString) {
-        let todasSolicitacoes = JSON.parse(solucoesString) as Solicitacao[];
-
-        const index = todasSolicitacoes.findIndex(s => s.id === this.solicitacao.id);
-        if (index !== -1) {
-          todasSolicitacoes[index] = this.solicitacao;
-          localStorage.setItem('solicitacoes', JSON.stringify(todasSolicitacoes));
-
-          alert(`Orçamento de R$ ${valor} registrado com sucesso!`);
-          this.router.navigate(['/']);
-        }
-      }
+    if (this.orcamentoForm.invalid || !this.solicitacao?.id) {
+      return;
     }
+
+    const valor = this.orcamentoForm.value.valorOrcado;
+
+    const solicitacaoAtualizada: Solicitacao = {
+      ...this.solicitacao,
+      valorOrcamento: valor,
+      estado: Estado.Orcada,
+      dataOrcamento: new Date(),
+      funcionario: this.funcionarioLogado
+    };
+
+    this.solicitacaoUtil.update(this.solicitacao.id, solicitacaoAtualizada).subscribe({
+      next: () => {
+        alert(`Orçamento de R$ ${valor} registrado com sucesso!`);
+        this.router.navigate(['/admin/tela-funcionario']);
+      },
+      error: (err) => {
+        console.error('Erro ao salvar orçamento:', err);
+        alert('Falha ao registrar orçamento.');
+      }
+    });
   }
 }

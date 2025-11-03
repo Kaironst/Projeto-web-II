@@ -78,7 +78,7 @@ Se não quiser que os outros toquem, coloque o seu nome
 
 - RF015 - Redirecionar Manutenção: OK
 
-- RF016 - Finalizar Solicitação:
+- RF016 - Finalizar Solicitação: OK
 
 - RF017 - CRUD de Categoria de Equipamento: OK
 
