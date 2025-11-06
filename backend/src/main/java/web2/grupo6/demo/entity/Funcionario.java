@@ -29,6 +29,7 @@ public class Funcionario {
   private List<Solicitacao> solicitacoesRecebidas; // fora do ts
 
   private String email;
+  private String senha;
   private String nome;
   private Date dataNascimento;
   private boolean admin;

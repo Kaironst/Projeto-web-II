@@ -15,7 +15,7 @@ import web2.grupo6.demo.security.dto.LoginRequest;
 import web2.grupo6.demo.security.dto.LoginResponse;
 
 @RestController
-@RequestMapping("/api/auth/login")
+@RequestMapping("/api/auth/usuario/login")
 @AllArgsConstructor
 public class AuthController {
 

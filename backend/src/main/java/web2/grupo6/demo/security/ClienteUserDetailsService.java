@@ -12,28 +12,50 @@ import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
 import web2.grupo6.demo.entity.Cliente;
+import web2.grupo6.demo.entity.Funcionario;
 import web2.grupo6.demo.repository.ClienteRepository;
+import web2.grupo6.demo.repository.FuncionarioRepository;
 
 @Service
 @AllArgsConstructor
 public class ClienteUserDetailsService implements UserDetailsService {
 
-  private final ClienteRepository repo;
+  private final ClienteRepository clienteRepo;
+  private final FuncionarioRepository funcionarioRepo;
 
+  // cria um objeto de usuário para uso do spring security com os roles baseados
+  // na classe de escolha
   @Override
   public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-    // busca o cliente pelo email
-    Cliente probe = new Cliente();
-    probe.setEmail(email);
-    Example<Cliente> example = Example.of(probe);
-    Cliente cliente = repo.findOne(example).orElseThrow(() -> new UsernameNotFoundException("Usuario não encontrado"));
+    // busca pelo cliente
+    Cliente probeCliente = new Cliente();
+    probeCliente.setEmail(email);
+    Example<Cliente> exampleCliente = Example.of(probeCliente);
 
-    return new User(
-        cliente.getEmail(),
-        cliente.getSenha(),
-        // "ROLE_" é o prefíxo padrão para permissões que são consideradas cargo.
-        // o construtor deve receber uma lista de autoridades do usuário
-        List.of(new SimpleGrantedAuthority("ROLE_CLIENTE")));
+    // busca pelo funcionario
+    Funcionario probeFuncionario = new Funcionario();
+    probeFuncionario.setEmail(email);
+    Example<Funcionario> exampleFuncionario = Example.of(probeFuncionario);
+
+    // forma o usuário de retorno a partir dos dados da classe encontrada
+    User returnUser = clienteRepo.findOne(exampleCliente).map(c -> new User(
+        c.getEmail(),
+        c.getSenha(),
+        List.of(new SimpleGrantedAuthority("ROLE_CLIENTE"))))
+        .orElseGet(() -> funcionarioRepo.findOne(exampleFuncionario).map(f -> {
+          var roles = List.of(new SimpleGrantedAuthority("ROLE_FUNCIONARIO"));
+          if (f.isAdmin())
+            roles.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+          return new User(
+              f.getEmail(),
+              f.getSenha(),
+              roles);
+        }).orElse(null));
+
+    if (returnUser == null)
+      throw new UsernameNotFoundException("usuario não encontrado");
+    return returnUser;
+
   }
 
 }
