@@ -3,6 +3,7 @@ package web2.grupo6.demo.controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,10 +23,14 @@ import web2.grupo6.demo.repository.ClienteRepository;
 public class ClienteController {
 
   private final ClienteRepository repo;
+  private final PasswordEncoder passwordEncoder;
 
   @PostMapping // responde a requisições post
-  public Cliente newCliente(@RequestBody Cliente cadastro) {
-    return repo.save(cadastro);
+  public Cliente newCliente(@RequestBody Cliente cliente) {
+    // hash na senha do cliente
+    cliente.setSenha(passwordEncoder.encode(cliente.getSenha()));
+
+    return repo.save(cliente);
   }
 
   @GetMapping
@@ -41,6 +46,8 @@ public class ClienteController {
   @PutMapping("/{id}")
   public Cliente updateCliente(@PathVariable Long id, @RequestBody Cliente cliente) {
     Cliente clienteAtual = repo.findById(id).orElseThrow();
+    if (!clienteAtual.getSenha().equals(cliente.getSenha()))
+      clienteAtual.setSenha(passwordEncoder.encode(cliente.getSenha()));
     clienteAtual.setNome(cliente.getNome());
     clienteAtual.setEmail(cliente.getEmail());
     clienteAtual.setTelefone(cliente.getTelefone());

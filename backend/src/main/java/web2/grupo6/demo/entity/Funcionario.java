@@ -25,9 +25,6 @@ public class Funcionario {
   @OneToMany(mappedBy = "funcionario")
   private List<Solicitacao> solicitacoes;
 
-  @OneToMany(mappedBy = "funcionarioRedirecionado")
-  private List<Solicitacao> solicitacoesRecebidas; // fora do ts
-
   private String email;
   private String senha;
   private String nome;

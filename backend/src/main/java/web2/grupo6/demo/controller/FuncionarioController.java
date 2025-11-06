@@ -3,6 +3,7 @@ package web2.grupo6.demo.controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,9 +23,13 @@ import web2.grupo6.demo.repository.FuncionarioRepository;
 public class FuncionarioController {
 
   private final FuncionarioRepository repo;
+  private final PasswordEncoder passwordEncoder;
 
   @PostMapping // responde a requisições post
   public Funcionario newFuncionario(@RequestBody Funcionario funcionario) {
+    // hash na senha antes de salvar no banco
+    funcionario.setSenha(passwordEncoder.encode(funcionario.getSenha()));
+
     return repo.save(funcionario);
   }
 
@@ -41,10 +46,13 @@ public class FuncionarioController {
   @PutMapping("/{id}")
   public Funcionario updateFuncionario(@PathVariable Long id, @RequestBody Funcionario funcionario) {
     Funcionario funcionarioAtual = repo.findById(id).orElseThrow();
+    if (!funcionarioAtual.getSenha().equals(funcionario.getSenha()))
+      funcionarioAtual.setSenha(passwordEncoder.encode(funcionario.getSenha()));
     funcionarioAtual.setNome(funcionario.getNome());
     funcionarioAtual.setEmail(funcionario.getEmail());
     funcionarioAtual.setDataNascimento(funcionario.getDataNascimento());
     funcionarioAtual.setAdmin(funcionario.isAdmin());
+    funcionarioAtual.setSolicitacoes(funcionario.getSolicitacoes());
     return repo.save(funcionarioAtual);
   }
 

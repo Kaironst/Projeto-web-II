@@ -28,7 +28,6 @@ public class AuthController {
 
     // o autenticador aqui precisa de uma bean de passwordencoder para funcionar,
     // ela sempre checa supondo que a senha no banco é encriptada
-    // TODO: Adicionar sha+salt para essa parte funcionar no @bean PasswordEncoder
     Authentication authentication = authenticationManager.authenticate(
         // request.getUsername implicitamente chama a "ClienteUserDetailsService" isso é
         // preocupante para adicionar o login de funcionario
