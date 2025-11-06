@@ -36,6 +36,10 @@ export class FuncionarioUtil extends ContatoComBanco {
     return this.http.get<Funcionario[]>(this.requestUrl);
   }
 
+  getByEmail(email: string): Observable<Funcionario> {
+    return this.http.get<Funcionario>(`${this.requestUrl}/email/${email}`);
+  }
+
   get(id: number): Observable<Funcionario> {
     return this.http.get<Funcionario>(`${this.requestUrl}/${id}`);
   }

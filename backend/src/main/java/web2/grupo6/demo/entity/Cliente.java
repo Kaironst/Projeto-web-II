@@ -2,6 +2,7 @@ package web2.grupo6.demo.entity;
 
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -24,6 +25,7 @@ public class Cliente {
   @OneToMany(mappedBy = "cliente")
   private List<Solicitacao> solicitacoes;
 
+  @Column(unique = true)
   private String email;
   private String nome;
   private String cpf;

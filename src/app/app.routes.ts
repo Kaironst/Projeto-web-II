@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { SolicitarManutencaoComponent } from './solicitar_manutencao/solicitar_manutencao';
 import { TelaUsuario } from './tela_usuario/tela_usuario';
 import { TelaPrincipal } from './tela_principal/tela_principal';
-import { Login } from './navbar/login/login';
+import { Login } from './login/login';
 import { Cadastro } from './cadastro/cadastro';
 import { OrcamentoComponent } from './orcamento/orcamento';
 import { EfetuarOrcamentoComponent } from './efetuar_orcamento/efetuar_orcamento';
@@ -65,9 +65,9 @@ export const routes: Routes = [
     path: 'admin/efetuar-manutencao/:id',
     component: EfetuarManutencaoComponent
   },
-  { 
-    path: 'admin/solicitacoes', 
-    component: VisualizacaoSolicitacoesComponent 
+  {
+    path: 'admin/solicitacoes',
+    component: VisualizacaoSolicitacoesComponent
   },
   {
     path: 'admin/finalizar-manutencao/:id',

@@ -32,7 +32,11 @@ export class ClienteUtil extends ContatoComBanco {
   }
 
   get(id: number): Observable<Cliente> {
-    return this.http.get<Cliente>(`${this.requestUrl}/${id}`)
+    return this.http.get<Cliente>(`${this.requestUrl}/${id}`);
+  }
+
+  getByEmail(email: string): Observable<Cliente> {
+    return this.http.get<Cliente>(`${this.requestUrl}/email/${email}`);
   }
 
   update(id: number, cliente: Cliente): Observable<Cliente> {

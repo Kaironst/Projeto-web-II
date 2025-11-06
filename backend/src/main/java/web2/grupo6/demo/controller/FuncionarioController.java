@@ -43,6 +43,11 @@ public class FuncionarioController {
     return repo.findById(id).orElseThrow();
   }
 
+  @GetMapping("/email/{email}")
+  public Funcionario getFuncionarioByEmail(@PathVariable String email) {
+    return repo.findByEmail(email);
+  }
+
   @PutMapping("/{id}")
   public Funcionario updateFuncionario(@PathVariable Long id, @RequestBody Funcionario funcionario) {
     Funcionario funcionarioAtual = repo.findById(id).orElseThrow();

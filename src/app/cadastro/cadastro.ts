@@ -2,14 +2,15 @@ import { Component, inject } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ControlEvent, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
-import { Router } from '@angular/router';
 import { MatCard, MatCardHeader, MatCardTitle, MatCardSubtitle, MatCardActions, MatCardContent } from "@angular/material/card";
 import { ClienteUtil, Cliente } from '../services/DBUtil/cliente-util';
 import { ControlaForm } from '../services/controla-form';
 import { CepService } from '../services/cep';
-import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
+import { switchMap, throwError } from 'rxjs';
+import { Usuario } from '../shared/models/usuario.model';
 
 @Component({
   selector: 'app-cadastro',
@@ -22,21 +23,47 @@ import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 })
 export class Cadastro {
 
-  cadastroService = inject(ClienteUtil);
-  private router = inject(Router);
   formService = inject(ControlaForm);
+  cadastroService = inject(ClienteUtil);
+  cepService = inject(CepService);
+  formGroup: FormGroup;
+
+  constructor() {
+
+    this.formGroup = new FormGroup({
+      email: new FormControl('', [Validators.required, Validators.email]),
+      nome: new FormControl('', [Validators.required]),
+      cpf: new FormControl('', [Validators.required, Validators.minLength(11), Validators.maxLength(11), this.formService.cpfValidator()]),
+      cep: new FormControl('', [Validators.required]),
+      telefone: new FormControl('', [Validators.required])
+    })
+
+
+  }
 
   criarNovo(): void {
-    if (this.formService.formCadastro.valid) {
+    if (this.formGroup.valid) {
       let novo: Cliente = {
-        ...this.formService.formCadastro.value,
+        ...this.formGroup.value,
         senha: this.cadastroService.gerarSenha()
       }
 
-      this.cadastroService.criar(novo).subscribe({
-        next: (res) => console.log('Usuário cadastrado!', res),
-        error: (err) => console.error('Erro ao cadastrar', err)
+      this.cadastroService.getByEmail(novo.email!).pipe(
+        switchMap(cliente => {
+          if (cliente) {
+            console.error("email já existe");
+            alert("o email já existe");
+            return throwError(() => new Error("Email já existe"));
+          }
+          else
+            return this.cadastroService.criar(novo)
+
+        })
+      ).subscribe({
+        next: (res) => console.log("Usuario cadastrado", res),
+        error: (err) => console.error("falha no cadastro", err)
       });
+
 
     }
   }
@@ -47,7 +74,6 @@ export class Cadastro {
   cidade = '';
   uf = '';
 
-  constructor(private cepService: CepService) { }
 
   onCepChange() {
     const cep = this.cepControl.value?.replace(/\D/g, '');

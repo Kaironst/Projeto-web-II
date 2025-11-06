@@ -34,7 +34,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 })
 export class Auth {
 
-  private apiUrl = "https://localhost8080/api/auth/login";
+  private apiUrl = "http://localhost:8080/api/auth/login";
 
   http = inject(HttpClient);
 

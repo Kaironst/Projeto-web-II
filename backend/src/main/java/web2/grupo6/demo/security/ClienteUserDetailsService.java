@@ -2,7 +2,6 @@ package web2.grupo6.demo.security;
 
 import java.util.List;
 
-import org.springframework.data.domain.Example;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -27,34 +26,32 @@ public class ClienteUserDetailsService implements UserDetailsService {
   // na classe de escolha
   @Override
   public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-    // busca pelo cliente
-    Cliente probeCliente = new Cliente();
-    probeCliente.setEmail(email);
-    Example<Cliente> exampleCliente = Example.of(probeCliente);
 
-    // busca pelo funcionario
-    Funcionario probeFuncionario = new Funcionario();
-    probeFuncionario.setEmail(email);
-    Example<Funcionario> exampleFuncionario = Example.of(probeFuncionario);
+    UserDetails returnUser = null;
 
-    // forma o usuário de retorno a partir dos dados da classe encontrada
-    User returnUser = clienteRepo.findOne(exampleCliente).map(c -> new User(
-        c.getEmail(),
-        c.getSenha(),
-        List.of(new SimpleGrantedAuthority("ROLE_CLIENTE"))))
-        .orElseGet(() -> funcionarioRepo.findOne(exampleFuncionario).map(f -> {
-          var roles = List.of(new SimpleGrantedAuthority("ROLE_FUNCIONARIO"));
-          if (f.isAdmin())
-            roles.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-          return new User(
-              f.getEmail(),
-              f.getSenha(),
-              roles);
-        }).orElse(null));
+    Cliente cliente = clienteRepo.findByEmail(email);
+    if (cliente != null) {
+      var roles = List.of(new SimpleGrantedAuthority("ROLE_CLIENTE"));
+      returnUser = new User(
+          cliente.getEmail(),
+          cliente.getSenha(),
+          roles);
+      return returnUser;
+    }
+    Funcionario funcionario = funcionarioRepo.findByEmail(email);
+    if (funcionario != null) {
+      var roles = List.of(new SimpleGrantedAuthority("ROLE_FUNCIONARIO"));
+      if (funcionario.isAdmin())
+        roles.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+      returnUser = new User(
+          funcionario.getEmail(),
+          funcionario.getSenha(),
+          roles);
+      return returnUser;
+    }
 
-    if (returnUser == null)
-      throw new UsernameNotFoundException("usuario não encontrado");
-    return returnUser;
+    System.out.println("usuario não encontrado");
+    throw new UsernameNotFoundException("usuario não encontrado");
 
   }
 

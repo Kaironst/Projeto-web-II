@@ -43,6 +43,11 @@ public class ClienteController {
     return repo.findById(id).orElseThrow();
   }
 
+  @GetMapping("/email/{email}")
+  public Cliente getClienteByEmail(@PathVariable String email) {
+    return repo.findByEmail(email);
+  }
+
   @PutMapping("/{id}")
   public Cliente updateCliente(@PathVariable Long id, @RequestBody Cliente cliente) {
     Cliente clienteAtual = repo.findById(id).orElseThrow();
