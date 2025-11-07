@@ -1,6 +1,6 @@
-import { HttpClient, HttpInterceptorFn } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { catchError, Observable, tap, throwError } from 'rxjs';
 
 export interface LoginRequest {
   username: string;
@@ -13,19 +13,27 @@ export interface LoginResponse {
 
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
+  console.log("interceptor Called");
   const auth = inject(Auth);
+  let newReq = req;
   //clona o token e continua os filtros com o novo token
   if (auth.isLoggedIn()) {
-    return next(req.clone({
+    newReq = newReq.clone({
       setHeaders: {
         Authorization: `Bearer ${auth.getToken()}`,
       },
-    }));
+    });
   }
-
   //continua os interceptors já que não havia um usuário
-  return next(req);
-
+  return next(newReq)
+    //checa se o token se tornou inválido
+    .pipe(catchError((err: HttpErrorResponse) => {
+      if (err.status === 401) {
+        console.warn("token inválido ou vencido. Deslogando");
+        auth.logout();
+      }
+      return throwError(() => err);
+    }));
 }
 
 // serviço simples que essencialmente coloca, remove e acessa o token jwt do login dentro do sistema

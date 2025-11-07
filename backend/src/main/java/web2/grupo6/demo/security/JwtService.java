@@ -33,7 +33,7 @@ public class JwtService {
         .collect(Collectors.toList());
 
     Date dataAtual = new Date();
-    Date dataVencimento = new Date(dataAtual.getTime() + 1000 * 60 * 60);
+    Date dataVencimento = new Date(dataAtual.getTime() + 1000 * 60 * 60 * 10);
 
     // retorna o token (string)
     return Jwts.builder()
