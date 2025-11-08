@@ -23,6 +23,7 @@ public class AuthController {
 
   private final AuthenticationManager authenticationManager;
   private final JwtService jwtService;
+  private final ClienteUserDetailsService userDetailsService;
 
   // responde a uma requisição de login do frontend com o token da pessoa
   @PostMapping("/login")
@@ -47,6 +48,12 @@ public class AuthController {
     } catch (BadCredentialsException e) {
       return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new LoginResponse("unauthorized"));
     }
-
   }
+
+  @PostMapping("/validate")
+  public ResponseEntity<Boolean> validate(@RequestBody String token) {
+    var userDetails = userDetailsService.loadUserByUsername(jwtService.extractUsername(token));
+    return ResponseEntity.status(HttpStatus.OK).body(jwtService.validateToken(token, userDetails));
+  }
+
 }
