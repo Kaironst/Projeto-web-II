@@ -14,6 +14,7 @@ import { TelaFuncionarioComponent } from './tela_funcionario/tela_funcionario';
 import { EfetuarManutencaoComponent } from './efetuar-manutencao/efetuar-manutencao';
 import { FinalizarManutencaoComponent } from './finalizar_manutencao/finalizar_manutencao';
 import { VisualizacaoSolicitacoesComponent } from './visualizacao_solicitacoes/visualizacao_solicitacoes';
+import { authGuard } from './services/autenticacao/auth';
 
 export const routes: Routes = [
   {
@@ -23,15 +24,19 @@ export const routes: Routes = [
   },
   {
     path: 'solicitar_manutencao',
-    component: SolicitarManutencaoComponent
+    component: SolicitarManutencaoComponent,
+    canActivate: [authGuard],
+    data: { roles: ["ROLE_ADMIN", "ROLE_CLIENTE"] }
   },
   {
     path: 'tela_usuario',
-    component: TelaUsuario
+    component: TelaUsuario,
+    canActivate: [authGuard],
+    data: { roles: ["ROLE_ADMIN", "ROLE_CLIENTE"] }
   },
   {
     path: 'login',
-    component: Login
+    component: Login,
   },
   {
     path: 'cadastro',
@@ -39,39 +44,57 @@ export const routes: Routes = [
   },
   {
     path: 'orcamento/:id',
-    component: OrcamentoComponent
+    component: OrcamentoComponent,
+    canActivate: [authGuard],
+    data: { roles: ["ROLE_ADMIN", "ROLE_FUNCIONARIO"] }
   },
   {
     path: 'admin/efetuar-orcamento/:id',
-    component: EfetuarOrcamentoComponent
+    component: EfetuarOrcamentoComponent,
+    canActivate: [authGuard],
+    data: { roles: ["ROLE_ADMIN", "ROLE_FUNCIONARIO"] }
   },
   {
     path: 'lista-cadastros',
-    component: ListaCadastros
+    component: ListaCadastros,
+    canActivate: [authGuard],
+    data: { roles: ["ROLE_ADMIN", "ROLE_FUNCIONARIO"] }
   },
   {
     path: 'admin/categorias',
-    component: GerenciarCategoriasComponent
+    component: GerenciarCategoriasComponent,
+    canActivate: [authGuard],
+    data: { roles: ["ROLE_ADMIN", "ROLE_FUNCIONARIO"] }
   },
   {
     path: 'admin/funcionarios',
-    component: GerenciarFuncionariosComponent
+    component: GerenciarFuncionariosComponent,
+    canActivate: [authGuard],
+    data: { roles: ["ROLE_ADMIN"] }
   },
   {
     path: 'admin/tela-funcionario',
-    component: TelaFuncionarioComponent
+    component: TelaFuncionarioComponent,
+    canActivate: [authGuard],
+    data: { roles: ["ROLE_ADMIN", "ROLE_FUNCIONARIO"] }
   },
   {
     path: 'admin/efetuar-manutencao/:id',
-    component: EfetuarManutencaoComponent
+    component: EfetuarManutencaoComponent,
+    canActivate: [authGuard],
+    data: { roles: ["ROLE_ADMIN", "ROLE_FUNCIONARIO"] }
   },
   {
     path: 'admin/solicitacoes',
-    component: VisualizacaoSolicitacoesComponent
+    component: VisualizacaoSolicitacoesComponent,
+    canActivate: [authGuard],
+    data: { roles: ["ROLE_ADMIN", "ROLE_FUNCIONARIO"] }
   },
   {
     path: 'admin/finalizar-manutencao/:id',
-    component: FinalizarManutencaoComponent
+    component: FinalizarManutencaoComponent,
+    canActivate: [authGuard],
+    data: { roles: ["ROLE_ADMIN", "ROLE_FUNCIONARIO"] }
   }
 ];
 

@@ -19,13 +19,19 @@ export interface LoginResponse {
 export const authGuard: CanActivateFn = (route: ActivatedRouteSnapshot) => {
   const auth = inject(Auth);
   const cargosDeAcesso = route.data['roles'] as string[];
-  let retorno: boolean = true;
+
+  if (!auth.isLoggedIn()) {
+    console.warn("não há login ativo");
+    alert("Por favor, realize login");
+    return of(false);
+  }
 
   return auth.validateToken().pipe(
     map((tokenValido) => {
 
       if (!tokenValido) {
         console.warn("token inválido");
+        alert("token inválido");
         auth.logout();
         return false;
       }

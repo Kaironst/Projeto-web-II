@@ -45,7 +45,7 @@ public class FuncionarioController {
 
   @GetMapping("/email/{email}")
   public Funcionario getFuncionarioByEmail(@PathVariable String email) {
-    return repo.findByEmail(email);
+    return repo.findByEmailIgnoreCase(email);
   }
 
   @PutMapping("/{id}")

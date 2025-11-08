@@ -9,10 +9,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity // diz para o jpa que a classe é mapeada para uma tabela do mesmo nome
+@Builder
 @Data
 @AllArgsConstructor // anotações do lombok para geração de getters e setters em todos os métodos e
 @NoArgsConstructor // construtor com todos e nenhum argumento

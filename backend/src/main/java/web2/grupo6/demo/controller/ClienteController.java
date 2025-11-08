@@ -45,7 +45,7 @@ public class ClienteController {
 
   @GetMapping("/email/{email}")
   public Cliente getClienteByEmail(@PathVariable String email) {
-    return repo.findByEmail(email);
+    return repo.findByEmailIgnoreCase(email);
   }
 
   @PutMapping("/{id}")
@@ -59,6 +59,7 @@ public class ClienteController {
     clienteAtual.setSenha(cliente.getSenha());
     clienteAtual.setCpf(cliente.getCpf());
     clienteAtual.setCep(cliente.getCep());
+    clienteAtual.setSolicitacoes(cliente.getSolicitacoes());
     return repo.save(clienteAtual);
   }
 

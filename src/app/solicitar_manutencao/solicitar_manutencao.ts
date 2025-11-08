@@ -7,7 +7,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Categoria } from '../services/DBUtil/categoria-util';
+import { Categoria, CategoriaUtil } from '../services/DBUtil/categoria-util';
 import { Solicitacao, SolicitacaoUtil } from '../services/DBUtil/solicitacao-util';
 
 
@@ -34,11 +34,11 @@ export class SolicitarManutencaoComponent implements OnInit {
 
   private route = inject(ActivatedRoute);
   private router = inject(Router);
+  private categoriaUtil = inject(CategoriaUtil);
   private solicitacaoUtil = inject(SolicitacaoUtil);
 
   private carregarCategorias(): void {
-    const categoriasString = localStorage.getItem('categorias');
-    this.categorias = categoriasString ? JSON.parse(categoriasString) : [];
+    this.categoriaUtil.getAll().subscribe(categorias => { this.categorias = categorias; });
   }
 
   ngOnInit(): void {

@@ -29,7 +29,7 @@ public class ClienteUserDetailsService implements UserDetailsService {
 
     UserDetails returnUser = null;
 
-    Cliente cliente = clienteRepo.findByEmail(email);
+    Cliente cliente = clienteRepo.findByEmailIgnoreCase(email);
     if (cliente != null) {
       var roles = List.of(new SimpleGrantedAuthority("ROLE_CLIENTE"));
       returnUser = new User(
@@ -38,7 +38,7 @@ public class ClienteUserDetailsService implements UserDetailsService {
           roles);
       return returnUser;
     }
-    Funcionario funcionario = funcionarioRepo.findByEmail(email);
+    Funcionario funcionario = funcionarioRepo.findByEmailIgnoreCase(email);
     if (funcionario != null) {
       var roles = List.of(new SimpleGrantedAuthority("ROLE_FUNCIONARIO"));
       if (funcionario.isAdmin())

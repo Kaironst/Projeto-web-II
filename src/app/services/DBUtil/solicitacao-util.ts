@@ -53,7 +53,7 @@ export class SolicitacaoUtil extends ContatoComBanco {
 
   public estado = Estado;
   protected http = inject(HttpClient);
-  protected requestUrl = "https://localhost:8080/api/solicitacoes";
+  protected requestUrl = "http://localhost:8080/api/solicitacoes";
 
   criar(solicitacao: Solicitacao): Observable<Solicitacao> {
     return this.http.post<Solicitacao>(this.requestUrl, solicitacao);
