@@ -10,7 +10,6 @@ import { ControlaForm } from '../services/controla-form';
 import { CepService } from '../services/cep';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { switchMap, throwError } from 'rxjs';
-import { Usuario } from '../shared/models/usuario.model';
 
 @Component({
   selector: 'app-cadastro',
