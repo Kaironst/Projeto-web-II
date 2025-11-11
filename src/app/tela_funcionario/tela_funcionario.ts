@@ -22,22 +22,20 @@ export class TelaFuncionarioComponent implements OnInit {
   }
 
   carregarSolicitacoes(): void {
-    const solucoesString = localStorage.getItem('solicitacoes');
-    if (!solucoesString) {
-      this.solicitacoesAbertas = [];
-      return;
-    }
+    this.solicitacaoUtil.getAll().subscribe({
+      next: (todasSolicitacoes) => {
+        const solicitacoesFiltradas = todasSolicitacoes.filter(s => s.estado === this.solicitacaoUtil.estado.Aberta);
 
-    const todasSolicitacoes = JSON.parse(solucoesString) as Solicitacao[];
-
-    const solicitacoesFiltradas = todasSolicitacoes.filter(s => s.estado === this.solicitacaoUtil.estado.Aberta);
-
-    this.solicitacoesAbertas = solicitacoesFiltradas.map(s => ({
-      ...s,
-      dataHora: new Date(s.dataHora),
-    }));
-
-    this.solicitacoesAbertas.sort((a, b) => new Date(a.dataHora).getTime() - new Date(b.dataHora).getTime());
+        this.solicitacoesAbertas = solicitacoesFiltradas.map(s => ({
+          ...s,
+          dataHora: new Date(s.dataHora),
+        })).sort((a, b) => new Date(a.dataHora).getTime() - new Date(b.dataHora).getTime());
+      },
+      error: (err) => {
+        console.error('Erro ao carregar solicitações para funcionário:', err);
+        this.solicitacoesAbertas = [];
+      }
+    });
   }
 
   efetuarOrcamento(id: number): void {

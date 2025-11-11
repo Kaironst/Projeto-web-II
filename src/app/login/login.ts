@@ -62,6 +62,7 @@ export class Login {
       this.auth.login({ username: this.formGroup.controls['email'].value, password: this.formGroup.controls['senha'].value }).pipe(first()).subscribe({
         next: () => {
           console.log("token salvo");
+          alert('Login efetuado com sucesso!');
         },
         error: () => {
           console.error("erro no login");
