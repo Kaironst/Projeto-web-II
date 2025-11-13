@@ -1,6 +1,7 @@
 package web2.grupo6.demo.entity;
 
-import java.sql.Date;
+import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties; 
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,27 +23,33 @@ public class Solicitacao {
   private long id;
 
   @ManyToOne
+  @JsonIgnoreProperties("solicitacoes")
   private Categoria categEquipamento;
 
   @ManyToOne
+  @JsonIgnoreProperties("solicitacoes")
   private Cliente cliente;
 
   @ManyToOne
+  @JsonIgnoreProperties("solicitacoes")
   private Funcionario funcionario;
 
   @ManyToOne
+  @JsonIgnoreProperties("solicitacoes")
   private Funcionario funcionarioRedirecionado;
 
   private String equipamento;
   private String descDefeito;
   private Date dataHora;
   private int estado;
-  private int valorOrcamento;
-  private int dataOrcamento;
+  private double valorOrcamento;
+  private Date dataOrcamento;
 
   private String descricaoManutencao;
   private String orientacoesCliente;
   private Date dataManutencao;
 
   private Date dataFechamento;
+
+  private String motivoRejeicao;  
 }

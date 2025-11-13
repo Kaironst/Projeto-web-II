@@ -18,7 +18,7 @@
       <div class="detalhes-section">
         <h3>Dados da Solicitação</h3>
         <p><strong>Equipamento:</strong> {{ solicitacao.equipamento }}</p>
-        <p><strong>Categoria:</strong> {{ solicitacao.categEquipamento }}</p>
+        <p><strong>Categoria:</strong> {{ solicitacao.categEquipamento?.nome }}</p>
         <p><strong>Defeito Descrito:</strong> {{ solicitacao.descDefeito }}</p>
         <p><strong>Data da Solicitação:</strong> {{ solicitacao.dataHora | date:'dd/MM/yyyy HH:mm' }}</p>
       </div>

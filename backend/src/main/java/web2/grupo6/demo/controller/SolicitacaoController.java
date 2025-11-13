@@ -24,7 +24,7 @@ public class SolicitacaoController {
   private final SolicitacaoRepository repo;
 
   @PostMapping
-  public Solicitacao newSolicitacao(Solicitacao solicitacao) {
+  public Solicitacao newSolicitacao(@RequestBody Solicitacao solicitacao) {
     return repo.save(solicitacao);
   }
 
