@@ -51,8 +51,6 @@ Se não quiser que os outros toquem, coloque o seu nome
 - Testar o redirecionamento
 - Alterar a data do filtro de solicitacoes de MM/DD/YYYY para DD/MM/YYYY
 
-- alterei o botao acao da tela solicitacoes pra ficar melhor encaixado, integrei o RF016 a tela solicitacoes e adicionei a tela de solicitacoes pra navbar
-
 ## requisitos
 - RF001 - Autocadastro:
 
