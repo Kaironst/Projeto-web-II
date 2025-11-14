@@ -21,8 +21,10 @@
       </div>
 
       <div class="actions">
-        <button (click)="visualizar(s.id!)">Visualizar</button>
-
+        @if (s.estado !== enum.Aprovada){
+          <button (click)="visualizar(s.id!)">Visualizar</button>
+        }
+        
         @if (s.estado === enum.Orcada) {
           <button class="btn-aprovar" (click)="aprovarRejeitar(s.id!)">
             Aprovar/Rejeitar

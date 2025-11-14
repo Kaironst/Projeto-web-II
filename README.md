@@ -52,11 +52,11 @@ Se não quiser que os outros toquem, coloque o seu nome
 
 - RF002 - Login:
 
-- RF003 - Página Inicial de Cliente: OK
+- RF003 - Página Inicial de Cliente: histórico de atualilzações falta testar ; dar reload na pagina ao rejeitar
 
-- RF004 - Solicitação de Manutenção: (implementação com o local storage)
+- RF004 - Solicitação de Manutenção: OK
 
-- RF005 - Mostrar orçamento: (implementação com o local storage)
+- RF005 - Mostrar orçamento: OK
 
 - RF006 - Aprovar Serviço: (implementação com o local storage)
 
@@ -68,7 +68,7 @@ Se não quiser que os outros toquem, coloque o seu nome
 
 - RF010 - Pagar Serviço: OK
 
-- RF011 - Página Inicial de Funcionário:
+- RF011 - Página Inicial de Funcionário: OK
 
 - RF012 - Efetuar Orçamento: OK
 
@@ -92,14 +92,14 @@ Requisitos mínimos:
 
 - RF001
 - RF002
-- RF003 OK
-- RF004
-- RF005
-- RF006
-- RF011
-- RF012
-- RF017
-- RF018
+- RF003 falta coisas
+- RF004 OK
+- RF005 OK
+- RF006 OK
+- RF011 OK
+- RF012 OK
+- RF017 OK 
+- RF018 
 
 ## requisitos não funcionais
 

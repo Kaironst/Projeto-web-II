@@ -1,17 +1,40 @@
-<h2 mat-dialog-title>Detalhes da Solicitação</h2>
+<h2 mat-dialog-title>Detalhes da Solicitação #{{ data.s.id }}</h2>
 <mat-dialog-content>
-  <p><strong>ID:</strong> {{ data.s.id }}</p>
-  <p><strong>Data/Hora:</strong> {{ data.s.dataHoraFormatada }}</p>
+  <p><strong>Data/Hora Abertura:</strong> {{ data.s.dataHora | date:'dd/MM/yyyy HH:mm' }}</p>
   <p><strong>Equipamento:</strong> {{ data.s.equipamento }}</p>
   @if (data.s.categEquipamento?.nome) {
     <p><strong>Categoria:</strong> {{ data.s.categEquipamento?.nome }} </p>
   }
-  <p><strong>Defeito</strong> {{ data.s.descDefeito }} </p>
-  <p><strong>Estado:</strong>{{metodos.solicitacaoUtil.nomeEstado(data.s.estado)}}</p>
-  @if (data.s.valorOrcamento) {
-    <p><strong>ValorOrçado:</strong> R$:{{data.s.valorOrcamento}}</p>
+  <p><strong>Defeito Informado:</strong> {{ data.s.descDefeito }} </p>
+  <p><strong>Estado Atual:</strong> {{ metodos.solicitacaoUtil.nomeEstado(data.s.estado) }}</p>
+  
+  <hr>
+  
+  <h4>Histórico de Atualizações:</h4>
+
+  @if (data.s.dataOrcamento) {
+    <p><strong>Orçado em:</strong> {{ data.s.dataOrcamento | date:'dd/MM/yyyy HH:mm' }}</p>
   }
+  @if (data.s.valorOrcamento) {
+    <p><strong>Valor do Orçamento:</strong> {{ data.s.valorOrcamento | currency:'BRL' }}</p>
+  }
+  @if (data.s.motivoRejeicao) {
+    <p><strong>Motivo da Rejeição:</strong> {{ data.s.motivoRejeicao }}</p>
+  }
+  @if (data.s.dataManutencao) {
+    <p><strong>Manutenção Realizada em:</strong> {{ data.s.dataManutencao | date:'dd/MM/yyyy HH:mm' }}</p>
+  }
+  @if (data.s.descricaoManutencao) {
+    <p><strong>Descrição da Manutenção:</strong> {{ data.s.descricaoManutencao }}</p>
+  }
+  @if (data.s.orientacoesCliente) {
+    <p><strong>Orientações ao Cliente:</strong> {{ data.s.orientacoesCliente }}</p>
+  }
+  @if (data.s.dataFechamento) {
+    <p><strong>Solicitação Finalizada em:</strong> {{ data.s.dataFechamento | date:'dd/MM/yyyy HH:mm' }}</p>
+  }
+
 </mat-dialog-content>
-<mat-dialog-actions>
-  <button matButton mat-dialog-close>Fechar</button>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Fechar</button>
 </mat-dialog-actions>

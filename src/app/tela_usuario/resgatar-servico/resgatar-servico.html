@@ -3,6 +3,6 @@
   Solicitar resgate do equipamento? detalhes serão enviados pelo E-mail registrado
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button matButton mat-dialog-close (click)="metodos.resgatarSolicitacao(data.s)" >Resgatar</button>
+  <button matButton (click)="metodos.resgatarSolicitacao(data.s, dialogRef)" >Resgatar</button>
   <button matButton mat-dialog-close>Cancelar</button>
 </mat-dialog-actions>

@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatDialogClose } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { Solicitacao } from '../../services/DBUtil/solicitacao-util';
+import { Solicitacao, SolicitacaoUtil, Estado } from '../../services/DBUtil/solicitacao-util';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -28,6 +28,7 @@ export class RejeitarServicoDialog implements OnInit {
   data = inject<{ s: Solicitacao }>(MAT_DIALOG_DATA);
   router = inject(Router);
   dialogRef = inject(MatDialogRef<RejeitarServicoDialog>);
+  solicitacaoUtil = inject(SolicitacaoUtil);
 
   rejeicaoForm!: FormGroup;
 
@@ -43,21 +44,23 @@ export class RejeitarServicoDialog implements OnInit {
       return;
     }
 
-    this.data.s.estado = 4; // REJEITADA
-    (this.data.s as any).motivoRejeicao = this.rejeicaoForm.value.desc_motivo;
+    const solicitacaoAtualizada: Solicitacao = {
+      ...this.data.s,
+      estado: Estado.Rejeitada,
+      motivoRejeicao: this.rejeicaoForm.value.desc_motivo
+    };
 
-    this.atualizarSolicitacao(this.data.s);
-    alert('Serviço rejeitado com sucesso.');
-    this.dialogRef.close();
-    this.router.navigate(['/tela_usuario']);
-  }
-
-  atualizarSolicitacao(solicitacao: Solicitacao) {
-    const lista = JSON.parse(localStorage.getItem('solicitacoes') || '[]') as Solicitacao[];
-    const idx = lista.findIndex(s => s.id === solicitacao.id);
-    if (idx >= 0) lista[idx] = solicitacao;
-    else lista.push(solicitacao);
-    localStorage.setItem('solicitacoes', JSON.stringify(lista));
+    this.solicitacaoUtil.update(solicitacaoAtualizada.id!, solicitacaoAtualizada).subscribe({
+      next: () => {
+        alert('Serviço rejeitado com sucesso.');
+        this.dialogRef.close(true); 
+      },
+      error: (err) => {
+        console.error("Erro ao rejeitar:", err);
+        alert("Falha ao rejeitar orçamento.");
+        this.dialogRef.close(false);
+      }
+    });
   }
 
 }

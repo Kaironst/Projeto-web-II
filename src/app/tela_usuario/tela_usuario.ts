@@ -77,7 +77,13 @@ export class TelaUsuario implements OnInit {
   resgatar(id: number) {
     const solicitacao = this.solicitacoes.find(s => s.id === id);
     if (!solicitacao) return;
-    this.resgatarServicoDialog.openDialog(solicitacao);
+    
+    this.resgatarServicoDialog.openDialog(solicitacao)
+      .afterClosed().subscribe(resultado => {
+        if (resultado === true) {
+          this.carregarSolicitacoes();
+        }
+      });
   }
 
   pagar(id: number) {
