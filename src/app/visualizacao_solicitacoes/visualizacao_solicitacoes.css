@@ -54,7 +54,14 @@
   border-radius: 4px;
 }
 
-.spacer { flex: 1 1 auto; }
+.spacer { flex: 1 1 auto;}
+
+.acao-button {
+  flex-shrink: 0;
+  padding-left: 16px;
+  padding-right: 16px;
+  height: 32px;
+}
 
 .estado-label {
   font-weight: bold;

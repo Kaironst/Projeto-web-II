@@ -1,37 +1,36 @@
 <h2 mat-dialog-title>Detalhes da Solicitação #{{ data.s.id }}</h2>
 <mat-dialog-content>
-  <p><strong>Data/Hora Abertura:</strong> {{ data.s.dataHora | date:'dd/MM/yyyy HH:mm' }}</p>
+  
+  <h3>Solicitação</h3>
   <p><strong>Equipamento:</strong> {{ data.s.equipamento }}</p>
   @if (data.s.categEquipamento?.nome) {
     <p><strong>Categoria:</strong> {{ data.s.categEquipamento?.nome }} </p>
   }
-  <p><strong>Defeito Informado:</strong> {{ data.s.descDefeito }} </p>
-  <p><strong>Estado Atual:</strong> {{ metodos.solicitacaoUtil.nomeEstado(data.s.estado) }}</p>
-  
-  <hr>
-  
-  <h4>Histórico de Atualizações:</h4>
+  <p><strong>Defeito:</strong> {{ data.s.descDefeito }} </p>
+  <p><strong>Data/Hora:</strong> {{ data.s.dataHora | date:'dd/MM/yyyy HH:mm' }}</p>
+  <p><strong>Estado:</strong> {{ metodos.solicitacaoUtil.nomeEstado(data.s.estado) }}</p>
 
-  @if (data.s.dataOrcamento) {
-    <p><strong>Orçado em:</strong> {{ data.s.dataOrcamento | date:'dd/MM/yyyy HH:mm' }}</p>
-  }
   @if (data.s.valorOrcamento) {
-    <p><strong>Valor do Orçamento:</strong> {{ data.s.valorOrcamento | currency:'BRL' }}</p>
+    <mat-divider></mat-divider>
+    <h3>Orçamento</h3>
+    <p><strong>Valor Orçado:</strong> {{ data.s.valorOrcamento | currency:'BRL' }}</p>
+    <p><strong>Data do Orçamento:</strong> {{ data.s.dataOrcamento | date:'dd/MM/yyyy' }}</p>
+    <p><strong>Orçado por:</strong> {{ data.s.funcionario?.nome || 'N/A' }}</p>
   }
-  @if (data.s.motivoRejeicao) {
-    <p><strong>Motivo da Rejeição:</strong> {{ data.s.motivoRejeicao }}</p>
-  }
-  @if (data.s.dataManutencao) {
-    <p><strong>Manutenção Realizada em:</strong> {{ data.s.dataManutencao | date:'dd/MM/yyyy HH:mm' }}</p>
-  }
+
   @if (data.s.descricaoManutencao) {
+    <mat-divider></mat-divider>
+    <h3>Manutenção</h3>
     <p><strong>Descrição da Manutenção:</strong> {{ data.s.descricaoManutencao }}</p>
-  }
-  @if (data.s.orientacoesCliente) {
     <p><strong>Orientações ao Cliente:</strong> {{ data.s.orientacoesCliente }}</p>
+    <p><strong>Data da Manutenção:</strong> {{ data.s.dataManutencao | date:'dd/MM/yyyy' }}</p>
   }
+
   @if (data.s.dataFechamento) {
-    <p><strong>Solicitação Finalizada em:</strong> {{ data.s.dataFechamento | date:'dd/MM/yyyy HH:mm' }}</p>
+    <mat-divider></mat-divider>
+    <h3>Finalização</h3>
+    <p><strong>Data de Finalização:</strong> {{ data.s.dataFechamento | date:'dd/MM/yyyy HH:mm' }}</p>
+    <p><strong>Finalizado por:</strong> {{ data.s.funcionario?.nome || 'N/A' }}</p>
   }
 
 </mat-dialog-content>

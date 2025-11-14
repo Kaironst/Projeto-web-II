@@ -92,8 +92,7 @@ export class VisualizacaoSolicitacoesComponent implements OnInit {
     } else if (estado === this.solicitacaoUtil.estado.Aprovada || estado === this.solicitacaoUtil.estado.Redirecionada) {
       this.router.navigate(['/admin/efetuar-manutencao', solicitacao.id]);
     } else if (estado === this.solicitacaoUtil.estado.Paga) {
-      // navegar para RF016
-       alert('Navegação para Finalizar Solicitação (RF016) não implementada.');
+      this.router.navigate(['/admin/finalizar-manutencao', solicitacao.id]);
     }
   }
 

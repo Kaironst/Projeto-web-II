@@ -45,7 +45,7 @@
               <span class="estado-label">{{ solicitacaoUtil.nomeEstado(s.estado) }}</span>
               <span class="spacer"></span>
               @if (s.estado === solicitacaoUtil.estado.Aberta || s.estado === solicitacaoUtil.estado.Aprovada || s.estado === solicitacaoUtil.estado.Redirecionada || s.estado === solicitacaoUtil.estado.Paga) {
-                <button mat-flat-button color="primary" (click)="irParaAcao(s)">Ação</button>
+                <button mat-flat-button color="primary" (click)="irParaAcao(s)" class="acao-button">Ação</button>
               }
             </mat-list-item>
           }

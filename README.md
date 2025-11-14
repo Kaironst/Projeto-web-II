@@ -47,24 +47,30 @@ Se algo já estiver implementado, coloque um OK
 Se estiver faltando alguma coisa, coloque em parênteses oque falta
 Se não quiser que os outros toquem, coloque o seu nome
 ```
+- Adicionar mais informações no histórico
+- Testar o redirecionamento
+- Alterar a data do filtro de solicitacoes de MM/DD/YYYY para DD/MM/YYYY
+
+- alterei o botao acao da tela solicitacoes pra ficar melhor encaixado, integrei o RF016 a tela solicitacoes e adicionei a tela de solicitacoes pra navbar
+
 ## requisitos
 - RF001 - Autocadastro:
 
 - RF002 - Login:
 
-- RF003 - Página Inicial de Cliente: histórico de atualilzações falta testar ; dar reload na pagina ao rejeitar
+- RF003 - Página Inicial de Cliente: OK
 
 - RF004 - Solicitação de Manutenção: OK
 
 - RF005 - Mostrar orçamento: OK
 
-- RF006 - Aprovar Serviço: (implementação com o local storage)
+- RF006 - Aprovar Serviço: OK
 
-- RF007 - Rejeitar Serviço: (implementação com o local storage)
+- RF007 - Rejeitar Serviço: OK
 
-- RF008 - Visualizar Serviço: (implementação com o local storage)
+- RF008 - Visualizar Serviço: falta só complementar o histórico
 
-- RF009 - Resgatar Serviço: (implementação com o local storage)
+- RF009 - Resgatar Serviço: OK
 
 - RF010 - Pagar Serviço: OK
 
@@ -72,17 +78,17 @@ Se não quiser que os outros toquem, coloque o seu nome
 
 - RF012 - Efetuar Orçamento: OK
 
-- RF013 - Visualização de Solicitações: OK Parcial (falta integração com RF016)
+- RF013 - Visualização de Solicitações: OK
 
-- RF014 - Efetuar Manutenção:
+- RF014 - Efetuar Manutenção: OK
 
-- RF015 - Redirecionar Manutenção: OK
+- RF015 - Redirecionar Manutenção: falta validar
 
 - RF016 - Finalizar Solicitação: OK
 
 - RF017 - CRUD de Categoria de Equipamento: OK
 
-- RF018 - CRUD de Funcionários:
+- RF018 - CRUD de Funcionários: falta validar
 
 - RF019 - Relatório de Receitas em PDF:
 
@@ -92,7 +98,7 @@ Requisitos mínimos:
 
 - RF001
 - RF002
-- RF003 falta coisas
+- RF003 OK
 - RF004 OK
 - RF005 OK
 - RF006 OK

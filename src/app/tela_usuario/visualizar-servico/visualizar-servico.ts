@@ -1,9 +1,10 @@
 import { inject, Injectable, Component, Inject } from '@angular/core';
+import { CommonModule, CurrencyPipe, DatePipe } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogModule, MatDialogTitle } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Solicitacao, SolicitacaoUtil } from '../../services/DBUtil/solicitacao-util';
-import { CommonModule, CurrencyPipe, DatePipe } from '@angular/common';
+import { MatDividerModule } from '@angular/material/divider';
 
 @Injectable({ providedIn: 'root' })
 export class VisualizarServico {
@@ -17,10 +18,21 @@ export class VisualizarServico {
 
 }
 
-
 @Component({
   selector: 'app-visualizar-servico-dialog',
-  imports: [CommonModule, MatDialogModule, MatButtonModule, MatDialogActions, MatDialogClose, MatDialogTitle, MatDialogContent, DatePipe, CurrencyPipe],
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatDialogModule, 
+    MatButtonModule, 
+    MatDialogActions, 
+    MatDialogClose, 
+    MatDialogTitle, 
+    MatDialogContent,
+    MatDividerModule,
+    CurrencyPipe,
+    DatePipe
+  ],
   templateUrl: './visualizar-servico.html',
   styleUrl: './visualizar-servico.css'
 })
@@ -28,4 +40,3 @@ export class VisualizarServicoDialog {
   data = inject<{ s: Solicitacao }>(MAT_DIALOG_DATA); 
   metodos = inject(VisualizarServico); 
 }
-
