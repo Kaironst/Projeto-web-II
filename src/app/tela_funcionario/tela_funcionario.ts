@@ -1,7 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { Solicitacao, SolicitacaoUtil } from '../services/DBUtil/solicitacao-util';
+import { Estado, Solicitacao, SolicitacaoUtil } from '../services/DBUtil/solicitacao-util';
 import { Auth } from '../services/autenticacao/auth';
 import { Funcionario } from '../services/DBUtil/funcionario-util';
 import { take } from 'rxjs';
@@ -32,7 +32,10 @@ export class TelaFuncionarioComponent implements OnInit {
   carregarSolicitacoes(): void {
     this.solicitacaoUtil.getAll().subscribe({
       next: (todasSolicitacoes) => {
-        const solicitacoesFiltradas = todasSolicitacoes.filter(s => s.funcionario && s.funcionario.email === this.funcionarioLogado!.email);
+        const solicitacoesFiltradas = todasSolicitacoes.filter(s =>
+          (s.funcionario && s.funcionario.email === this.funcionarioLogado!.email) ||
+          (s.estado == Estado.Aberta)
+        );
 
         this.solicitacoesFuncionario = solicitacoesFiltradas.map(s => ({
           ...s,
