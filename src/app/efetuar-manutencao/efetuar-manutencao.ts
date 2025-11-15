@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -11,6 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
+import { Auth } from '../services/autenticacao/auth';
 
 @Component({
   selector: 'app-efetuar-manutencao',
@@ -28,21 +29,20 @@ export class EfetuarManutencaoComponent implements OnInit {
   solicitacao: Solicitacao | null = null;
   manutencaoForm: FormGroup;
   redirecionamentoForm: FormGroup;
-  
+
   mostrarFormManutencao = false;
   mostrarFormRedirecionamento = false;
 
   outrosFuncionarios: Funcionario[] = [];
-  funcionarioLogadoId: number;
+  funcionarioLogado: Funcionario | null = null;
 
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private solicitacaoUtil: SolicitacaoUtil,
-    private funcionarioUtil: FuncionarioUtil
-  ) {
-    this.funcionarioLogadoId = 1;
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private solicitacaoUtil = inject(SolicitacaoUtil);
+  private funcionarioUtil = inject(FuncionarioUtil);
+  private auth = inject(Auth);
 
+  constructor() {
     this.manutencaoForm = new FormGroup({
       descricaoManutencao: new FormControl('', Validators.required),
       orientacoesCliente: new FormControl('', Validators.required)
@@ -58,7 +58,10 @@ export class EfetuarManutencaoComponent implements OnInit {
     this.solicitacaoUtil.get(id).subscribe({
       next: (dados) => {
         this.solicitacao = dados;
-        this.carregarFuncionariosParaRedirecionamento();
+        this.auth.getFuncionarioAtual().subscribe(f => {
+          this.funcionarioLogado = f;
+          this.carregarFuncionariosParaRedirecionamento();
+        })
       },
       error: () => {
         alert('Solicitação não encontrada.');
@@ -69,13 +72,13 @@ export class EfetuarManutencaoComponent implements OnInit {
 
   carregarFuncionariosParaRedirecionamento(): void {
     this.funcionarioUtil.getAll().subscribe(todos => {
-      this.outrosFuncionarios = todos.filter(f => f.id !== this.funcionarioLogadoId);
+      this.outrosFuncionarios = todos.filter(f => f.id !== this.funcionarioLogado?.id);
     });
   }
 
   onEfetuarManutencaoSubmit(): void {
     if (this.manutencaoForm.invalid || !this.solicitacao?.id) return;
-    
+
     const dadosFormulario = this.manutencaoForm.value;
     const solicitacaoAtualizada: Solicitacao = {
       ...this.solicitacao,
@@ -83,7 +86,7 @@ export class EfetuarManutencaoComponent implements OnInit {
       dataManutencao: new Date(),
       estado: Estado.Arrumada
     };
-    
+
     this.solicitacaoUtil.update(this.solicitacao.id, solicitacaoAtualizada).subscribe({
       next: () => {
         alert('Manutenção registrada com sucesso!');
@@ -92,7 +95,7 @@ export class EfetuarManutencaoComponent implements OnInit {
       error: () => alert('Erro ao registrar manutenção.')
     });
   }
-  
+
   redirecionarManutencao(): void {
     this.mostrarFormManutencao = false;
     this.mostrarFormRedirecionamento = true;
@@ -103,7 +106,7 @@ export class EfetuarManutencaoComponent implements OnInit {
 
     const funcionarioDestinoId = this.redirecionamentoForm.value.funcionarioDestinoId;
     const funcionarioDestino = this.outrosFuncionarios.find(f => f.id === funcionarioDestinoId);
-    
+
     const solicitacaoAtualizada: Solicitacao = {
       ...this.solicitacao,
       funcionarioRedirecionado: funcionarioDestino,

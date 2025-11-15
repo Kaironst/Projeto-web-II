@@ -20,11 +20,9 @@ export class TelaFuncionarioComponent implements OnInit {
   router = inject(Router);
   auth = inject(Auth)
   solicitacaoUtil = inject(SolicitacaoUtil)
-  funcionarioLogado: Funcionario | null = null;
 
   ngOnInit(): void {
     this.auth.getFuncionarioAtual().subscribe(funcionario => {
-      this.funcionarioLogado = funcionario;
       this.carregarSolicitacoes();
     });
   }
@@ -32,10 +30,7 @@ export class TelaFuncionarioComponent implements OnInit {
   carregarSolicitacoes(): void {
     this.solicitacaoUtil.getAll().subscribe({
       next: (todasSolicitacoes) => {
-        const solicitacoesFiltradas = todasSolicitacoes.filter(s =>
-          (s.funcionario && s.funcionario.email === this.funcionarioLogado!.email) ||
-          (s.estado == Estado.Aberta)
-        );
+        const solicitacoesFiltradas = todasSolicitacoes.filter(s => (s.estado == Estado.Aberta));
 
         this.solicitacoesFuncionario = solicitacoesFiltradas.map(s => ({
           ...s,

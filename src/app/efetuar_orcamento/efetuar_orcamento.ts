@@ -10,6 +10,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Solicitacao, SolicitacaoUtil, Estado } from '../services/DBUtil/solicitacao-util';
 import { Funcionario } from '../services/DBUtil/funcionario-util';
+import { Auth } from '../services/autenticacao/auth';
 
 @Component({
   selector: 'app-efetuar-orcamento',
@@ -35,13 +36,10 @@ export class EfetuarOrcamentoComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private solicitacaoUtil = inject(SolicitacaoUtil);
+  private auth = inject(Auth);
 
   //substituir quando RF002 for implementado
-  private funcionarioLogado: Funcionario = {
-    id: 1, 
-    nome: 'Funcionário Admin (Mock)',
-    email: 'admin@empresa.com'
-  };
+  private funcionarioLogado: Funcionario | null = null;
 
   ngOnInit(): void {
     const solicitacaoId = Number(this.route.snapshot.paramMap.get('id'));
@@ -54,18 +52,21 @@ export class EfetuarOrcamentoComponent implements OnInit {
       valorOrcado: new FormControl(null, [Validators.required, Validators.min(0.01)])
     });
 
-    this.solicitacaoUtil.get(solicitacaoId).subscribe({
-      next: (dados) => {
-        this.solicitacao = dados;
-        if (dados.valorOrcamento) {
-          this.orcamentoForm.patchValue({ valorOrcado: dados.valorOrcamento });
+    this.auth.getFuncionarioAtual().subscribe(f => {
+      this.funcionarioLogado = f;
+      this.solicitacaoUtil.get(solicitacaoId).subscribe({
+        next: (dados) => {
+          this.solicitacao = dados;
+          if (dados.valorOrcamento) {
+            this.orcamentoForm.patchValue({ valorOrcado: dados.valorOrcamento });
+          }
+        },
+        error: (err) => {
+          console.error('Erro ao buscar solicitação:', err);
+          alert('Solicitação não encontrada!');
+          this.router.navigate(['/admin/tela-funcionario']);
         }
-      },
-      error: (err) => {
-        console.error('Erro ao buscar solicitação:', err);
-        alert('Solicitação não encontrada!');
-        this.router.navigate(['/admin/tela-funcionario']);
-      }
+      });
     });
   }
 
@@ -81,7 +82,7 @@ export class EfetuarOrcamentoComponent implements OnInit {
       valorOrcamento: valor,
       estado: Estado.Orcada,
       dataOrcamento: new Date(),
-      funcionario: this.funcionarioLogado
+      funcionario: this.funcionarioLogado!
     };
 
     this.solicitacaoUtil.update(this.solicitacao.id, solicitacaoAtualizada).subscribe({
