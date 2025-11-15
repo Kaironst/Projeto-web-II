@@ -1,5 +1,6 @@
 package web2.grupo6.demo.security;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -40,7 +41,8 @@ public class ClienteUserDetailsService implements UserDetailsService {
     }
     Funcionario funcionario = funcionarioRepo.findByEmailIgnoreCase(email);
     if (funcionario != null) {
-      var roles = List.of(new SimpleGrantedAuthority("ROLE_FUNCIONARIO"));
+      var roles = new ArrayList<SimpleGrantedAuthority>();
+      roles.add(new SimpleGrantedAuthority("ROLE_FUNCIONARIO"));
       if (funcionario.isAdmin())
         roles.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
       returnUser = new User(

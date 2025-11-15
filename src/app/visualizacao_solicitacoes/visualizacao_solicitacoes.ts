@@ -14,13 +14,17 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { Auth } from '../services/autenticacao/auth';
+import { Funcionario } from '../services/DBUtil/funcionario-util';
 
 @Component({
   selector: 'app-visualizacao-solicitacoes',
   standalone: true,
   imports: [
     CommonModule, ReactiveFormsModule, MatCardModule, MatFormFieldModule, MatInputModule,
-    MatButtonModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, MatListModule, MatIconModule
+    MatButtonModule, MatSelectModule, MatDatepickerModule, MatNativeDateModule, MatListModule, MatIconModule,
+    MatCheckboxModule
   ],
   templateUrl: './visualizacao_solicitacoes.html',
   styleUrls: ['./visualizacao_solicitacoes.css']
@@ -30,21 +34,27 @@ export class VisualizacaoSolicitacoesComponent implements OnInit {
   todasSolicitacoes: Solicitacao[] = [];
   solicitacoesFiltradas: Solicitacao[] = [];
   filtroForm: FormGroup;
-  
+
   solicitacaoUtil = inject(SolicitacaoUtil);
-  private router = inject(Router);
+  router = inject(Router);
+  auth = inject(Auth);
+  funcionarioLogado: Funcionario | null = null;
 
   constructor() {
     this.filtroForm = new FormGroup({
       tipoFiltro: new FormControl('TODAS'),
       dataInicio: new FormControl(null),
-      dataFim: new FormControl(null)
+      dataFim: new FormControl(null),
+      mostrarTudo: new FormControl(false)
     });
   }
 
   ngOnInit(): void {
-    this.carregarSolicitacoes();
-    this.filtroForm.valueChanges.subscribe(() => this.aplicarFiltro());
+    this.auth.getFuncionarioAtual().subscribe(f => {
+      this.funcionarioLogado = f;
+      this.carregarSolicitacoes();
+      this.filtroForm.valueChanges.subscribe(() => this.aplicarFiltro());
+    });
   }
 
   carregarSolicitacoes(): void {
@@ -61,27 +71,32 @@ export class VisualizacaoSolicitacoesComponent implements OnInit {
   }
 
   aplicarFiltro(): void {
-    const { tipoFiltro, dataInicio, dataFim } = this.filtroForm.value;
+    const { tipoFiltro, dataInicio, dataFim, mostrarTudo } = this.filtroForm.value;
     let resultado = this.todasSolicitacoes;
 
-    if (tipoFiltro === 'HOJE') {
-      const hoje = new Date();
-      hoje.setHours(0, 0, 0, 0);
-      const amanha = new Date(hoje);
-      amanha.setDate(hoje.getDate() + 1);
-      
-      resultado = this.todasSolicitacoes.filter(s => 
-        s.dataHora >= hoje && s.dataHora < amanha
-      );
-    } else if (tipoFiltro === 'PERIODO' && dataInicio && dataFim) {
-      const fimPeriodo = new Date(dataFim);
-      fimPeriodo.setHours(23, 59, 59, 999);
+    if (!mostrarTudo) {
 
-      resultado = this.todasSolicitacoes.filter(s =>
-        s.dataHora >= new Date(dataInicio) && s.dataHora <= fimPeriodo
-      );
+      if (tipoFiltro === 'HOJE') {
+        const hoje = new Date();
+        hoje.setHours(0, 0, 0, 0);
+        const amanha = new Date(hoje);
+        amanha.setDate(hoje.getDate() + 1);
+
+        resultado = this.todasSolicitacoes.filter(s =>
+          s.dataHora >= hoje && s.dataHora < amanha
+        );
+      } else if (tipoFiltro === 'PERIODO' && dataInicio && dataFim) {
+        const fimPeriodo = new Date(dataFim);
+        fimPeriodo.setHours(23, 59, 59, 999);
+
+        resultado = this.todasSolicitacoes.filter(s =>
+          s.dataHora >= new Date(dataInicio) && s.dataHora <= fimPeriodo
+        );
+      }
+
+      resultado = resultado.filter(s => s.funcionario?.id === this.funcionarioLogado?.id || !s.funcionario);
+
     }
-    
     this.solicitacoesFiltradas = resultado;
   }
 

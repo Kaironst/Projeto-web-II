@@ -11,6 +11,11 @@
           <mat-option value="PERIODO">Período de Datas</mat-option>
         </mat-select>
       </mat-form-field>
+      @if (auth.getRoles().includes("ROLE_ADMIN")) {
+        <mat-checkbox formControlName="mostrarTudo">
+          Mostrar solicitações de todos os funcionários?
+        </mat-checkbox>
+      }
 
       @if (filtroForm.get('tipoFiltro')?.value === 'PERIODO') {
         <div class="periodo-container">

@@ -26,13 +26,13 @@ export const routes: Routes = [
     path: 'solicitar_manutencao',
     component: SolicitarManutencaoComponent,
     canActivate: [authGuard],
-    data: { roles: ["ROLE_ADMIN", "ROLE_CLIENTE"] }
+    data: { roles: ["ROLE_CLIENTE"] }
   },
   {
     path: 'tela_usuario',
     component: TelaUsuario,
     canActivate: [authGuard],
-    data: { roles: ["ROLE_ADMIN", "ROLE_CLIENTE"] }
+    data: { roles: ["ROLE_CLIENTE"] }
   },
   {
     path: 'login',
