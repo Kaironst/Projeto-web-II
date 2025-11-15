@@ -2,6 +2,9 @@ import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { Solicitacao, SolicitacaoUtil } from '../services/DBUtil/solicitacao-util';
+import { Auth } from '../services/autenticacao/auth';
+import { Funcionario } from '../services/DBUtil/funcionario-util';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-tela-funcionario',
@@ -12,28 +15,33 @@ import { Solicitacao, SolicitacaoUtil } from '../services/DBUtil/solicitacao-uti
 })
 export class TelaFuncionarioComponent implements OnInit {
 
-  solicitacoesAbertas: Solicitacao[] = [];
+  solicitacoesFuncionario: Solicitacao[] = [];
 
   router = inject(Router);
+  auth = inject(Auth)
   solicitacaoUtil = inject(SolicitacaoUtil)
+  funcionarioLogado: Funcionario | null = null;
 
   ngOnInit(): void {
-    this.carregarSolicitacoes();
+    this.auth.getFuncionarioAtual().subscribe(funcionario => {
+      this.funcionarioLogado = funcionario;
+      this.carregarSolicitacoes();
+    });
   }
 
   carregarSolicitacoes(): void {
     this.solicitacaoUtil.getAll().subscribe({
       next: (todasSolicitacoes) => {
-        const solicitacoesFiltradas = todasSolicitacoes.filter(s => s.estado === this.solicitacaoUtil.estado.Aberta);
+        const solicitacoesFiltradas = todasSolicitacoes.filter(s => s.funcionario && s.funcionario.email === this.funcionarioLogado!.email);
 
-        this.solicitacoesAbertas = solicitacoesFiltradas.map(s => ({
+        this.solicitacoesFuncionario = solicitacoesFiltradas.map(s => ({
           ...s,
           dataHora: new Date(s.dataHora),
         })).sort((a, b) => new Date(a.dataHora).getTime() - new Date(b.dataHora).getTime());
       },
       error: (err) => {
         console.error('Erro ao carregar solicitações para funcionário:', err);
-        this.solicitacoesAbertas = [];
+        this.solicitacoesFuncionario = [];
       }
     });
   }

@@ -1,10 +1,10 @@
 <div class="container">
   <h2>Painel do Funcionário - Solicitações Abertas</h2>
 
-  @if (solicitacoesAbertas.length === 0) {
+  @if (solicitacoesFuncionario.length === 0) {
     <p class="sem-solicitacoes">Nenhuma solicitação aberta no momento.</p>
   } @else {
-    @for (s of solicitacoesAbertas; track s.id) {
+    @for (s of solicitacoesFuncionario; track s.id) {
       <div class="card">
         <div class="info">
           <p><strong>Abertura:</strong> {{ s.dataHora | date:'dd/MM/yyyy HH:mm' }}</p>

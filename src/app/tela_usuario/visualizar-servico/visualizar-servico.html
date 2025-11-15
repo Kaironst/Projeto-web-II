@@ -1,7 +1,13 @@
 <h2 mat-dialog-title>Detalhes da Solicitação #{{ data.s.id }}</h2>
 <mat-dialog-content>
-  
+
   <h3>Solicitação</h3>
+  @if (data.s.cliente) {
+    <p><strong>Cliente:</strong> {{ data.s.cliente.nome }} </p>
+  }
+  @if (data.s.funcionario) {
+    <p><strong>Cliente:</strong> {{ data.s.funcionario.nome }} </p>
+  }
   <p><strong>Equipamento:</strong> {{ data.s.equipamento }}</p>
   @if (data.s.categEquipamento?.nome) {
     <p><strong>Categoria:</strong> {{ data.s.categEquipamento?.nome }} </p>

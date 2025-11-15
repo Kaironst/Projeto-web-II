@@ -8,6 +8,9 @@ import { PagarServico } from './pagar-servico/pagar-servico';
 import { ResgatarServico } from './resgatar-servico/resgatar-servico';
 import { VisualizarServico } from './visualizar-servico/visualizar-servico';
 import { Solicitacao, SolicitacaoUtil } from '../services/DBUtil/solicitacao-util';
+import { Auth } from '../services/autenticacao/auth';
+import { Cliente } from '../services/DBUtil/cliente-util';
+import { firstValueFrom, take } from 'rxjs';
 
 
 @Component({
@@ -25,24 +28,33 @@ import { Solicitacao, SolicitacaoUtil } from '../services/DBUtil/solicitacao-uti
 
 export class TelaUsuario implements OnInit {
   solicitacoes: Solicitacao[] = [];
+  clienteLogado: Cliente | null = null;
 
   solicitacaoUtil = inject(SolicitacaoUtil);
   public enum = this.solicitacaoUtil.estado;
   http = inject(HttpClient);
+  auth = inject(Auth);
+
   dialog = inject(MatDialog);
   aprovarServicoDialog = inject(AprovarServico);
   pagarServicoDialog = inject(PagarServico);
   resgatarServicoDialog = inject(ResgatarServico);
   visualizarServicoDialog = inject(VisualizarServico);
 
-  ngOnInit() {
-    this.carregarSolicitacoes();
+  async ngOnInit() {
+    this.auth.getClienteAtual().subscribe(cliente => {
+      this.clienteLogado = cliente;
+      this.carregarSolicitacoes();
+    });
   }
 
   carregarSolicitacoes() {
     this.solicitacaoUtil.getAll().subscribe({
       next: (dados) => {
-        this.solicitacoes = dados.map(s => ({
+
+        const dadosFiltrados = dados.filter(s => s.cliente!.email === this.clienteLogado!.email)
+
+        this.solicitacoes = dadosFiltrados.map(s => ({
           ...s,
           dataHora: new Date(s.dataHora),
           dataHoraFormatada: this.solicitacaoUtil.formatarDataHora(new Date(s.dataHora)),
@@ -65,19 +77,19 @@ export class TelaUsuario implements OnInit {
   aprovarRejeitar(id: number) {
     const solicitacao = this.solicitacoes.find(s => s.id === id);
     if (!solicitacao) return;
-    
+
     this.aprovarServicoDialog.openDialog(solicitacao)
       .afterClosed().subscribe(resultado => {
         if (resultado) {
           this.carregarSolicitacoes();
         }
-    });
+      });
   }
 
   resgatar(id: number) {
     const solicitacao = this.solicitacoes.find(s => s.id === id);
     if (!solicitacao) return;
-    
+
     this.resgatarServicoDialog.openDialog(solicitacao)
       .afterClosed().subscribe(resultado => {
         if (resultado === true) {
@@ -89,7 +101,7 @@ export class TelaUsuario implements OnInit {
   pagar(id: number) {
     const solicitacao = this.solicitacoes.find(s => s.id === id);
     if (!solicitacao) return;
-    
+
     this.pagarServicoDialog.openDialog(solicitacao)
       .afterClosed().subscribe(resultado => {
         if (resultado) {

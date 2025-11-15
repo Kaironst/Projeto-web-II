@@ -147,8 +147,9 @@ export class Auth {
   }
 
   getClienteAtual(): Observable<Cliente | null> {
-    if (!this.getRoles().includes("ROLE_CLIENTE"))
+    if (!this.getRoles().includes("ROLE_CLIENTE")) {
       return of(null);
+    }
     return this.clienteUtil.getByEmail(this.getEmail());
   }
 

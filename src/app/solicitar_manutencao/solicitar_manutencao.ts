@@ -45,11 +45,10 @@ export class SolicitarManutencaoComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.carregarCategorias();
-
     this.auth.getClienteAtual().subscribe({
       next: (cliente) => {
         this.clienteLogado = cliente;
+        this.carregarCategorias();
       },
       error: (err) => {
         console.error("Erro ao buscar cliente logado", err);

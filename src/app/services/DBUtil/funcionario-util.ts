@@ -21,7 +21,7 @@ export class FuncionarioUtil extends ContatoComBanco {
 
 
   protected http = inject(HttpClient);
-  protected requestUrl = "http://localhost:8080/api/solicitacoes";
+  protected requestUrl = "http://localhost:8080/api/funcionarios";
   private loggedInFuncionarioId = 1;
 
   getFuncionarioLogadoId(): number {
