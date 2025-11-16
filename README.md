@@ -47,14 +47,19 @@ Se algo já estiver implementado, coloque um OK
 Se estiver faltando alguma coisa, coloque em parênteses oque falta
 Se não quiser que os outros toquem, coloque o seu nome
 ```
-- Adicionar mais informações no histórico
-- Testar o redirecionamento
-- Alterar a data do filtro de solicitacoes de MM/DD/YYYY para DD/MM/YYYY
+- Adicionar mais informações no histórico (quem fez a manutencao), ainda na mesma tela, aparece duplicada o cliente, um com o nome do cliente e outro com o nome do funcionário
+- Alterar a data do filtro de solicitacoes e do adicionar funcionário de MM/DD/YYYY para DD/MM/YYYY
+- Quando logado como admin, na tela de gerenciar funcionario, se alterar o login para usuario ou funcionario padrão
+continua podendo editar
+- Botão de enviar solicitação tá ficando branco na hora de enviar
+- Não sei porque, mas toda vez que edita algo nos dados de um funcionário, reduz um dia da data de aniversário
+- Tela de cadastro não ta puxando os dados do endereço com o CEP
+- Adicionar alerta de que login não funcionou
 
 ## requisitos
 - RF001 - Autocadastro:
 
-- RF002 - Login:
+- RF002 - Login: OK
 
 - RF003 - Página Inicial de Cliente: OK
 
@@ -66,7 +71,7 @@ Se não quiser que os outros toquem, coloque o seu nome
 
 - RF007 - Rejeitar Serviço: OK
 
-- RF008 - Visualizar Serviço: falta só complementar o histórico
+- RF008 - Visualizar Serviço: alguns ajustes
 
 - RF009 - Resgatar Serviço: OK
 
@@ -80,13 +85,13 @@ Se não quiser que os outros toquem, coloque o seu nome
 
 - RF014 - Efetuar Manutenção: OK
 
-- RF015 - Redirecionar Manutenção: falta validar
+- RF015 - Redirecionar Manutenção: OK
 
 - RF016 - Finalizar Solicitação: OK
 
 - RF017 - CRUD de Categoria de Equipamento: OK
 
-- RF018 - CRUD de Funcionários: falta validar
+- RF018 - CRUD de Funcionários: alguns ajustes
 
 - RF019 - Relatório de Receitas em PDF:
 
@@ -95,7 +100,7 @@ Se não quiser que os outros toquem, coloque o seu nome
 Requisitos mínimos:
 
 - RF001
-- RF002
+- RF002 OK
 - RF003 OK
 - RF004 OK
 - RF005 OK
