@@ -40,6 +40,14 @@
   margin-top: 24px;
 }
 
+.checkbox-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 16px;
+  width: 100%;
+}
+
 .lista-vazia {
   text-align: center;
   padding: 30px;

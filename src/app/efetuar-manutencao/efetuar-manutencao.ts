@@ -107,21 +107,16 @@ export class EfetuarManutencaoComponent implements OnInit {
     const funcionarioDestinoId = this.redirecionamentoForm.value.funcionarioDestinoId;
     const funcionarioDestino = this.outrosFuncionarios.find(f => f.id === funcionarioDestinoId);
 
-    const solicitacaoNova: Solicitacao = {
-      ...this.solicitacao,
-      funcionario: funcionarioDestino,
-    }
-
     const solicitacaoAtualizada: Solicitacao = {
       ...this.solicitacao,
-      funcionarioRedirecionado: funcionarioDestino,
+      funcionarioRedirecionado: this.funcionarioLogado,
+      funcionario: funcionarioDestino,
       estado: Estado.Redirecionada
     };
 
     this.solicitacaoUtil.update(this.solicitacao.id, solicitacaoAtualizada).subscribe({
       next: () => {
         alert(`Solicitação redirecionada para ${funcionarioDestino?.nome}.`);
-        this.solicitacaoUtil.criar(solicitacaoNova).subscribe();
         this.router.navigate(['/admin/tela-funcionario']);
       },
       error: () => alert('Erro ao redirecionar solicitação.')

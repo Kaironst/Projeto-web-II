@@ -1,9 +1,8 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Solicitacao } from './solicitacao-util';
 import { ContatoComBanco } from './contato-com-banco';
-import { Auth } from '../autenticacao/auth';
 
 export interface Funcionario {
   id: number;
