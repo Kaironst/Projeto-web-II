@@ -2,7 +2,7 @@
   <mat-card-title class="visualizacao-title">Visualização de Todas as Solicitações</mat-card-title>
 
   <mat-card-content>
-    <form [formGroup]="filtroForm" class="filtros-form">
+    <form [formGroup]="filtroForm">
       <mat-form-field class="filtro-select">
         <mat-label>Filtrar por</mat-label>
         <mat-select formControlName="tipoFiltro">
@@ -11,33 +11,39 @@
           <mat-option value="PERIODO">Período de Datas</mat-option>
         </mat-select>
       </mat-form-field>
-      @if (auth.getRoles().includes("ROLE_ADMIN")) {
-        <mat-checkbox formControlName="mostrarTudo">
-          Mostrar solicitações de todos os funcionários?
-        </mat-checkbox>
-      }
 
       @if (filtroForm.get('tipoFiltro')?.value === 'PERIODO') {
         <div class="periodo-container">
+
           <mat-form-field>
             <mat-label>Data Inicial</mat-label>
             <input matInput [matDatepicker]="inicioPicker" formControlName="dataInicio">
             <mat-datepicker-toggle matIconSuffix [for]="inicioPicker"></mat-datepicker-toggle>
             <mat-datepicker #inicioPicker></mat-datepicker>
           </mat-form-field>
+
           <mat-form-field>
             <mat-label>Data Final</mat-label>
             <input matInput [matDatepicker]="fimPicker" formControlName="dataFim">
             <mat-datepicker-toggle matIconSuffix [for]="fimPicker"></mat-datepicker-toggle>
             <mat-datepicker #fimPicker></mat-datepicker>
           </mat-form-field>
+
         </div>
       }
+
+    <div class="filtros-form">
+      @if (auth.getRoles().includes("ROLE_ADMIN")) {
+        <mat-checkbox formControlName="mostrarTudo">mostrar de outros funcionarios?</mat-checkbox>
+      }
+      <mat-checkbox formControlName="mostrarConcluidas">mostrar concluidas?</mat-checkbox>
+    </div>
+
     </form>
 
     <mat-divider></mat-divider>
 
-    <div class="lista-container">
+    <div class="checkbox-container">
       @if (solicitacoesFiltradas.length === 0) {
         <p class="lista-vazia">Nenhuma solicitação encontrada para o filtro selecionado.</p>
       } @else {

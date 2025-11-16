@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { ReactiveFormsModule, FormGroup, FormControl } from '@angular/forms';
 
-import { Solicitacao, SolicitacaoUtil } from '../services/DBUtil/solicitacao-util';
+import { Estado, Solicitacao, SolicitacaoUtil } from '../services/DBUtil/solicitacao-util';
 
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -45,7 +45,8 @@ export class VisualizacaoSolicitacoesComponent implements OnInit {
       tipoFiltro: new FormControl('TODAS'),
       dataInicio: new FormControl(null),
       dataFim: new FormControl(null),
-      mostrarTudo: new FormControl(false)
+      mostrarTudo: new FormControl(false),
+      mostrarConcluidas: new FormControl(false)
     });
   }
 
@@ -71,31 +72,33 @@ export class VisualizacaoSolicitacoesComponent implements OnInit {
   }
 
   aplicarFiltro(): void {
-    const { tipoFiltro, dataInicio, dataFim, mostrarTudo } = this.filtroForm.value;
+    const { tipoFiltro, dataInicio, dataFim, mostrarTudo, mostrarConcluidas } = this.filtroForm.value;
     let resultado = this.todasSolicitacoes;
 
+
+    if (tipoFiltro === 'HOJE') {
+      const hoje = new Date();
+      hoje.setHours(0, 0, 0, 0);
+      const amanha = new Date(hoje);
+      amanha.setDate(hoje.getDate() + 1);
+
+      resultado = this.todasSolicitacoes.filter(s =>
+        s.dataHora >= hoje && s.dataHora < amanha
+      );
+    } else if (tipoFiltro === 'PERIODO' && dataInicio && dataFim) {
+      const fimPeriodo = new Date(dataFim);
+      fimPeriodo.setHours(23, 59, 59, 999);
+
+      resultado = this.todasSolicitacoes.filter(s =>
+        s.dataHora >= new Date(dataInicio) && s.dataHora <= fimPeriodo
+      );
+    }
+
     if (!mostrarTudo) {
-
-      if (tipoFiltro === 'HOJE') {
-        const hoje = new Date();
-        hoje.setHours(0, 0, 0, 0);
-        const amanha = new Date(hoje);
-        amanha.setDate(hoje.getDate() + 1);
-
-        resultado = this.todasSolicitacoes.filter(s =>
-          s.dataHora >= hoje && s.dataHora < amanha
-        );
-      } else if (tipoFiltro === 'PERIODO' && dataInicio && dataFim) {
-        const fimPeriodo = new Date(dataFim);
-        fimPeriodo.setHours(23, 59, 59, 999);
-
-        resultado = this.todasSolicitacoes.filter(s =>
-          s.dataHora >= new Date(dataInicio) && s.dataHora <= fimPeriodo
-        );
-      }
-
       resultado = resultado.filter(s => s.funcionario?.id === this.funcionarioLogado?.id || !s.funcionario);
-
+    }
+    if (!mostrarConcluidas) {
+      resultado = resultado.filter(s => s.estado !== Estado.Finalizada);
     }
     this.solicitacoesFiltradas = resultado;
   }
