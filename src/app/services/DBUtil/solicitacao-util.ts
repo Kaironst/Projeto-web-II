@@ -23,7 +23,12 @@ export interface Solicitacao {
   valorOrcamento?: number;
   cliente?: Cliente;
   funcionario?: Funcionario;
+
+  /**
+  * contra-intuitivamente esse é o funcionário que solicitou o redirecionamento
+  */
   funcionarioRedirecionado?: Funcionario | null;
+
   dataOrcamento?: Date;
 
   descricaoManutencao?: string;
