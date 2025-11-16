@@ -10,6 +10,7 @@ import { ControlaForm } from '../services/controla-form';
 import { CepService } from '../services/cep';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { switchMap, throwError } from 'rxjs';
+import { EmailUtil } from '../services/email-util';
 
 @Component({
   selector: 'app-cadastro',
@@ -25,6 +26,7 @@ export class Cadastro {
   formService = inject(ControlaForm);
   cadastroService = inject(ClienteUtil);
   cepService = inject(CepService);
+  emailService = inject(EmailUtil);
   formGroup: FormGroup;
 
   constructor() {
@@ -58,9 +60,13 @@ export class Cadastro {
             return this.cadastroService.criar(novo)
 
         })
+      ).pipe(
+      switchMap(() =>
+        this.emailService.enviarSenha(novo.email!, novo.senha!)
+      )
       ).subscribe({
-        next: (res) => console.log("Usuario cadastrado", res),
-        error: (err) => console.error("falha no cadastro", err)
+        next: () => console.log("Usuário cadastrado e e-mail enviado!"),
+        error: (err) => console.error("Erro ao cadastrar ou enviar e-mail", err)
       });
 
 

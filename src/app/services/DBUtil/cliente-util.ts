@@ -54,6 +54,20 @@ export class ClienteUtil extends ContatoComBanco {
     return intvalue.toString().padStart(4, '0');
   }
 
+enviarSenhaEmail(email: string, senha: string): Observable<string> {
+  const url = "http://localhost:8080/email/api/mailmessage";
+
+  return this.http.post(url,
+    {
+      destino: email,
+      senha: senha
+    },
+    { 
+      responseType:'text'
+    }
+  );
+}
+
   // TODO: implementar isso daq no banco de dados
   //validações de senha com HASH e SALT
   senhaValida(input: string, cliente: Cliente): boolean {
