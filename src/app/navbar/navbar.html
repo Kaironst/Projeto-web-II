@@ -5,25 +5,22 @@
 
   <nav class="nav-links">
     <a mat-button routerLink="/">Home</a>
-    <a mat-button routerLink="/tela_usuario">Tela do Usuário</a>
-    <a mat-button routerLink="/solicitar_manutencao">Solicitar Manutenção</a>
-    <a mat-button routerLink="/lista-cadastros">Lista de Funcionários</a>
-    <a mat-button routerLink="admin/tela-funcionario">Tela do Funcionário</a>
-    <a mat-button routerLink="admin/solicitacoes">Todas Solicitações</a>
+    @if (auth.getRoles().includes("ROLE_CLIENTE")) {
+      <a mat-button routerLink="/tela_usuario">Tela do Usuário</a>
+      <a mat-button routerLink="/solicitar_manutencao">Solicitar Manutenção</a>
+    }
+    @if (auth.getRoles().includes("ROLE_FUNCIONARIO")) {
+      <a mat-button routerLink="/lista-cadastros">Lista de Funcionários</a>
+      <a mat-button routerLink="admin/tela-funcionario">Tela do Funcionário</a>
+      <a mat-button routerLink="admin/solicitacoes">Todas Solicitações</a>
+      <button mat-button routerLink="admin/categorias">Editar Categorias</button>
+    }
 
-    <!-- Menu Cadastros (agora com <a mat-button>) -->
-    <a mat-button [matMenuTriggerFor]="menuCadastros" class="menu-button">
-      Cadastros
-      <mat-icon class="arrow-icon">expand_more</mat-icon>
-    </a>
+    @if (auth.getRoles().includes("ROLE_ADMIN")) {
+      <button mat-button routerLink="admin/funcionarios">Editar Funcionários</button>
+    }
 
-    <mat-menu #menuCadastros="matMenu">
-      <button mat-menu-item routerLink="admin/categorias">CRUD Categorias</button>
-      <button mat-menu-item routerLink="admin/funcionarios">CRUD Funcionários</button>
-    </mat-menu>
   </nav>
-
-  <a mat-button routerLink="/login">Login Temp</a>
 
   <span class="spacer"></span>
 

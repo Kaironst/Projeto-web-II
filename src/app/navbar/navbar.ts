@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { MatToolbarModule, MatToolbar } from '@angular/material/toolbar';
 import { MatIconModule } from "@angular/material/icon";
 import { MatMenuModule } from "@angular/material/menu";
 import { Login } from "../login/login";
+import { Auth } from '../services/autenticacao/auth';
 
 @Component({
   selector: 'app-navbar',
@@ -19,10 +20,9 @@ import { Login } from "../login/login";
     Login
   ]
 })
-
-
 export class Navbar {
 
+  auth = inject(Auth)
   mostrarLogin = false;
 
   exibirLogin() {

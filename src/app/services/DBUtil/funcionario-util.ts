@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { Solicitacao } from './solicitacao-util';
 import { ContatoComBanco } from './contato-com-banco';
+import { Auth } from '../autenticacao/auth';
 
 export interface Funcionario {
   id: number;
@@ -22,11 +23,6 @@ export class FuncionarioUtil extends ContatoComBanco {
 
   protected http = inject(HttpClient);
   protected requestUrl = "http://localhost:8080/api/funcionarios";
-  private loggedInFuncionarioId = 1;
-
-  getFuncionarioLogadoId(): number {
-    return this.loggedInFuncionarioId;
-  }
 
   criar(funcionario: Funcionario): Observable<Funcionario> {
     return this.http.post<Funcionario>(this.requestUrl, funcionario);
@@ -48,14 +44,7 @@ export class FuncionarioUtil extends ContatoComBanco {
     return this.http.put<Funcionario>(`${this.requestUrl}/${id}`, funcionario);
   }
 
-  delete(id: number, funcionariosAtuais?: Funcionario[]): Observable<Funcionario> {
-    if (funcionariosAtuais !== undefined && funcionariosAtuais.length <= 1) {
-      return throwError(() => new Error('não é possível remover o único funcionário do sistema.'));
-    }
-    if (id === this.getFuncionarioLogadoId()) {
-      return throwError(() => new Error('não pode remover a si mesmo.'));
-    }
-
+  delete(id: number): Observable<Funcionario> {
     return this.http.delete<Funcionario>(`${this.requestUrl}/${id}`);
   }
 
@@ -63,30 +52,38 @@ export class FuncionarioUtil extends ContatoComBanco {
   //funçoes abaixo existem por motivos de compatibilidade
   //ideal seria trocar elas na implementação pelas padronizadas de cima
 
+  /**
+  * @deprecated
+  */
   getFuncionarios(): Observable<Funcionario[]> {
     return this.http.get<Funcionario[]>(this.requestUrl);
   }
 
+  /**
+  * @deprecated
+  */
   getFuncionarioPorId(id: number): Observable<Funcionario> {
     return this.http.get<Funcionario>(`${this.requestUrl}/${id}`);
   }
 
+  /**
+  * @deprecated
+  */
   criarFuncionario(funcionarioData: Omit<Funcionario, 'id'>): Observable<Funcionario> {
     return this.http.post<Funcionario>(this.requestUrl, funcionarioData);
   }
 
+  /**
+  * @deprecated
+  */
   atualizarFuncionario(id: number, funcionarioData: Funcionario): Observable<Funcionario> {
     return this.http.put<Funcionario>(`${this.requestUrl}/${id}`, funcionarioData);
   }
 
-  removerFuncionario(id: number, funcionariosAtuais: Funcionario[]): Observable<void> {
-    if (funcionariosAtuais.length <= 1) {
-      return throwError(() => new Error('não é possível remover o único funcionário do sistema.'));
-    }
-    if (id === this.getFuncionarioLogadoId()) {
-      return throwError(() => new Error('não pode remover a si mesmo.'));
-    }
-
+  /**
+  * @deprecated
+  */
+  removerFuncionario(id: number): Observable<void> {
     return this.http.delete<void>(`${this.requestUrl}/${id}`);
   }
 }

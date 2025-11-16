@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
@@ -12,6 +12,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { Funcionario, FuncionarioUtil } from '../services/DBUtil/funcionario-util';
 import { Observable } from 'rxjs';
+import { Auth } from '../services/autenticacao/auth';
 
 @Component({
   selector: 'app-gerenciar-funcionarios',
@@ -29,11 +30,11 @@ export class GerenciarFuncionariosComponent implements OnInit {
   funcionarios: Funcionario[] = [];
   funcionarioForm: FormGroup;
   funcionarioSelecionadoId: number | null = null;
-  loggedInUserId: number;
+  funcionarioLogado: Funcionario | null = null;
+  funcionarioUtil = inject(FuncionarioUtil);
+  auth = inject(Auth);
 
-  constructor(private funcionarioUtil: FuncionarioUtil) {
-    this.loggedInUserId = this.funcionarioUtil.getFuncionarioLogadoId();
-
+  constructor() {
     this.funcionarioForm = new FormGroup({
       nome: new FormControl(null, [Validators.required, Validators.minLength(3)]),
       email: new FormControl(null, [Validators.required, Validators.email]),
@@ -43,7 +44,10 @@ export class GerenciarFuncionariosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.carregarFuncionarios();
+    this.auth.getFuncionarioAtual().subscribe(f => {
+      this.funcionarioLogado = f;
+      this.carregarFuncionarios();
+    })
   }
 
   carregarFuncionarios(): void {
@@ -96,7 +100,13 @@ export class GerenciarFuncionariosComponent implements OnInit {
 
   removerFuncionario(id: number): void {
     if (confirm('deseja remover este funcionário?')) {
-      this.funcionarioUtil.removerFuncionario(id, this.funcionarios).subscribe({
+      if (this.funcionarioLogado!.id === id) {
+        alert("não é possível remover a si mesmo");
+      }
+      if (this.funcionarios.length === 1) {
+        alert("não é possível remover o único funcionário");
+      }
+      this.funcionarioUtil.removerFuncionario(id).subscribe({
         next: () => {
           this.carregarFuncionarios();
           if (this.funcionarioSelecionadoId === id) {
