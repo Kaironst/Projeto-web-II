@@ -5,9 +5,6 @@
   @if (data.s.cliente) {
     <p><strong>Cliente:</strong> {{ data.s.cliente.nome }} </p>
   }
-  @if (data.s.funcionario) {
-    <p><strong>Cliente:</strong> {{ data.s.funcionario.nome }} </p>
-  }
   <p><strong>Equipamento:</strong> {{ data.s.equipamento }}</p>
   @if (data.s.categEquipamento?.nome) {
     <p><strong>Categoria:</strong> {{ data.s.categEquipamento?.nome }} </p>
@@ -30,6 +27,7 @@
     <p><strong>Descrição da Manutenção:</strong> {{ data.s.descricaoManutencao }}</p>
     <p><strong>Orientações ao Cliente:</strong> {{ data.s.orientacoesCliente }}</p>
     <p><strong>Data da Manutenção:</strong> {{ data.s.dataManutencao | date:'dd/MM/yyyy' }}</p>
+    <p><strong>Consertado por:</strong> {{ data.s.funcionario?.nome || 'N/A' }}</p>
   }
 
   @if (data.s.dataFechamento) {

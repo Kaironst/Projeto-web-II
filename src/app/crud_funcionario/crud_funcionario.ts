@@ -51,7 +51,7 @@ export class GerenciarFuncionariosComponent implements OnInit {
   }
 
   carregarFuncionarios(): void {
-    this.funcionarioUtil.getFuncionarios().subscribe(data => {
+    this.funcionarioUtil.getAll().subscribe(data => {
       this.funcionarios = data;
     });
   }
@@ -66,9 +66,9 @@ export class GerenciarFuncionariosComponent implements OnInit {
 
     if (this.funcionarioSelecionadoId) {
       const funcionarioAtualizado = { id: this.funcionarioSelecionadoId, ...formValue };
-      acao = this.funcionarioUtil.atualizarFuncionario(this.funcionarioSelecionadoId, funcionarioAtualizado);
+      acao = this.funcionarioUtil.update(this.funcionarioSelecionadoId, funcionarioAtualizado);
     } else {
-      acao = this.funcionarioUtil.criarFuncionario(formValue);
+      acao = this.funcionarioUtil.criar(formValue);
     }
 
     acao.subscribe({
@@ -106,7 +106,7 @@ export class GerenciarFuncionariosComponent implements OnInit {
       if (this.funcionarios.length === 1) {
         alert("não é possível remover o único funcionário");
       }
-      this.funcionarioUtil.removerFuncionario(id).subscribe({
+      this.funcionarioUtil.delete(id).subscribe({
         next: () => {
           this.carregarFuncionarios();
           if (this.funcionarioSelecionadoId === id) {

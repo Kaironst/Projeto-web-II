@@ -63,9 +63,11 @@ export class Login {
         next: () => {
           console.log("token salvo");
           alert('Login efetuado com sucesso!');
+          this.router.navigate(['/']);
         },
         error: () => {
           console.error("erro no login");
+          alert('O Login falhou');
         }
       });
     }
