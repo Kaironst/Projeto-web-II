@@ -1,8 +1,8 @@
 <h2 mat-dialog-title>Aprovar Orçamento?</h2>
 <mat-dialog-content>
-  Aprovar solicitação referente à {{data.s.equipamento}} pelo valor de R${{data.s.valorOrcamento}}?
+  Aprovar solicitação referente à {{data.s.equipamento}} pelo valor de {{data.s.valorOrcamento | currency:'BRL'}}?
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button matButton (click)="metodos.aprovarOrcamento(data.s, dialogRef)" >Aprovar</button>
-  <button matButton mat-dialog-close (click)="metodos.abrirTelaRejeitar(data.s)">Rejeitar</button>
+  <button matButton (click)="metodos.aprovarOrcamento(data.s, dialogRef)">Aprovar</button>
+  <button matButton (click)="metodos.abrirTelaRejeitar(data.s, dialogRef)">Rejeitar</button>
 </mat-dialog-actions>

@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatDialogActions, MatDialogCl
 import { Router } from '@angular/router';
 import { Solicitacao, SolicitacaoUtil, Estado } from '../../services/DBUtil/solicitacao-util';
 import { RejeitarServicoDialog } from '../rejeitar-servico/rejeitar-servico';
+import { CurrencyPipe } from '@angular/common';
 
 @Injectable({ providedIn: 'root' })
 export class AprovarServico {
@@ -31,17 +32,26 @@ export class AprovarServico {
     });
   }
 
-  abrirTelaRejeitar(solicitacao: Solicitacao) {
-    this.dialog.open(RejeitarServicoDialog, { width: '500px', data: { s: solicitacao } });
+  abrirTelaRejeitar(solicitacao: Solicitacao, parentDialogRef: MatDialogRef<AprovarServicoDialog>) {
+    const dialogRef = this.dialog.open(RejeitarServicoDialog, { width: '500px', data: { s: solicitacao } });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === true) {
+        parentDialogRef.close(true);
+      }
+    });
   }
 
 }
 
-
 @Component({
   selector: 'app-aprovar-servico-dialog',
-  imports: [MatDialogModule, MatButtonModule, MatDialogActions, MatDialogClose, MatDialogTitle, MatDialogContent],
+  imports: [MatDialogModule, MatButtonModule, MatDialogActions, MatDialogClose, MatDialogTitle, MatDialogContent, CurrencyPipe],
   templateUrl: './aprovar-servico.html',
   styleUrl: './aprovar-servico.css'
 })
-export class AprovarServicoDialog { data = inject<{ s: Solicitacao }>(MAT_DIALOG_DATA); metodos = inject(AprovarServico); dialogRef = inject(MatDialogRef<AprovarServicoDialog>); }
+export class AprovarServicoDialog {
+  data = inject<{ s: Solicitacao }>(MAT_DIALOG_DATA);
+  metodos = inject(AprovarServico);
+  dialogRef = inject(MatDialogRef<AprovarServicoDialog>);
+}

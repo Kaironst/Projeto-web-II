@@ -48,12 +48,9 @@ Se estiver faltando alguma coisa, coloque em parênteses oque falta
 Se não quiser que os outros toquem, coloque o seu nome
 ```
 
-- Ao rejeitar orçamento, tem que dar refresh na página para mudar o estado na tela
+- Não está permitindo deixar em branco a senha ao gerenciar funcionário
 - Dados da manutenção não aparecem na visualização da solicitação e só aparece o mesmo funcionário para todas as etapas. Adicionar
 no histórico caso haja redirecionamento, informando origem e destino.
-- Alterar a data do filtro de solicitacoes e do adicionar funcionário de MM/DD/YYYY para DD/MM/YYYY
-- Quando logado como admin, na tela de gerenciar funcionario, se alterar o login para usuario ou funcionario padrão
-continua podendo editar
 - Botão de enviar solicitação tá ficando branco na hora de enviar
 - Não sei porque, mas toda vez que edita algo nos dados de um funcionário, reduz um dia da data de aniversário
 - Tela de cadastro não ta puxando os dados do endereço com o CEP
