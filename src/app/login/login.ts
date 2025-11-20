@@ -62,8 +62,13 @@ export class Login {
       this.auth.login({ username: this.formGroup.controls['email'].value, password: this.formGroup.controls['senha'].value }).pipe(first()).subscribe({
         next: () => {
           console.log("token salvo");
+          const roles = this.auth.getRoles();
           alert('Login efetuado com sucesso!');
-          this.router.navigate(['/']);
+          if (roles.includes('ROLE_CLIENTE')) {
+            this.router.navigate(['/tela_usuario']);
+          } else {
+            this.router.navigate(['/']);
+          }
         },
         error: () => {
           console.error("erro no login");

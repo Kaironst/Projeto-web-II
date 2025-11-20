@@ -61,11 +61,11 @@ no histórico caso haja redirecionamento, informando origem e destino.
 
 - RF002 - Login: OK
 
-- RF003 - Página Inicial de Cliente: OK
+- RF003 - Página Inicial de Cliente: ver questão do ordenamento ; se descrição for maior que 30, coloca ... no final ;
 
 - RF004 - Solicitação de Manutenção: OK
 
-- RF005 - Mostrar orçamento: OK
+- RF005 - Mostrar orçamento: Deve ser apresentada uma tela contendo todos os dados da solicitação e o preço orçado, com destaque ;
 
 - RF006 - Aprovar Serviço: OK
 
@@ -73,15 +73,15 @@ no histórico caso haja redirecionamento, informando origem e destino.
 
 - RF008 - Visualizar Serviço: alguns ajustes
 
-- RF009 - Resgatar Serviço: OK
+- RF009 - Resgatar Serviço: Deve ser armazenado no histórico da solicitação que ela passou de rejeitada para aprovada em determinada data/hora (RF008)
 
-- RF010 - Pagar Serviço: OK
+- RF010 - Pagar Serviço: Deve ser apresentada uma tela com os dados da solicitação e com o valor em destaque, mais um botão que simplesmente confirma o pagamento do pedido, registrando a data/hora do pagamento
 
 - RF011 - Página Inicial de Funcionário: OK
 
 - RF012 - Efetuar Orçamento: OK
 
-- RF013 - Visualização de Solicitações: OK
+- RF013 - Visualização de Solicitações: a tela deve conter todos os dados da solicitacao, igual o RF012
 
 - RF014 - Efetuar Manutenção: OK
 
