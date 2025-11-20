@@ -1,0 +1,61 @@
+.dialog-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #31294C;
+    margin-bottom: 16px;
+}
+
+.dialog-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 400px;
+}
+
+.detalhes-section h3 {
+    font-size: 16px;
+    color: #565D98;
+    margin: 0 0 8px 0;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.detalhes-section p {
+    margin: 4px 0;
+    color: #555;
+    line-height: 1.5;
+}
+
+.orcamento-highlight {
+    text-align: center;
+    padding: 24px;
+    background-color: #f8f9ff;
+    border-radius: 8px;
+    border: 1px solid #e0e5ff;
+    margin: 8px 0;
+}
+
+.orcamento-highlight h3 {
+    margin: 0 0 8px 0;
+    font-size: 16px;
+    font-weight: 500;
+    color: #565D98;
+}
+
+.orcamento-highlight .valor {
+    font-size: 36px;
+    font-weight: 700;
+    color: #5756BB;
+    margin: 0;
+}
+
+.confirm-text {
+    text-align: center;
+    margin: 16px 0 0 0;
+    font-style: italic;
+    color: #666;
+}
+
+mat-divider {
+    margin: 8px 0;
+}

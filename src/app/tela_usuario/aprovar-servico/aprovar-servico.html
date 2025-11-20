@@ -1,8 +1,33 @@
-<h2 mat-dialog-title>Aprovar Orçamento?</h2>
-<mat-dialog-content>
-  Aprovar solicitação referente à {{data.s.equipamento}} pelo valor de {{data.s.valorOrcamento | currency:'BRL'}}?
+<h2 mat-dialog-title class="dialog-title">Aprovar Orçamento</h2>
+<mat-dialog-content class="dialog-content">
+  <div class="detalhes-section">
+    <h3>Dados do Cliente</h3>
+    <p><strong>Nome:</strong> {{ data.s.cliente?.nome || 'Não informado' }}</p>
+    <p><strong>Telefone:</strong> {{ data.s.cliente?.telefone || 'Não informado' }}</p>
+    <p><strong>Email:</strong> {{ data.s.cliente?.email || 'Não informado' }}</p>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div class="detalhes-section">
+    <h3>Dados da Solicitação</h3>
+    <p><strong>Equipamento:</strong> {{ data.s.equipamento }}</p>
+    <p><strong>Categoria:</strong> {{ data.s.categEquipamento?.nome }}</p>
+    <p><strong>Defeito Descrito:</strong> {{ data.s.descDefeito }}</p>
+    <p><strong>Data da Solicitação:</strong> {{ data.s.dataHora | date:'dd/MM/yyyy HH:mm' }}</p>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div class="orcamento-highlight">
+    <h3>Valor do Orçamento</h3>
+    <p class="valor">{{ data.s.valorOrcamento | currency:'BRL' }}</p>
+  </div>
+
+  <p class="confirm-text">Deseja aprovar este serviço?</p>
 </mat-dialog-content>
-<mat-dialog-actions>
-  <button matButton (click)="metodos.aprovarOrcamento(data.s, dialogRef)">Aprovar</button>
-  <button matButton (click)="metodos.abrirTelaRejeitar(data.s, dialogRef)">Rejeitar</button>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="metodos.abrirTelaRejeitar(data.s, dialogRef)" color="warn">Rejeitar</button>
+  <button mat-raised-button (click)="metodos.aprovarOrcamento(data.s, dialogRef)" color="primary">Aprovar</button>
 </mat-dialog-actions>

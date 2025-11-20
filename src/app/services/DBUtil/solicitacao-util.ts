@@ -108,9 +108,8 @@ export class SolicitacaoUtil extends ContatoComBanco {
 
   //limita o número de caracteres conforme requisitos
   limitarTexto(texto: string, limite: number): string {
-    return texto.length > limite ? texto.substring(0, limite) : texto;
+    return texto.length > limite ? texto.substring(0, limite) + '...' : texto;
   }
-
 
   //também por compatibilidade, ideal é trocar a implementação pelas de cima
   getSolicitacaoPorId(id: number): Observable<Solicitacao> {

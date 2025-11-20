@@ -1,8 +1,9 @@
 import { inject, Injectable, Component, Inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogModule, MatDialogTitle } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
 import { Solicitacao, SolicitacaoUtil, Estado } from '../../services/DBUtil/solicitacao-util';
-import { CurrencyPipe } from '@angular/common';
+import { CurrencyPipe, DatePipe } from '@angular/common';
 
 @Injectable({ providedIn: 'root' })
 export class PagarServico {
@@ -35,8 +36,9 @@ export class PagarServico {
 @Component({
   selector: 'app-pagar-servico-dialog',
   standalone: true,
-  imports: [MatDialogModule, MatButtonModule, MatDialogActions, MatDialogClose, MatDialogTitle, MatDialogContent, CurrencyPipe],
-  templateUrl: './pagar-servico.html'
+  imports: [MatDialogModule, MatButtonModule, MatDialogActions, MatDialogClose, MatDialogTitle, MatDialogContent, CurrencyPipe, DatePipe, MatDividerModule],
+  templateUrl: './pagar-servico.html',
+  styleUrl: './pagar-servico.css'
 })
 export class PagarServicoDialog {
   data = inject<{ s: Solicitacao }>(MAT_DIALOG_DATA);

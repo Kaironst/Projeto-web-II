@@ -1,10 +1,11 @@
 import { inject, Injectable, Component, Inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogModule, MatDialogTitle } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
 import { Router } from '@angular/router';
 import { Solicitacao, SolicitacaoUtil, Estado } from '../../services/DBUtil/solicitacao-util';
 import { RejeitarServicoDialog } from '../rejeitar-servico/rejeitar-servico';
-import { CurrencyPipe } from '@angular/common';
+import { CurrencyPipe, DatePipe } from '@angular/common';
 
 @Injectable({ providedIn: 'root' })
 export class AprovarServico {
@@ -13,7 +14,7 @@ export class AprovarServico {
   router = inject(Router);
   solicitacaoUtil = inject(SolicitacaoUtil);
 
-  openDialog(solicitacao: Solicitacao){
+  openDialog(solicitacao: Solicitacao) {
     return this.dialog.open(AprovarServicoDialog, { width: '500px', data: { s: solicitacao, }, });
   }
 
@@ -46,7 +47,7 @@ export class AprovarServico {
 
 @Component({
   selector: 'app-aprovar-servico-dialog',
-  imports: [MatDialogModule, MatButtonModule, MatDialogActions, MatDialogClose, MatDialogTitle, MatDialogContent, CurrencyPipe],
+  imports: [MatDialogModule, MatButtonModule, MatDialogActions, MatDialogClose, MatDialogTitle, MatDialogContent, CurrencyPipe, DatePipe, MatDividerModule],
   templateUrl: './aprovar-servico.html',
   styleUrl: './aprovar-servico.css'
 })

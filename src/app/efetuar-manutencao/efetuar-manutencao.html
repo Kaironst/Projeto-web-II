@@ -9,11 +9,18 @@
       <div class="detalhes-section">
         <h3>Dados do Cliente</h3>
         <p><strong>Nome:</strong> {{ solicitacao.cliente?.nome || 'Não informado' }}</p>
+        <p><strong>Telefone:</strong> {{ solicitacao.cliente?.telefone || 'Não informado' }}</p>
+        <p><strong>Email:</strong> {{ solicitacao.cliente?.email || 'Não informado' }}</p>
       </div>
+
+      <mat-divider></mat-divider>
+
       <div class="detalhes-section">
         <h3>Dados da Solicitação</h3>
         <p><strong>Equipamento:</strong> {{ solicitacao.equipamento }}</p>
+        <p><strong>Categoria:</strong> {{ solicitacao.categEquipamento?.nome }}</p>
         <p><strong>Defeito Descrito:</strong> {{ solicitacao.descDefeito }}</p>
+        <p><strong>Data da Solicitação:</strong> {{ solicitacao.dataHora | date:'dd/MM/yyyy HH:mm' }}</p>
       </div>
 
       <mat-divider></mat-divider>

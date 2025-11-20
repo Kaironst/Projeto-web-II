@@ -55,17 +55,18 @@ no histórico caso haja redirecionamento, informando origem e destino.
 - Não sei porque, mas toda vez que edita algo nos dados de um funcionário, reduz um dia da data de aniversário
 - Tela de cadastro não ta puxando os dados do endereço com o CEP
 - Tela de finalizar solicitação não é necessária, apenas um botão de confirmar finalização, com data e hora e quem finalizou
+- Ao iniciar a aplicação, deve aparecer apenas a tela home na navbar
 
 ## requisitos
 - RF001 - Autocadastro:
 
 - RF002 - Login: OK
 
-- RF003 - Página Inicial de Cliente: ver questão do ordenamento ; se descrição for maior que 30, coloca ... no final ;
+- RF003 - Página Inicial de Cliente: ordenamento
 
 - RF004 - Solicitação de Manutenção: OK
 
-- RF005 - Mostrar orçamento: Deve ser apresentada uma tela contendo todos os dados da solicitação e o preço orçado, com destaque ;
+- RF005 - Mostrar orçamento: OK
 
 - RF006 - Aprovar Serviço: OK
 
@@ -75,13 +76,13 @@ no histórico caso haja redirecionamento, informando origem e destino.
 
 - RF009 - Resgatar Serviço: Deve ser armazenado no histórico da solicitação que ela passou de rejeitada para aprovada em determinada data/hora (RF008)
 
-- RF010 - Pagar Serviço: Deve ser apresentada uma tela com os dados da solicitação e com o valor em destaque, mais um botão que simplesmente confirma o pagamento do pedido, registrando a data/hora do pagamento
+- RF010 - Pagar Serviço: OK
 
 - RF011 - Página Inicial de Funcionário: OK
 
 - RF012 - Efetuar Orçamento: OK
 
-- RF013 - Visualização de Solicitações: a tela deve conter todos os dados da solicitacao, igual o RF012
+- RF013 - Visualização de Solicitações: OK
 
 - RF014 - Efetuar Manutenção: OK
 
