@@ -48,14 +48,11 @@ Se estiver faltando alguma coisa, coloque em parênteses oque falta
 Se não quiser que os outros toquem, coloque o seu nome
 ```
 
-- Não está permitindo deixar em branco a senha ao gerenciar funcionário
 - Dados da manutenção não aparecem na visualização da solicitação e só aparece o mesmo funcionário para todas as etapas. Adicionar
 no histórico caso haja redirecionamento, informando origem e destino.
 - Botão de enviar solicitação tá ficando branco na hora de enviar
-- Não sei porque, mas toda vez que edita algo nos dados de um funcionário, reduz um dia da data de aniversário
 - Tela de cadastro não ta puxando os dados do endereço com o CEP
 - Tela de finalizar solicitação não é necessária, apenas um botão de confirmar finalização, com data e hora e quem finalizou
-- Ao iniciar a aplicação, deve aparecer apenas a tela home na navbar
 
 ## requisitos
 - RF001 - Autocadastro:
@@ -92,7 +89,7 @@ no histórico caso haja redirecionamento, informando origem e destino.
 
 - RF017 - CRUD de Categoria de Equipamento: OK
 
-- RF018 - CRUD de Funcionários: alguns ajustes
+- RF018 - CRUD de Funcionários: OK
 
 - RF019 - Relatório de Receitas em PDF:
 
@@ -109,7 +106,7 @@ Requisitos mínimos:
 - RF011 OK
 - RF012 OK
 - RF017 OK 
-- RF018 
+- RF018 OK
 
 ## requisitos não funcionais
 

@@ -9,7 +9,6 @@ import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
 import { Funcionario, FuncionarioUtil } from '../services/DBUtil/funcionario-util';
 import { Observable } from 'rxjs';
 import { Auth } from '../services/autenticacao/auth';
@@ -20,7 +19,7 @@ import { Auth } from '../services/autenticacao/auth';
   imports: [
     CommonModule, ReactiveFormsModule, MatCardModule, MatFormFieldModule,
     MatInputModule, MatButtonModule, MatListModule, MatDividerModule, MatIconModule,
-    MatDatepickerModule, MatNativeDateModule
+    MatDatepickerModule
   ],
   templateUrl: './crud_funcionario.html',
   styleUrls: ['./crud_funcionario.css']
@@ -61,7 +60,16 @@ export class GerenciarFuncionariosComponent implements OnInit {
       return;
     }
 
-    const formValue = this.funcionarioForm.value;
+    const formValue: any = { ...this.funcionarioForm.value };
+
+    if (formValue.dataNascimento) {
+      const data = new Date(formValue.dataNascimento);
+      const ano = data.getFullYear();
+      const mes = String(data.getMonth() + 1).padStart(2, '0');
+      const dia = String(data.getDate()).padStart(2, '0');
+      formValue.dataNascimento = `${ano}-${mes}-${dia}`;
+    }
+
     let acao: Observable<Funcionario>;
 
     if (this.funcionarioSelecionadoId) {
@@ -76,16 +84,25 @@ export class GerenciarFuncionariosComponent implements OnInit {
         this.carregarFuncionarios();
         this.cancelarEdicao();
       },
-      error: (err) => alert(err.message || 'erro ao salvar funcionário.')
+      error: (err) => {
+        alert(err.message || 'Erro ao salvar funcionário.');
+      }
     });
   }
 
   editarFuncionario(funcionario: Funcionario): void {
     this.funcionarioSelecionadoId = funcionario.id;
+
+    let dataNascimentoValor: any = funcionario.dataNascimento;
+    if (typeof dataNascimentoValor === 'string') {
+      const partes = dataNascimentoValor.split('-');
+      dataNascimentoValor = new Date(parseInt(partes[0]), parseInt(partes[1]) - 1, parseInt(partes[2]));
+    }
+
     this.funcionarioForm.patchValue({
       nome: funcionario.nome,
       email: funcionario.email,
-      dataNascimento: funcionario.dataNascimento
+      dataNascimento: dataNascimentoValor
     });
     this.funcionarioForm.get('senha')?.clearValidators();
     this.funcionarioForm.get('senha')?.updateValueAndValidity();

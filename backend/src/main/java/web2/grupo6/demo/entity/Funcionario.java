@@ -1,7 +1,9 @@
 package web2.grupo6.demo.entity;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -32,7 +34,10 @@ public class Funcionario {
   private String email;
   private String senha;
   private String nome;
-  private Date dataNascimento;
+
+  @JsonFormat(pattern = "yyyy-MM-dd")
+  private LocalDate dataNascimento;
+  
   private boolean admin;
 
 }
