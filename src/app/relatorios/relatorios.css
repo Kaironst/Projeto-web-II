@@ -1,0 +1,33 @@
+.page-container {
+  display: flex;
+  justify-content: center;
+  padding: 40px;
+  background-color: #f4f7fa;
+  min-height: 80vh;
+}
+
+.relatorio-card {
+  width: 100%;
+  max-width: 700px;
+  padding: 20px;
+}
+
+section {
+  margin: 24px 0;
+}
+
+h3 {
+  color: #5756BB;
+  margin-bottom: 16px;
+}
+
+.filtro-form {
+  display: flex;
+  gap: 16px;
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+
+mat-divider {
+  margin: 24px 0;
+}

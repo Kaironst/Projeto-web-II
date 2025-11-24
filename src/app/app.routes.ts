@@ -14,6 +14,7 @@ import { TelaFuncionarioComponent } from './tela_funcionario/tela_funcionario';
 import { EfetuarManutencaoComponent } from './efetuar-manutencao/efetuar-manutencao';
 import { FinalizarManutencaoComponent } from './finalizar_manutencao/finalizar_manutencao';
 import { VisualizacaoSolicitacoesComponent } from './visualizacao_solicitacoes/visualizacao_solicitacoes';
+import { RelatoriosComponent } from './relatorios/relatorios';
 import { authGuard } from './services/autenticacao/auth';
 
 export const routes: Routes = [
@@ -93,6 +94,12 @@ export const routes: Routes = [
   {
     path: 'admin/finalizar-manutencao/:id',
     component: FinalizarManutencaoComponent,
+    canActivate: [authGuard],
+    data: { roles: ["ROLE_ADMIN", "ROLE_FUNCIONARIO"] }
+  },
+  {
+    path: 'admin/relatorios',
+    component: RelatoriosComponent,
     canActivate: [authGuard],
     data: { roles: ["ROLE_ADMIN", "ROLE_FUNCIONARIO"] }
   }
