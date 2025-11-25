@@ -50,13 +50,6 @@ mat-form-field {
   padding: 12px 0;
   font-size: 16px;
   border-radius: 8px;
-  background-color: var(--primary);
-  color: white;
-  transition: background-color 0.3s;
-}
-
-.submit-button:hover:not([disabled]) {
-  background-color: var(--dark1);
 }
 
 .submit-button:disabled {
