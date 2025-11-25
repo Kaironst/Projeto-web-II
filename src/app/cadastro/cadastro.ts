@@ -77,7 +77,9 @@ export class Cadastro {
         this.emailService.enviarSenha(novo.email!, novo.senha!)
       )
       ).subscribe({
-        next: () => console.log("Usuário cadastrado e e-mail enviado!"),
+        next: () => (
+          console.log("Usuário cadastrado e e-mail enviado!"),
+          alert("Senha enviada para o email cadastrado. Cheque sua caixa de Spam e se dirija à página de login para realizar acesso.")),
         error: (err) => console.error("Erro ao cadastrar ou enviar e-mail", err)
       });
 
