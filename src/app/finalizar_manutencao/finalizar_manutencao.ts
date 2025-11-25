@@ -60,7 +60,7 @@ export class FinalizarManutencaoComponent implements OnInit {
     const solicitacaoAtualizada: Solicitacao = {
       ...this.solicitacao,
       ...dadosFormulario,
-      dataFinalizacao: new Date(),
+      dataFechamento: new Date(),
       estado: Estado.Finalizada
     };
 
