@@ -9,7 +9,7 @@ import { ClienteUtil, Cliente } from '../services/DBUtil/cliente-util';
 import { ControlaForm } from '../services/controla-form';
 import { CepService } from '../services/cep';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
-import { switchMap, throwError } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap, throwError } from 'rxjs';
 import { EmailUtil } from '../services/email-util';
 
 @Component({
@@ -29,6 +29,11 @@ export class Cadastro {
   emailService = inject(EmailUtil);
   formGroup: FormGroup;
 
+  rua = '';
+  bairro = '';
+  cidade = '';
+  uf = '';
+
   constructor() {
 
     this.formGroup = new FormGroup({
@@ -38,6 +43,13 @@ export class Cadastro {
       cep: new FormControl('', [Validators.required]),
       telefone: new FormControl('', [Validators.required])
     })
+
+    this.formGroup.get('cep')?.valueChanges
+      .pipe(
+        debounceTime(300),  //pra nao spamar a API com chamadas
+        distinctUntilChanged()
+      )
+      .subscribe(() => this.onCepChange());
 
 
   }
@@ -73,30 +85,39 @@ export class Cadastro {
     }
   }
 
-  cepControl = new FormControl('');
-  rua = '';
-  bairro = '';
-  cidade = '';
-  uf = '';
 
 
-  onCepChange() {
-    const cep = this.cepControl.value?.replace(/\D/g, '');
-    if (cep?.length === 8) {
-      this.cepService.buscarCep(cep).subscribe({
-        next: (dados) => {
-          if (!dados.erro) {
-            this.rua = dados.logradouro;
-            this.bairro = dados.bairro;
-            this.cidade = dados.localidade;
-            this.uf = dados.uf;
-          }
-        },
-        error: (err) => {
-          console.error('Erro ao buscar CEP:', err);
-        }
-      });
-    }
+  onCepChange(): void {
+  const rawCep = this.formGroup.get('cep')?.value ?? '';
+  const cep = rawCep.replace(/\D/g, ''); //ignora input que não é numero
+
+  // CEP inválido → limpa
+  if (cep.length !== 8) {
+    this.limparCamposEndereco();
+    return;
+  }
+
+  this.cepService.buscarCep(cep).subscribe({
+    next: (dados) => {
+      if (!dados || dados.erro) {
+        this.limparCamposEndereco();
+        return;
+      }
+
+      this.rua = dados.logradouro;
+      this.bairro = dados.bairro;
+      this.cidade = dados.localidade;
+      this.uf = dados.uf;
+    },
+    error: () => this.limparCamposEndereco()
+  });
+}
+
+limparCamposEndereco() {
+  this.rua = '';
+  this.bairro = '';
+  this.cidade = '';
+  this.uf = '';
   }
 
 }
