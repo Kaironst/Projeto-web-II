@@ -38,6 +38,11 @@ public class CategoriaController {
     return repo.findById(id).orElseThrow();
   }
 
+  @GetMapping("/nome/{nome}")
+  public Categoria getCategoriaByNome(@PathVariable String nome) {
+    return repo.findByNomeIgnoreCase(nome);
+  }
+
   @PutMapping("/{id}")
   public Categoria updateCategoria(@PathVariable Long id, @RequestBody Categoria categoria) {
     Categoria categoriaAtual = repo.findById(id).orElseThrow();

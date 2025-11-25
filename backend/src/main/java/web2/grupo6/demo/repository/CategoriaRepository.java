@@ -7,4 +7,6 @@ import web2.grupo6.demo.entity.Categoria;
 
 @Repository
 public interface CategoriaRepository extends JpaRepository<Categoria, Long> {
+
+  Categoria findByNomeIgnoreCase(String nome);
 }

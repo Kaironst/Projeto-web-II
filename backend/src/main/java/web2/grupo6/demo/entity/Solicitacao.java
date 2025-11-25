@@ -1,7 +1,7 @@
 package web2.grupo6.demo.entity;
 
 import java.util.Date;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties; 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,11 +9,13 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Solicitacao {
@@ -51,5 +53,5 @@ public class Solicitacao {
 
   private Date dataFechamento;
 
-  private String motivoRejeicao;  
+  private String motivoRejeicao;
 }

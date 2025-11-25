@@ -38,6 +38,11 @@ public class SolicitacaoController {
     return repo.findById(id).orElseThrow();
   }
 
+  @GetMapping("/equipamento/{equipamento}")
+  public Solicitacao getSolicitacaoByEquipamento(@PathVariable String equipamento) {
+    return repo.findByEquipamentoIgnoreCase(equipamento);
+  }
+
   @PutMapping("/{id}")
   public Solicitacao updateSolicitacao(@PathVariable Long id, @RequestBody Solicitacao solicitacao) {
     Solicitacao solicitacaoAtual = repo.findById(id).orElseThrow();
